@@ -448,28 +448,72 @@ flippers data. Specifically, this step creates:
    only the new flippers that come in after the start of the `SUBSCRIBE`
    operation, and not the flippers in the view at the start of the operation.
 
+   {{< tabs >}}
+   {{< tab "Materialize Console" >}}
    ```mzsql
    SUBSCRIBE TO (
-     SELECT *
-     FROM flippers
+      SELECT *
+      FROM flippers
    ) WITH (snapshot = false)
    ;
    ```
 
-1. In the Materialize Console quickstart page, enter an id (for example `450`)
-   into the text input field to insert a new user into the `known-flippers`
-   table.
+   1. In the Materialize Console quickstart page, enter an id (for example
+      `450`) into the text input field to insert a new user into the
+      `known-flippers` table.
 
-   The user should immediately appear in the `SUBSCRIBE` results.
+      The user should immediately appear in the `SUBSCRIBE` results.
 
-   You should also see flippers that are flagged by their multiple flipping
-   activities. Because of the randomness of the auction data being generated,
-   user activity data that match the definition of a flipper may take some time
-   even though auction data is constantly being ingested. However, once new
-   matching data comes in, you will see it immediately in the `SUBSCRIBE`
-   results.
+      You should also see flippers that are flagged by their multiple flipping
+      activities. Because of the randomness of the auction data being generated,
+      user activity data that match the definition of a flipper may take some
+      time even though auction data is constantly being ingested. However, once
+      new matching data comes in, you will see it immediately in the `SUBSCRIBE`
+      results.
 
-1. To cancel out of the `SUBSCRIBE`, click **Stop streaming**.
+   1. To cancel out of the `SUBSCRIBE`, click **Stop streaming**.
+
+   {{< /tab >}}
+   {{< tab "Other Clients" >}}
+
+   If running Materialize in a Docker container, run the following command in
+   your preferred SQL client:
+   ```mzsql
+   COPY (SUBSCRIBE TO (
+        SELECT *
+        FROM flippers
+   ) WITH (snapshot = false)) TO STDOUT;
+   ```
+
+   1. Open another SQL client and connect to your Materialize.
+
+   1. Select your schema.
+
+      ```mzsql
+      -- Replace <schema> with the name for your schema
+      SET SCHEMA <schema>;
+      ```
+
+   1. Manually insert a row into the `known_flippers` table:
+
+      ```mzsql
+      INSERT INTO known_flippers values (300);
+      ```
+
+      In the other client, the user should immediately appear in the `SUBSCRIBE`
+      results.
+
+      You should also see flippers that are flagged by their multiple flipping
+      activities. Because of the randomness of the auction data being generated,
+      user activity data that match the definition of a flipper may take some
+      time even though auction data is constantly being ingested. However, once
+      new matching data comes in, you will see it immediately in the `SUBSCRIBE`
+      results.
+
+   1. Cancel out of the `SUBSCRIBE`.
+
+   {{< /tab >}}
+   {{< /tabs >}}
 
    *Optional exercise*. You can issue the `SUBSCRIBE` statement without the
    `WITH (snapshot = false)` to display both the flippers that exist at the
@@ -537,30 +581,47 @@ data comes in, this step creates the following views for completed auctions:
 
     ```
 
-    To verify that the total credits equal the total debits, select from
-    `funds_movement`:
+   To verify that the total credits equal the total debits, select from
+   `funds_movement`:
 
-    ```mzsql
-    SELECT *
-    FROM funds_movement
-    ;
-    ```
+   ```mzsql
+   SELECT *
+   FROM funds_movement
+   ;
+   ```
 
-    To see that the sums always equal even as new data comes in, you can `SUBSCRIBE` to this query:
+   To see that the sums always equal even as new data comes in, you can
+   `SUBSCRIBE` to this query:
 
-    ```mzsql
-    SUBSCRIBE TO (
+   {{< tabs >}}
+   {{< tab "Materialize Console" >}}
+   ```mzsql
+   SUBSCRIBE TO (
       SELECT *
       FROM funds_movement
-    );
-    ```
+   );
+   ```
 
-    - As new data comes in and auctions complete, the `total_credits` and
+   - As new data comes in and auctions complete, the `total_credits` and
      `total_debits` values should change but the `total_difference` should
      remain `0`.
-
-    - To cancel out of the `SUBSCRIBE`, click **Stop streaming**.
-
+   - To cancel out of the `SUBSCRIBE`, click **Stop streaming**.
+   {{< /tab >}}
+   {{< tab "Other Clients" >}}
+   If running Materialize in a Docker container, run the following command in
+   your preferred SQL client:
+   ```mzsql
+   COPY (SUBSCRIBE TO (
+      SELECT *
+      FROM funds_movement
+   )) TO STDOUT;
+   ```
+   - As new data comes in and auctions complete, the `total_credits` and
+    `total_debits` values should change but the `total_difference` should
+    remain `0`.
+   - You can cancel out of the `SUBSCRIBE`.
+   {{< /tab >}}
+   {{< /tabs >}}
     **Optional exercise*. Alternatively, you can use a common table expression
     (CTE) to implement the view.
 
@@ -581,8 +642,9 @@ data comes in, this step creates the following views for completed auctions:
       FROM tot
     );
 
-    SUBSCRIBE TO (SELECT * FROM funds_movement_cte_view);
     ```
+
+    You can then `SUBSCRIBE` to the changes in this view.
 
 
 ## Step 7. Additional exercises
