@@ -1,7 +1,11 @@
 ---
 title: "Install on GCP"
 description: ""
-robots: "noindex, nofollow"
+aliases:
+  - /self-hosted/install-on-gcp/
+menu:
+  main:
+    parent: "installation"
 ---
 
 Self-managed Materialize requires:

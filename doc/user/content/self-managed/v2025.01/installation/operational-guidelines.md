@@ -1,7 +1,11 @@
 ---
 title: "Operational guidelines"
 description: ""
-robots: "noindex, nofollow"
+aliases:
+  - /self-hosted/operational-guidelines/
+menu:
+  main:
+    parent: "installation"
 ---
 
 ## Recommended instance types

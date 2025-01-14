@@ -3,7 +3,9 @@ title: "Troubleshooting"
 description: ""
 aliases:
   - /self-hosted/troubleshooting/
-robots: "noindex, nofollow"
+menu:
+  main:
+    parent: "installation"
 ---
 
 If you encounter issues with the Materialize operator, check the operator logs:

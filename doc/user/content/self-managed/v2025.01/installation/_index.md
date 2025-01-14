@@ -1,8 +1,13 @@
 ---
 title: "Installation"
 description: "Installation guides for self-managed Materialize."
-robots: "noindex, nofollow"
 disable_list: true
+
+menu:
+  main:
+    identifier: "installation"
+    weight: 5
+
 ---
 
 You can install self-managed Materialize on a Kubernetes cluster running locally

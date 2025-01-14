@@ -1,7 +1,11 @@
 ---
 title: "Install on AWS"
 description: ""
-robots: "noindex, nofollow"
+aliases:
+  - /self-hosted/install-on-aws/
+menu:
+  main:
+    parent: "installation"
 ---
 
 Self-managed Materialize requires:
