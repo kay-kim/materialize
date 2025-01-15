@@ -10,11 +10,11 @@
         <select id="docs-switcher" onchange="switchDocs(this.value)">
           <option value="/" {{ if not (strings.HasPrefix .RelPermalink
           "/self-managed/") }}selected{{ end }}>Cloud</option>
-          <option value="/self-managed/v2025.01/" {{ if strings.HasPrefix .RelPermalink
-          "/self-managed/v2025.01/" }}selected{{ end }}>Self-Managed v2025.01</option>
+          <option value="/self-managed/v25.1/" {{ if strings.HasPrefix .RelPermalink
+          "/self-managed/v25.1/" }}selected{{ end }}>Self-Managed v25.01</option>
         </select>
       </div>
-      
+
       {{ range .Site.Menus.main.ByWeight }}
       <li class="level-1 {{if .HasChildren }}has-children{{ else }}no-children{{ end }}">
           <a {{with .URL}}href="{{.}}"{{end}} class="{{if $currentPage.IsMenuCurrent "main" .}}active{{end}}">
