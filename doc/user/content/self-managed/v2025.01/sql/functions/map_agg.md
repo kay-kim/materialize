@@ -7,7 +7,7 @@ menu:
 ---
 
 The `map_agg(keys, values)` aggregate function zips together `keys`
-and `values` into a [`map`](/sql/types/map).
+and `values` into a [`map`](/self-managed/v2025.01/sql/types/map).
 
 The input values to the aggregate can be [filtered](../filters).
 
@@ -19,7 +19,7 @@ The input values to the aggregate can be [filtered](../filters).
 
 | Parameter | Type                       | Description              |
 | --------- | -------------------------- | ------------------------ |
-| _keys_    | [`text`](/sql/types/text/) | The keys to aggregate.   |
+| _keys_    | [`text`](/self-managed/v2025.01/sql/types/text/) | The keys to aggregate.   |
 | _values_  | any                        | The values to aggregate. |
 
 ### Return value

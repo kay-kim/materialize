@@ -36,13 +36,13 @@ Field | Use
 ------|-----
 _src_name_  | The name for the source.
 **IF NOT EXISTS**  | Do nothing (except issuing a notice) if a source with the same name already exists. _Default._
-**IN CLUSTER** _cluster_name_ | The [cluster](/sql/create-cluster) to maintain this source.
-**CONNECTION** _connection_name_ | The name of the MySQL connection to use in the source. For details on creating connections, check the [`CREATE CONNECTION`](/sql/create-connection/#mysql) documentation page.
+**IN CLUSTER** _cluster_name_ | The [cluster](/self-managed/v2025.01/sql/create-cluster) to maintain this source.
+**CONNECTION** _connection_name_ | The name of the MySQL connection to use in the source. For details on creating connections, check the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#mysql) documentation page.
 **FOR ALL TABLES** | Create subsources for all tables in all schemas upstream. The [`mysql` system schema](https://dev.mysql.com/doc/refman/8.3/en/system-schema.html) is ignored.
 **FOR SCHEMAS (** _schema_list_ **)** | Create subsources for specific schemas upstream.
 **FOR TABLES (** _table_list_ **)** | Create subsources for specific tables upstream. Requires fully-qualified table names (`<schema>.<table>`).
 **EXPOSE PROGRESS AS** _progress_subsource_name_ | The name of the progress collection for the source. If this is not specified, the progress collection will be named `<src_name>_progress`. For more information, see [Monitoring source progress](#monitoring-source-progress).
-**RETAIN HISTORY FOR** <br>_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
+**RETAIN HISTORY FOR** <br>_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
 
 ### `CONNECTION` options
 
@@ -58,11 +58,11 @@ Field             | Value                           | Description
 {{< note >}}
 For step-by-step instructions on enabling GTID-based binlog replication for your
 MySQL service, see the integration guides:
-[Amazon RDS](/ingest-data/mysql/amazon-rds/),
-[Amazon Aurora](/ingest-data/mysql/amazon-aurora/),
-[Azure DB](/ingest-data/mysql/azure-db/),
-[Google Cloud SQL](/ingest-data/mysql/google-cloud-sql/),
-[Self-hosted](/ingest-data/mysql/self-hosted/).
+[Amazon RDS](/self-managed/v2025.01/ingest-data/mysql/amazon-rds/),
+[Amazon Aurora](/self-managed/v2025.01/ingest-data/mysql/amazon-aurora/),
+[Azure DB](/self-managed/v2025.01/ingest-data/mysql/azure-db/),
+[Google Cloud SQL](/self-managed/v2025.01/ingest-data/mysql/google-cloud-sql/),
+[Self-hosted](/self-managed/v2025.01/ingest-data/mysql/self-hosted/).
 {{< /note >}}
 
 The source uses MySQL's binlog replication protocol to **continually ingest
@@ -114,7 +114,7 @@ service-specific configuration parameter. It's important that you double-check
 if such a configuration exists, and ensure it's set to the maximum interval
 available.
 
-As an example, [Amazon RDS for MySQL](/ingest-data/mysql/amazon-rds/) has its
+As an example, [Amazon RDS for MySQL](/self-managed/v2025.01/ingest-data/mysql/amazon-rds/) has its
 own configuration parameter for binlog retention ([`binlog retention hours`](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-stored-proc-configuring.html#mysql_rds_set_configuration-usage-notes.binlog-retention-hours))
 that overrides `binlog_expire_logs_seconds` and is set to `NULL` by default.
 
@@ -188,7 +188,7 @@ Field              | Type                                                    | D
 -------------------|---------------------------------------------------------|--------------
 `source_id_lower`  | [`uuid`](https://materialize.com/docs/sql/types/uuid/)  | The lower-bound GTID `source_id` of the GTIDs covered by this range.
 `source_id_upper`  | [`uuid`](https://materialize.com/docs/sql/types/uuid/)  | The upper-bound GTID `source_id` of the GTIDs covered by this range.
-`transaction_id`   | [`uint8`](/sql/types/uint/#uint8-info)                  | The `transaction_id` of the next GTID possible from the GTID `source_id`s covered by this range.
+`transaction_id`   | [`uint8`](/self-managed/v2025.01/sql/types/uint/#uint8-info)                  | The `transaction_id` of the next GTID possible from the GTID `source_id`s covered by this range.
 
 And can be queried using:
 
@@ -202,7 +202,7 @@ of future possible GTIDs, which is similar to the [`gtid_executed`](https://dev.
 system variable on a MySQL replica. The reported `transaction_id` should
 increase as Materialize consumes **new** binlog records from the upstream MySQL
 database. For more details on monitoring source ingestion progress and
-debugging related issues, see [Troubleshooting](/ops/troubleshooting/).
+debugging related issues, see [Troubleshooting](/self-managed/v2025.01/ops/troubleshooting/).
 
 ## Known limitations
 
@@ -245,7 +245,7 @@ Materialize natively supports the following MySQL types:
 <li><code>varchar</code></li>
 </ul>
 
-Replicating tables that contain **unsupported [data types](/sql/types/)** is
+Replicating tables that contain **unsupported [data types](/self-managed/v2025.01/sql/types/)** is
 possible via the [`TEXT COLUMNS` option](#handling-unsupported-types) for the
 following types:
 
@@ -274,11 +274,11 @@ DELETE FROM t;
 {{< warning >}}
 Before creating a MySQL source, you must enable GTID-based binlog replication in the
 upstream database. For step-by-step instructions, see the integration guide for
-your MySQL service: [Amazon RDS](/ingest-data/mysql/amazon-rds/),
-[Amazon Aurora](/ingest-data/mysql/amazon-aurora/),
-[Azure DB](/ingest-data/mysql/azure-db/),
-[Google Cloud SQL](/ingest-data/mysql/google-cloud-sql/),
-[Self-hosted](/ingest-data/mysql/self-hosted/).
+your MySQL service: [Amazon RDS](/self-managed/v2025.01/ingest-data/mysql/amazon-rds/),
+[Amazon Aurora](/self-managed/v2025.01/ingest-data/mysql/amazon-aurora/),
+[Azure DB](/self-managed/v2025.01/ingest-data/mysql/azure-db/),
+[Google Cloud SQL](/self-managed/v2025.01/ingest-data/mysql/google-cloud-sql/),
+[Self-hosted](/self-managed/v2025.01/ingest-data/mysql/self-hosted/).
 {{< /warning >}}
 
 ### Creating a connection
@@ -288,7 +288,7 @@ want Materialize to read data from.
 
 Once created, a connection is **reusable** across multiple `CREATE SOURCE`
 statements. For more details on creating connections, check the
-[`CREATE CONNECTION`](/sql/create-connection/#mysql) documentation page.
+[`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#mysql) documentation page.
 
 ```mzsql
 CREATE SECRET mysqlpass AS '<MYSQL_PASSWORD>';
@@ -302,7 +302,7 @@ CREATE CONNECTION mysql_connection TO MYSQL (
 ```
 
 If your MySQL server is not exposed to the public internet, you can
-[tunnel the connection](/sql/create-connection/#network-security-connections)
+[tunnel the connection](/self-managed/v2025.01/sql/create-connection/#network-security-connections)
 through an AWS PrivateLink service or an SSH bastion host SSH bastion host.
 
 {{< tabs tabID="1" >}}
@@ -325,7 +325,7 @@ CREATE CONNECTION mysql_connection TO MYSQL (
 
 For step-by-step instructions on creating AWS PrivateLink connections and
 configuring an AWS PrivateLink service to accept connections from Materialize,
-check [this guide](/ops/network-security/privatelink/).
+check [this guide](/self-managed/v2025.01/ops/network-security/privatelink/).
 
 {{< /tab >}}
 {{< tab "SSH tunnel">}}
@@ -346,7 +346,7 @@ CREATE CONNECTION mysql_connection TO MYSQL (
 
 For step-by-step instructions on creating SSH tunnel connections and configuring
 an SSH bastion server to accept connections from Materialize, check
-[this guide](/ops/network-security/ssh-tunnel/).
+[this guide](/self-managed/v2025.01/ops/network-security/ssh-tunnel/).
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -409,8 +409,8 @@ CREATE SOURCE mz_source
 ### Handling errors and schema changes
 
 To handle upstream [schema changes](#schema-changes) or errored subsources, use
-the [`DROP SOURCE`](/sql/alter-source/#context) syntax to drop the affected
-subsource, and then [`ALTER SOURCE...ADD SUBSOURCE`](/sql/alter-source/) to add
+the [`DROP SOURCE`](/self-managed/v2025.01/sql/alter-source/#context) syntax to drop the affected
+subsource, and then [`ALTER SOURCE...ADD SUBSOURCE`](/self-managed/v2025.01/sql/alter-source/) to add
 the subsource back to the source.
 
 ```mzsql
@@ -426,12 +426,12 @@ ALTER SOURCE mz_source ADD SUBSOURCE table_1;
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE CONNECTION`](/sql/create-connection)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection)
 - [`CREATE SOURCE`](../)
 - MySQL integration guides:
-  - [Amazon RDS](/ingest-data/mysql/amazon-rds/)
-  - [Amazon Aurora](/ingest-data/mysql/amazon-aurora/)
-  - [Azure DB](/ingest-data/mysql/azure-db/)
-  - [Google Cloud SQL](/ingest-data/mysql/google-cloud-sql/)
-  - [Self-hosted](/ingest-data/mysql/self-hosted/)
+  - [Amazon RDS](/self-managed/v2025.01/ingest-data/mysql/amazon-rds/)
+  - [Amazon Aurora](/self-managed/v2025.01/ingest-data/mysql/amazon-aurora/)
+  - [Azure DB](/self-managed/v2025.01/ingest-data/mysql/azure-db/)
+  - [Google Cloud SQL](/self-managed/v2025.01/ingest-data/mysql/google-cloud-sql/)
+  - [Self-hosted](/self-managed/v2025.01/ingest-data/mysql/self-hosted/)

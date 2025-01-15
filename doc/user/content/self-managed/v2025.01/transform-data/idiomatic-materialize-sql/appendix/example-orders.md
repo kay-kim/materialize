@@ -11,13 +11,13 @@ menu:
 The following sample data is used in:
 
 - [First value in group
-  examples](/transform-data/idiomatic-materialize-sql/first-value/#examples)
+  examples](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/first-value/#examples)
 
 - [Last value in group
-  examples](/transform-data/idiomatic-materialize-sql/last-value/#examples)
+  examples](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/last-value/#examples)
 
 - [Top-K in group
-  examples](/transform-data/idiomatic-materialize-sql/top-k/#examples)
+  examples](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/#examples)
 
 ```mzsql
 CREATE TABLE orders (

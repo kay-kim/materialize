@@ -2,7 +2,7 @@
 title: "Rust cheatsheet"
 description: "Use Rust postgres-openssl to connect, insert, manage, query and stream from Materialize."
 aliases:
-  - /guides/rust
+  - /self-managed/v2025.01/guides/rust
 menu:
   main:
     parent: 'client-libraries'
@@ -32,7 +32,7 @@ pub(crate) fn create_client() -> Result<Client, Error> {
 
 ## Create tables
 
-Most data in Materialize will stream in via an external system, but a [table](/sql/create-table/) can be helpful for supplementary data. For example, you can use a table to join slower-moving reference or lookup data with a stream.
+Most data in Materialize will stream in via an external system, but a [table](/self-managed/v2025.01/sql/create-table/) can be helpful for supplementary data. For example, you can use a table to join slower-moving reference or lookup data with a stream.
 
 To create a table named `countries` in Materialize:
 
@@ -58,7 +58,7 @@ pub(crate) fn create_table() -> Result<u64, Error> {
 
 ## Insert data into tables
 
-To [insert a row](/sql/insert/) of data into a table named `countries` in Materialize:
+To [insert a row](/self-managed/v2025.01/sql/insert/) of data into a table named `countries` in Materialize:
 
 ```rust
 use postgres::Error;
@@ -163,11 +163,11 @@ pub(crate) fn subscribe() {
 }
 ```
 
-The [SUBSCRIBE output format](/sql/subscribe/#output) of the `counter_sum` view contains all of the columns of the view, prepended with several additional columns that describe the nature of the update.
+The [SUBSCRIBE output format](/self-managed/v2025.01/sql/subscribe/#output) of the `counter_sum` view contains all of the columns of the view, prepended with several additional columns that describe the nature of the update.
 
 ## Clean up
 
-To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/integrations/sql-clients/) and then, run the following commands:
+To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/self-managed/v2025.01/integrations/sql-clients/) and then, run the following commands:
 
 ```mzsql
 DROP MATERIALIZED VIEW IF EXISTS counter_sum;

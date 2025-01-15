@@ -11,12 +11,12 @@ menu:
 `DROP CLUSTER REPLICA` is deprecated.
 
 We recommend migrating to a [managed
-cluster](/sql/alter-cluster/#converting-unmanaged-to-managed-clusters) instead
+cluster](/self-managed/v2025.01/sql/alter-cluster/#converting-unmanaged-to-managed-clusters) instead
 of manually creating and dropping replicas.
 {{< /warning >}}
 
 `DROP CLUSTER REPLICA` deprovisions an existing replica of the specified cluster. To remove
-the cluster itself, use the [`DROP CLUSTER`](/sql/drop-cluster) command.
+the cluster itself, use the [`DROP CLUSTER`](/self-managed/v2025.01/sql/drop-cluster) command.
 
 ## Syntax
 

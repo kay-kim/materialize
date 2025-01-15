@@ -2,7 +2,7 @@
 title: "Arrangements"
 description: "Understand how Materialize arrangements work."
 aliases:
-  - /overview/arrangements/
+  - /self-managed/v2025.01/overview/arrangements/
 ---
 
 The mechanisms that maintain materialized views for Materialize dataflows are
@@ -99,8 +99,8 @@ background compaction of historical data.
 
 Materialize provides various tools that allow you to analyze arrangements,
 although they are post-hoc tools best used for debugging, rather than planning
-tools to be used before creating indexes or views. See [Diagnosing Using SQL](/ops/troubleshooting/)
-and [`EXPLAIN PLAN`](/sql/explain-plan/) for more details.
+tools to be used before creating indexes or views. See [Diagnosing Using SQL](/self-managed/v2025.01/ops/troubleshooting/)
+and [`EXPLAIN PLAN`](/self-managed/v2025.01/sql/explain-plan/) for more details.
 
 ## Reducing memory usage
 
@@ -132,6 +132,6 @@ when you combine 32-bit and 64-bit numbers.
 
 * [Optimization](../../ops/optimization/)
 * [Joins in Materialize](https://materialize.com/joins-in-materialize/)
-* [Diagnosing Using SQL](/ops/troubleshooting/)
-* [Deployment](/ops/optimization/)
+* [Diagnosing Using SQL](/self-managed/v2025.01/ops/troubleshooting/)
+* [Deployment](/self-managed/v2025.01/ops/optimization/)
 * [Differential Dataflow](https://timelydataflow.github.io/differential-dataflow/)

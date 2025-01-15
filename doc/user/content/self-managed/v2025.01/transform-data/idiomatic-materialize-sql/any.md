@@ -14,7 +14,7 @@ The "`field = ANY(...)`" equality condition returns true if the equality
 comparison is true for any of the values in the `ANY()` expression.
 
 For equi-join whose `ON` expression includes an [`ANY` operator
-expression](/sql/functions/#expression-bool_op-any),
+expression](/self-managed/v2025.01/sql/functions/#expression-bool_op-any),
 Materialize provides an idiomatic SQL as an alternative to the `ANY()`
 expression.
 
@@ -23,7 +23,7 @@ expression.
 ### Materialize and equi-join `ON fieldX = ANY(<array|list|map>)`
 
 When evaluating an equi-join whose `ON` expression includes the [`ANY` operator
-expression](/sql/functions/#expression-bool_op-any)
+expression](/self-managed/v2025.01/sql/functions/#expression-bool_op-any)
 (i.e., `ON fieldX = ANY(<array|list|map>)`), Materialize performs a cross join,
 which can lead to a significant increase in memory usage. If possible, rewrite
 the query to perform an equi-join on the unnested values.
@@ -33,11 +33,11 @@ the query to perform an equi-join on the unnested values.
 ## Idiomatic Materialize SQL
 
 **Idiomatic Materialize SQL:**  For equi-join whose `ON` expression includes
-the [`ANY` operator expression](/sql/functions/#expression-bool_op-any) (`ON
-fieldX = ANY(<array|list|map>)`), use [UNNEST()](/sql/functions/#unnest) in a
-[Common Table Expression (CTE)](/sql/select/#common-table-expressions-ctes) to
+the [`ANY` operator expression](/self-managed/v2025.01/sql/functions/#expression-bool_op-any) (`ON
+fieldX = ANY(<array|list|map>)`), use [UNNEST()](/self-managed/v2025.01/sql/functions/#unnest) in a
+[Common Table Expression (CTE)](/self-managed/v2025.01/sql/select/#common-table-expressions-ctes) to
 unnest the values and perform the equi-join on the unnested values. If the
-array/list/map contains duplicates, include [`DISTINCT`](/sql/select/#select-distinct) to remove duplicates.
+array/list/map contains duplicates, include [`DISTINCT`](/self-managed/v2025.01/sql/select/#select-distinct) to remove duplicates.
 
 <table>
 <thead>
@@ -52,7 +52,7 @@ array/list/map contains duplicates, include [`DISTINCT`](/sql/select/#select-dis
 <td class="copyableCode">
 
 **If no duplicates exist in the unnested field:** Use a Common Table
-Expression (CTE) to [`UNNEST()`](/sql/functions/#unnest) the array of values and
+Expression (CTE) to [`UNNEST()`](/self-managed/v2025.01/sql/functions/#unnest) the array of values and
 perform the equi-join on the unnested values.
 
 <br>
@@ -76,8 +76,8 @@ JOIN my_expanded_values t ON a.fieldZ = t.fieldZ
 <td class="copyableCode">
 
 **Duplicates may exist in the unnested field:** Use a Common Table
-Expression (CTE) to [`DISTINCT`](/sql/select/#select-distinct)
-[`UNNEST()`](/sql/functions/#unnest) the array of values and perform the
+Expression (CTE) to [`DISTINCT`](/self-managed/v2025.01/sql/select/#select-distinct)
+[`UNNEST()`](/self-managed/v2025.01/sql/functions/#unnest) the array of values and perform the
 equi-join on the unnested values.
 
 <br>
@@ -101,7 +101,7 @@ JOIN my_expanded_values t ON a.fieldZ = t.fieldZ
 <td><red>Anti-pattern</red> ❌</td>
 <td>
 
-<red>Avoid the use of [`ANY(...)` function](/sql/functions/#expression-bool_op-any) for equi-join
+<red>Avoid the use of [`ANY(...)` function](/self-managed/v2025.01/sql/functions/#expression-bool_op-any) for equi-join
 conditions.</red>
 
 <br>
@@ -129,7 +129,7 @@ WHERE a.fieldZ = ANY(b.array_field) -- Anti-pattern. Avoid.
 {{< note >}}
 
 The example data can be found in the
-[Appendix](/transform-data/idiomatic-materialize-sql/appendix/example-orders).
+[Appendix](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/appendix/example-orders).
 
 {{</ note >}}
 
@@ -137,8 +137,8 @@ The example data can be found in the
 
 Using idiomatic Materialize SQL, the following example finds orders that contain
 any of the sales items for the week of the order. That is, the example uses a
-CTE to [`UNNEST()`](/sql/functions/#unnest) (or
-[`DISTINCT`](/sql/select/#select-distinct)[`UNNEST()`](/sql/functions/#unnest))
+CTE to [`UNNEST()`](/self-managed/v2025.01/sql/functions/#unnest) (or
+[`DISTINCT`](/self-managed/v2025.01/sql/select/#select-distinct)[`UNNEST()`](/self-managed/v2025.01/sql/functions/#unnest))
 the `items` field from the `sales_items` table, and then performs an equi-join
 with the `orders` table on the unnested values.
 
@@ -192,7 +192,7 @@ ORDER BY s.week_of, o.order_id, o.item, o.quantity
 <td><red>Anti-pattern</red> ❌</td>
 <td>
 
-<red>Avoid the use of [`ANY()`](/sql/functions/#expression-bool_op-any) for the equi-join condition.</red>
+<red>Avoid the use of [`ANY()`](/self-managed/v2025.01/sql/functions/#expression-bool_op-any) for the equi-join condition.</red>
 
 <br>
 <div style="background-color: var(--code-block)">
@@ -217,11 +217,11 @@ ORDER BY s.week_of, o.order_id, o.item, o.quantity
 
 ## See also
 
-- [`ANY()`](/sql/functions/#expression-bool_op-any)
+- [`ANY()`](/self-managed/v2025.01/sql/functions/#expression-bool_op-any)
 
-- [Common Table Expression (CTE)](/sql/select/#common-table-expressions-ctes)
+- [Common Table Expression (CTE)](/self-managed/v2025.01/sql/select/#common-table-expressions-ctes)
 
 - [Idiomatic Materialize SQL
-  Chart](/transform-data/idiomatic-materialize-sql/appendix/idiomatic-sql-chart/)
+  Chart](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/appendix/idiomatic-sql-chart/)
 
-- [`UNNEST()`](/sql/functions/#unnest)
+- [`UNNEST()`](/self-managed/v2025.01/sql/functions/#unnest)

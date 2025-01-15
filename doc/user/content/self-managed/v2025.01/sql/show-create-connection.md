@@ -14,7 +14,7 @@ menu:
 SHOW CREATE CONNECTION <connection_name>
 ```
 
-For available connection names, see [`SHOW CONNECTIONS`](/sql/show-connections).
+For available connection names, see [`SHOW CONNECTIONS`](/self-managed/v2025.01/sql/show-connections).
 
 ## Examples
 

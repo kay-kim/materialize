@@ -6,7 +6,7 @@ menu:
     parent: "commands"
 ---
 
-`CLOSE` closes a cursor previously opened with [`DECLARE`](/sql/declare).
+`CLOSE` closes a cursor previously opened with [`DECLARE`](/self-managed/v2025.01/sql/declare).
 
 ## Syntax
 

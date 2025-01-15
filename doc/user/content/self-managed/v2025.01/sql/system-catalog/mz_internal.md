@@ -47,7 +47,7 @@ statement_logging_sample_rate TO 0`. Materialize may apply a lower
 sampling rate than the one set in this parameter.
 
 The view can be accessed by Materialize _superusers_ or users that have been
-granted the [`mz_monitor` role](/manage/access-control/manage-roles#builtin-roles).
+granted the [`mz_monitor` role](/self-managed/v2025.01/manage/access-control/manage-roles#builtin-roles).
 
 <!-- RELATION_SPEC mz_internal.mz_recent_activity_log -->
 | Field                      | Type                         | Meaning                                                                                                                                                                                                                                                                       |
@@ -78,7 +78,7 @@ granted the [`mz_monitor` role](/manage/access-control/manage-roles#builtin-role
 | `session_id`               | [`uuid`]                     | An ID that is unique for each session. Corresponds to [mz_sessions.id](#mz_sessions). |
 | `prepared_at`              | [`timestamp with time zone`] | The time at which the statement was prepared.                                                                                                                                                                                                                                 |
 | `statement_type`           | [`text`]                     | The _type_ of the statement, e.g. `select` for a `SELECT` query, or `NULL` if the statement was empty.                                                                                                                                                                        |
-| `throttled_count`          | [`uint8`]                    | The number of statements that were dropped due to throttling before the current one was seen. If you have a very high volume of queries and need to log them without throttling, [contact our team](https://materialize.com/docs/support/).                                   |
+| `throttled_count`          | [`uint8`]                    | The number of statements that were dropped due to throttling before the current one was seen. If you have a very high volume of queries and need to log them without throttling, [contact our team](https://materialize.com/docs/self-managed/v2025.01/support/).                                   |
 | `initial_application_name` | [`text`]                     | The initial value of `application_name` at the beginning of the session.                                                                                                                                                                                                      |
 | `authenticated_user`       | [`text`]                     | The name of the user for which the session was established.                                                                                                                                                                                                                   |
 | `sql`                      | [`text`]                     | The SQL text of the statement.                                                                                                                                                                                                                                                |
@@ -377,7 +377,7 @@ At this time, we do not make any guarantees about the freshness of these numbers
 The `mz_history_retention_strategies` describes the history retention strategies
 for tables, sources, indexes, materialized views that are configured with a
 [history retention
-period](/transform-data/patterns/durable-subscriptions/#history-retention-period).
+period](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period).
 
 <!-- RELATION_SPEC mz_internal.mz_history_retention_strategies -->
 | Field | Type | Meaning |
@@ -429,12 +429,12 @@ usage. For example:
 - If a materialized view or an index has been created for direct querying, the
   dependency graph will not reflect this nuance and `mz_index_advice` might
   recommend using an unindexed view instead. In this case, you should refer to
-  the reference documentation for [query optimization](/transform-data/optimization/#indexes)
+  the reference documentation for [query optimization](/self-managed/v2025.01/transform-data/optimization/#indexes)
   instead.
 - If a view is depended on by multiple objects that use very selective filters,
   or multiple projections that can be pushed into or even beyond the view,
   adding an index may increase resource usage.
-- If an index has been created to [enable delta joins](/transform-data/optimization/#optimize-multi-way-joins-with-delta-joins),
+- If an index has been created to [enable delta joins](/self-managed/v2025.01/transform-data/optimization/#optimize-multi-way-joins-with-delta-joins),
   removing it may lead to lower memory utilization, but the delta join
   optimization will no longer be used in the join implementation.
 
@@ -523,7 +523,7 @@ all database objects in the system.
 
 ## `mz_object_fully_qualified_names`
 
-The `mz_object_fully_qualified_names` view enriches the [`mz_catalog.mz_objects`](/sql/system-catalog/mz_catalog/#mz_objects) view with namespace information.
+The `mz_object_fully_qualified_names` view enriches the [`mz_catalog.mz_objects`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_objects) view with namespace information.
 
 <!-- RELATION_SPEC mz_internal.mz_object_fully_qualified_names -->
 | Field           | Type         | Meaning                                                                                                                                                                                         |
@@ -531,15 +531,15 @@ The `mz_object_fully_qualified_names` view enriches the [`mz_catalog.mz_objects`
 | `id`            | [`text`]     | Materialize's unique ID for the object.                                                                                                                                                         |
 | `name`          | [`text`]     | The name of the object.                                                                                                                                                                         |
 | `object_type`   | [`text`]     | The type of the object: one of `table`, `source`, `view`, `materialized view`, `sink`, `index`, `connection`, `secret`, `type`, or `function`.                                                  |
-| `schema_id`     | [`text`]     | The ID of the schema to which the object belongs. Corresponds to [`mz_schemas.id`](/sql/system-catalog/mz_catalog/#mz_schemas).                                                                 |
-| `schema_name`   | [`text`]     | The name of the schema to which the object belongs. Corresponds to [`mz_schemas.name`](/sql/system-catalog/mz_catalog/#mz_schemas).                                                             |
-| `database_id`   | [`text`]     | The ID of the database to which the object belongs. Corresponds to [`mz_databases.id`](/sql/system-catalog/mz_catalog/#mz_schemas).                                                             |
-| `database_name` | [`text`]     | The name of the database to which the object belongs. Corresponds to [`mz_databases.name`](/sql/system-catalog/mz_catalog/#mz_databases).                                                       |
-| `cluster_id`    | [`text`]     | The ID of the cluster maintaining the source, materialized view, index, or sink. Corresponds to [`mz_clusters.id`](/sql/system-catalog/mz_catalog/#mz_clusters). `NULL` for other object types. |
+| `schema_id`     | [`text`]     | The ID of the schema to which the object belongs. Corresponds to [`mz_schemas.id`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_schemas).                                                                 |
+| `schema_name`   | [`text`]     | The name of the schema to which the object belongs. Corresponds to [`mz_schemas.name`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_schemas).                                                             |
+| `database_id`   | [`text`]     | The ID of the database to which the object belongs. Corresponds to [`mz_databases.id`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_schemas).                                                             |
+| `database_name` | [`text`]     | The name of the database to which the object belongs. Corresponds to [`mz_databases.name`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_databases).                                                       |
+| `cluster_id`    | [`text`]     | The ID of the cluster maintaining the source, materialized view, index, or sink. Corresponds to [`mz_clusters.id`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_clusters). `NULL` for other object types. |
 
 ## `mz_object_lifetimes`
 
-The `mz_object_lifetimes` view enriches the [`mz_catalog.mz_objects`](/sql/system-catalog/mz_catalog/#mz_objects) view with information about the last lifetime event that occurred for each object in the system.
+The `mz_object_lifetimes` view enriches the [`mz_catalog.mz_objects`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_objects) view with information about the last lifetime event that occurred for each object in the system.
 
 <!-- RELATION_SPEC mz_internal.mz_object_lifetimes -->
 | Field           | Type                           | Meaning                                                                                                                                        |
@@ -552,7 +552,7 @@ The `mz_object_lifetimes` view enriches the [`mz_catalog.mz_objects`](/sql/syste
 
 ## `mz_object_history`
 
-The `mz_object_history` view enriches the [`mz_catalog.mz_objects`](/sql/system-catalog/mz_catalog/#mz_objects) view with historical information about each object in the system.
+The `mz_object_history` view enriches the [`mz_catalog.mz_objects`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_objects) view with historical information about each object in the system.
 
 <!-- RELATION_SPEC mz_internal.mz_object_history -->
 | Field           | Type                           | Meaning                                                                                                                                        |
@@ -665,9 +665,9 @@ table and the corresponding upstream Kafka topic being ingested.
 | ------------------- | ---------------- | --------                                                                                                       |
 | `id`                | [`text`]         | The ID of the table. Corresponds to [`mz_catalog.mz_tables.id`](../mz_catalog#mz_tables).                   |
 | `topic`             | [`text`]         | The topic being ingested. |
-| `envelope_type`     | [`text`]         | The [envelope](/sql/create-source/#envelopes) type: `none`, `upsert`, or `debezium`. `NULL` for other source types. |
-| `key_format`        | [`text`]         | The [format](/sql/create-source/#formats) of the Kafka message key: `avro`, `protobuf`, `csv`, `regex`, `bytes`, `json`, `text`, or `NULL`. |
-| `value_format`      | [`text`]         | The [format](/sql/create-source/#formats) of the Kafka message value: `avro`, `protobuf`, `csv`, `regex`, `bytes`, `json`, `text`. `NULL` for other source types. |
+| `envelope_type`     | [`text`]         | The [envelope](/self-managed/v2025.01/sql/create-source/#envelopes) type: `none`, `upsert`, or `debezium`. `NULL` for other source types. |
+| `key_format`        | [`text`]         | The [format](/self-managed/v2025.01/sql/create-source/#formats) of the Kafka message key: `avro`, `protobuf`, `csv`, `regex`, `bytes`, `json`, `text`, or `NULL`. |
+| `value_format`      | [`text`]         | The [format](/self-managed/v2025.01/sql/create-source/#formats) of the Kafka message value: `avro`, `protobuf`, `csv`, `regex`, `bytes`, `json`, `text`. `NULL` for other source types. |
 
 <!--
 ## `mz_prepared_statement_history`
@@ -727,7 +727,7 @@ The `mz_sessions` table contains a row for each active session in the system.
 | Field            | Type                           | Meaning                                                                                                                   |
 | -----------------| ------------------------------ | --------                                                                                                                  |
 | `id`             | [`uuid`]                       | The globally unique ID of the session. |
-| `connection_id`  | [`uint4`]                      | The connection ID of the session. Unique only for active sessions and can be recycled. Corresponds to [`pg_backend_pid()`](/sql/functions/#pg_backend_pid). |
+| `connection_id`  | [`uint4`]                      | The connection ID of the session. Unique only for active sessions and can be recycled. Corresponds to [`pg_backend_pid()`](/self-managed/v2025.01/sql/functions/#pg_backend_pid). |
 | `role_id`        | [`text`]                       | The role ID of the role that the session is logged in as. Corresponds to [`mz_catalog.mz_roles`](../mz_catalog#mz_roles). |
 | `client_ip`      | [`text`]                       | The IP address of the client that initiated the session.                                                                  |
 | `connected_at`   | [`timestamp with time zone`]   | The time at which the session connected to the system.                                                                    |
@@ -879,7 +879,7 @@ in the system on to user roles.
 ## `mz_show_all_my_privileges`
 
 The `mz_show_all_my_privileges` view is the same as
-[`mz_show_all_privileges`](/sql/system-catalog/mz_internal/#mz_show_all_privileges), but
+[`mz_show_all_privileges`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_show_all_privileges), but
 only includes rows where the current role is a direct or indirect member of `grantee`.
 
 <!-- RELATION_SPEC mz_internal.mz_show_all_my_privileges -->
@@ -896,7 +896,7 @@ only includes rows where the current role is a direct or indirect member of `gra
 ## `mz_show_my_cluster_privileges`
 
 The `mz_show_my_cluster_privileges` view is the same as
-[`mz_show_cluster_privileges`](/sql/system-catalog/mz_internal/#mz_show_cluster_privileges), but
+[`mz_show_cluster_privileges`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_show_cluster_privileges), but
 only includes rows where the current role is a direct or indirect member of `grantee`.
 
 <!-- RELATION_SPEC mz_internal.mz_show_my_cluster_privileges -->
@@ -910,7 +910,7 @@ only includes rows where the current role is a direct or indirect member of `gra
 ## `mz_show_my_database_privileges`
 
 The `mz_show_my_database_privileges` view is the same as
-[`mz_show_database_privileges`](/sql/system-catalog/mz_internal/#mz_show_database_privileges), but
+[`mz_show_database_privileges`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_show_database_privileges), but
 only includes rows where the current role is a direct or indirect member of `grantee`.
 
 <!-- RELATION_SPEC mz_internal.mz_show_my_database_privileges -->
@@ -924,7 +924,7 @@ only includes rows where the current role is a direct or indirect member of `gra
 ## `mz_show_my_default_privileges`
 
 The `mz_show_my_default_privileges` view is the same as
-[`mz_show_default_privileges`](/sql/system-catalog/mz_internal/#mz_show_default_privileges), but
+[`mz_show_default_privileges`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_show_default_privileges), but
 only includes rows where the current role is a direct or indirect member of `grantee`.
 
 <!-- RELATION_SPEC mz_internal.mz_show_my_default_privileges -->
@@ -940,7 +940,7 @@ only includes rows where the current role is a direct or indirect member of `gra
 ## `mz_show_my_object_privileges`
 
 The `mz_show_my_object_privileges` view is the same as
-[`mz_show_object_privileges`](/sql/system-catalog/mz_internal/#mz_show_object_privileges), but
+[`mz_show_object_privileges`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_show_object_privileges), but
 only includes rows where the current role is a direct or indirect member of `grantee`.
 
 <!-- RELATION_SPEC mz_internal.mz_show_my_object_privileges -->
@@ -957,7 +957,7 @@ only includes rows where the current role is a direct or indirect member of `gra
 ## `mz_show_my_role_members`
 
 The `mz_show_my_role_members` view is the same as
-[`mz_show_role_members`](/sql/system-catalog/mz_internal/#mz_show_role_members), but
+[`mz_show_role_members`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_show_role_members), but
 only includes rows where the current role is a direct or indirect member of `member`.
 
 <!-- RELATION_SPEC mz_internal.mz_show_my_role_members -->
@@ -970,7 +970,7 @@ only includes rows where the current role is a direct or indirect member of `mem
 ## `mz_show_my_schema_privileges`
 
 The `mz_show_my_schema_privileges` view is the same as
-[`mz_show_schema_privileges`](/sql/system-catalog/mz_internal/#mz_show_schema_privileges), but
+[`mz_show_schema_privileges`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_show_schema_privileges), but
 only includes rows where the current role is a direct or indirect member of `grantee`.
 
 <!-- RELATION_SPEC mz_internal.mz_show_my_schema_privileges -->
@@ -985,7 +985,7 @@ only includes rows where the current role is a direct or indirect member of `gra
 ## `mz_show_my_system_privileges`
 
 The `mz_show_my_system_privileges` view is the same as
-[`mz_show_system_privileges`](/sql/system-catalog/mz_internal/#mz_show_system_privileges), but
+[`mz_show_system_privileges`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_show_system_privileges), but
 only includes rows where the current role is a direct or indirect member of `grantee`.
 
 <!-- RELATION_SPEC mz_internal.mz_show_my_system_privileges -->
@@ -1210,7 +1210,7 @@ and cannot be changed by users), the latter is used instead.
 
 ## `mz_subscriptions`
 
-The `mz_subscriptions` table describes all active [`SUBSCRIBE`](/sql/subscribe)
+The `mz_subscriptions` table describes all active [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe)
 operations in the system.
 
 <!-- RELATION_SPEC mz_internal.mz_subscriptions -->
@@ -1250,26 +1250,26 @@ The `mz_webhook_sources` table contains a row for each webhook source in the sys
 | `name`         | [`text`]    | The name of the webhook source.                                                              |
 | `url`          | [`text`]    | The URL which can be used to send events to the source.                                      |
 
-[`bigint`]: /sql/types/bigint
-[`boolean`]: /sql/types/boolean
-[`bytea`]: /sql/types/bytea
-[`double precision`]: /sql/types/double-precision
-[`integer`]: /sql/types/integer
-[`interval`]: /sql/types/interval
-[`jsonb`]: /sql/types/jsonb
-[`mz_timestamp`]: /sql/types/mz_timestamp
-[`mz_aclitem`]: /sql/types/mz_aclitem
-[`mz_aclitem array`]: /sql/types/mz_aclitem
-[`numeric`]: /sql/types/numeric
-[`oid`]: /sql/types/oid
-[`text`]: /sql/types/text
-[`text array`]: /sql/types/array
-[`text list`]: /sql/types/list
-[`uuid`]: /sql/types/uuid
-[`uint4`]: /sql/types/uint4
-[`uint8`]: /sql/types/uint8
-[`uint8 list`]: /sql/types/list
-[`timestamp with time zone`]: /sql/types/timestamp
+[`bigint`]: ]: /self-managed/v2025.01/sql/types/bigint
+[`boolean`]: ]: /self-managed/v2025.01/sql/types/boolean
+[`bytea`]: ]: /self-managed/v2025.01/sql/types/bytea
+[`double precision`]: ]: /self-managed/v2025.01/sql/types/double-precision
+[`integer`]: ]: /self-managed/v2025.01/sql/types/integer
+[`interval`]: ]: /self-managed/v2025.01/sql/types/interval
+[`jsonb`]: ]: /self-managed/v2025.01/sql/types/jsonb
+[`mz_timestamp`]: ]: /self-managed/v2025.01/sql/types/mz_timestamp
+[`mz_aclitem`]: ]: /self-managed/v2025.01/sql/types/mz_aclitem
+[`mz_aclitem array`]: ]: /self-managed/v2025.01/sql/types/mz_aclitem
+[`numeric`]: ]: /self-managed/v2025.01/sql/types/numeric
+[`oid`]: ]: /self-managed/v2025.01/sql/types/oid
+[`text`]: ]: /self-managed/v2025.01/sql/types/text
+[`text array`]: ]: /self-managed/v2025.01/sql/types/array
+[`text list`]: ]: /self-managed/v2025.01/sql/types/list
+[`uuid`]: ]: /self-managed/v2025.01/sql/types/uuid
+[`uint4`]: ]: /self-managed/v2025.01/sql/types/uint4
+[`uint8`]: ]: /self-managed/v2025.01/sql/types/uint8
+[`uint8 list`]: ]: /self-managed/v2025.01/sql/types/list
+[`timestamp with time zone`]: ]: /self-managed/v2025.01/sql/types/timestamp
 
 <!-- RELATION_SPEC_UNDOCUMENTED mz_internal.mz_activity_log_thinned -->
 <!-- RELATION_SPEC_UNDOCUMENTED mz_internal.mz_cluster_replica_metrics_history_ct -->

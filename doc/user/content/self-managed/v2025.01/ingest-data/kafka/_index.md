@@ -17,12 +17,12 @@ from Kafka, you need to
 
 ## Integration guides
 
-- [Amazon MSK](/ingest-data/kafka/amazon-msk/)
-- [Confluent Cloud](/ingest-data/kafka/confluent-cloud/)
-- [Self-hosted Kafka](/ingest-data/kafka/kafka-self-hosted/)
-- [Warpstream](/ingest-data/kafka/warpstream/)
+- [Amazon MSK](/self-managed/v2025.01/ingest-data/kafka/amazon-msk/)
+- [Confluent Cloud](/self-managed/v2025.01/ingest-data/kafka/confluent-cloud/)
+- [Self-hosted Kafka](/self-managed/v2025.01/ingest-data/kafka/kafka-self-hosted/)
+- [Warpstream](/self-managed/v2025.01/ingest-data/kafka/warpstream/)
 
 ## See also
 
-- [Redpanda Cloud](/ingest-data/redpanda/redpanda-cloud/)
-- [Redpanda Self-hosted](/ingest-data/redpanda/)
+- [Redpanda Cloud](/self-managed/v2025.01/ingest-data/redpanda/redpanda-cloud/)
+- [Redpanda Self-hosted](/self-managed/v2025.01/ingest-data/redpanda/)

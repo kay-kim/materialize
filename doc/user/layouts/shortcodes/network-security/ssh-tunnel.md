@@ -12,7 +12,7 @@ Before you begin, make sure you have access to a bastion host. You will need:
 
 ## Create an SSH tunnel connection
 
-In Materialize, create an [SSH tunnel connection](/sql/create-connection/#ssh-tunnel) to the bastion host:
+In Materialize, create an [SSH tunnel connection](/self-managed/v2025.01/sql/create-connection/#ssh-tunnel) to the bastion host:
 
 ```mzsql
 CREATE CONNECTION ssh_connection TO SSH TUNNEL (
@@ -27,7 +27,7 @@ CREATE CONNECTION ssh_connection TO SSH TUNNEL (
 The bastion host needs a **public key** to connect to the Materialize tunnel you
 created in the previous step.
 
-1. Materialize stores public keys for SSH tunnels in the system catalog. Query [`mz_ssh_tunnel_connections`](/sql/system-catalog/mz_catalog/#mz_ssh_tunnel_connections) to retrieve the public keys for the SSH tunnel connection you just created:
+1. Materialize stores public keys for SSH tunnels in the system catalog. Query [`mz_ssh_tunnel_connections`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_ssh_tunnel_connections) to retrieve the public keys for the SSH tunnel connection you just created:
 
     ```mzsql
     SELECT
@@ -48,7 +48,7 @@ created in the previous step.
 
 
     > Materialize provides two public keys to allow you to rotate keys without
-    connection downtime. Review the [`ALTER CONNECTION`](/sql/alter-connection) documentation for
+    connection downtime. Review the [`ALTER CONNECTION`](/self-managed/v2025.01/sql/alter-connection) documentation for
     more information on how to rotate your keys.
 
 1. Log in to your SSH bastion server and add each key to the bastion `authorized_keys` file:
@@ -124,7 +124,7 @@ created in the previous step.
 
 ## Validate the SSH tunnel connection
 
-To confirm that the SSH tunnel connection is correctly configured, use the [`VALIDATE CONNECTION`](/sql/validate-connection) command:
+To confirm that the SSH tunnel connection is correctly configured, use the [`VALIDATE CONNECTION`](/self-managed/v2025.01/sql/validate-connection) command:
 
 ```mzsql
 VALIDATE CONNECTION ssh_connection;

@@ -2,10 +2,10 @@
 title: "Amazon Managed Streaming for Apache Kafka (Amazon MSK)"
 description: "How to securely connect an Amazon MSK cluster as a source to Materialize."
 aliases:
-  - /integrations/aws-msk/
-  - /integrations/amazon-msk/
-  - /connect-sources/amazon-msk/
-  - /ingest-data/amazon-msk/
+  - /self-managed/v2025.01/integrations/aws-msk/
+  - /self-managed/v2025.01/integrations/amazon-msk/
+  - /self-managed/v2025.01/connect-sources/amazon-msk/
+  - /self-managed/v2025.01/ingest-data/amazon-msk/
 menu:
   main:
     parent: "kafka"
@@ -220,7 +220,7 @@ The process to connect Materialize to Amazon MSK consists of the following steps
 
     f. If the command executes without an error and outputs _CREATE SOURCE_, it means that you have successfully connected Materialize to your cluster.
 
-    **Note:** The example above walked through creating a source which is a way of connecting Materialize to an external data source. We created a connection to Amazon MSK using SASL authentication, using credentials securely stored as secrets in Materialize's secret management system. For input formats, we used `text`, however, Materialize supports various other options as well. For example, you can ingest messages formatted in [JSON, Avro and Protobuf](/sql/create-source/kafka/#supported-formats). You can find more details about the various different supported formats and possible configurations [here](/sql/create-source/kafka/).
+    **Note:** The example above walked through creating a source which is a way of connecting Materialize to an external data source. We created a connection to Amazon MSK using SASL authentication, using credentials securely stored as secrets in Materialize's secret management system. For input formats, we used `text`, however, Materialize supports various other options as well. For example, you can ingest messages formatted in [JSON, Avro and Protobuf](/self-managed/v2025.01/sql/create-source/kafka/#supported-formats). You can find more details about the various different supported formats and possible configurations [here](/self-managed/v2025.01/sql/create-source/kafka/).
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -228,7 +228,7 @@ The process to connect Materialize to Amazon MSK consists of the following steps
 ## Creating a source
 
 The Kafka connection created in the previous section can then be reused across
-multiple [`CREATE SOURCE`](/sql/create-source/kafka/) statements. By default,
+multiple [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/kafka/) statements. By default,
 the source will be created in the active cluster; to use a different cluster,
 use the `IN CLUSTER` clause.
 
@@ -240,6 +240,6 @@ CREATE SOURCE json_source
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE CONNECTION`](/sql/create-connection)
-- [`CREATE SOURCE`: Kafka](/sql/create-source/kafka)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection)
+- [`CREATE SOURCE`: Kafka](/self-managed/v2025.01/sql/create-source/kafka)

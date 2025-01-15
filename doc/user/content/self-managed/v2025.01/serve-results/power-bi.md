@@ -2,8 +2,8 @@
 title: "Power BI"
 description: "How to create dashboards with Power BI"
 aliases:
-  - /third-party/power-bi/
-  - /integrations/power-bi/
+  - /self-managed/v2025.01/third-party/power-bi/
+  - /self-managed/v2025.01/integrations/power-bi/
 menu:
   main:
     parent: "bi-tools"
@@ -70,7 +70,7 @@ To work around this Power BI limitation, you can use one of the following option
 
     Then, in Power BI, you can use the `my_view_bi` view.
 
-2. If applicable, instead of using a materialized view, create a view with an [index](/sql/create-index) instead.
+2. If applicable, instead of using a materialized view, create a view with an [index](/self-managed/v2025.01/sql/create-index) instead.
 
 3. Use the [Power BI Native query folding](https://learn.microsoft.com/en-us/power-query/connectors/postgresql#native-query-folding) to write your own query rather than using the Power BI UI. For example:
 

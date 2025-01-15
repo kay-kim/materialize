@@ -1,4 +1,4 @@
-A [view](/concepts/views/) saves a query under a name to provide a shorthand for
+A [view](/self-managed/v2025.01/concepts/views/) saves a query under a name to provide a shorthand for
 referencing the query. During view creation, the underlying query is not
 executed.
 

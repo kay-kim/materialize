@@ -7,7 +7,7 @@ menu:
     parent: commands
 ---
 
-`CREATE CLUSTER` creates a new [cluster](/concepts/clusters/).
+`CREATE CLUSTER` creates a new [cluster](/self-managed/v2025.01/concepts/clusters/).
 
 ## Conceptual framework
 
@@ -18,8 +18,8 @@ The following operations require compute resources in Materialize, and so need
 to be associated with a cluster:
 
 - Executing [`SELECT`] and [`SUBSCRIBE`] statements.
-- Maintaining [indexes](/concepts/indexes/) and [materialized views](/concepts/views/#materialized-views).
-- Maintaining [sources](/concepts/sources/) and [sinks](/concepts/sinks/).
+- Maintaining [indexes](/self-managed/v2025.01/concepts/indexes/) and [materialized views](/self-managed/v2025.01/concepts/views/#materialized-views).
+- Maintaining [sources](/self-managed/v2025.01/concepts/sources/) and [sinks](/self-managed/v2025.01/concepts/sinks/).
 
 ## Syntax
 
@@ -33,7 +33,7 @@ to be associated with a cluster:
 
 ### Initial state
 
-Each Materialize region initially contains a [pre-installed cluster](/sql/show-clusters/#pre-installed-clusters)
+Each Materialize region initially contains a [pre-installed cluster](/self-managed/v2025.01/sql/show-clusters/#pre-installed-clusters)
 named `quickstart` with a size of `25cc` and a replication factor of `1`. You
 can drop or alter this cluster to suit your needs.
 
@@ -43,13 +43,13 @@ When performing an operation that requires a cluster, you must specify which
 cluster you want to use. Not explicitly naming a cluster uses your session's
 active cluster.
 
-To show your session's active cluster, use the [`SHOW`](/sql/show) command:
+To show your session's active cluster, use the [`SHOW`](/self-managed/v2025.01/sql/show) command:
 
 ```mzsql
 SHOW cluster;
 ```
 
-To switch your session's active cluster, use the [`SET`](/sql/set) command:
+To switch your session's active cluster, use the [`SET`](/self-managed/v2025.01/sql/set) command:
 
 ```mzsql
 SET cluster = other_cluster;
@@ -106,10 +106,10 @@ Clusters of larger sizes can process data faster and handle larger data volumes.
 #### Cluster resizing
 
 You can change the size of a cluster to respond to changes in your workload
-using [`ALTER CLUSTER`](/sql/alter-cluster). Depending on the type of objects
+using [`ALTER CLUSTER`](/self-managed/v2025.01/sql/alter-cluster). Depending on the type of objects
 the cluster is hosting, this operation **might incur downtime**.
 
-See the reference documentation for [`ALTER CLUSTER`](/sql/alter-cluster#graceful-cluster-resizing)
+See the reference documentation for [`ALTER CLUSTER`](/self-managed/v2025.01/sql/alter-cluster#graceful-cluster-resizing)
 for more details on cluster resizing.
 
 #### Legacy sizes
@@ -280,7 +280,7 @@ SET (SCHEDULE = ON REFRESH (HYDRATION TIME ESTIMATE = '1 hour'));
 <p style="font-size:14px"><b>Syntax:</b> <code>HYDRATION TIME ESTIMATE</code> <i>interval</i></p>
 
 By default, scheduled clusters will turn on at the scheduled refresh time. To
-avoid [unavailability of the objects scheduled for refresh](/sql/create-materialized-view/#querying-materialized-views-with-refresh-strategies) during the refresh
+avoid [unavailability of the objects scheduled for refresh](/self-managed/v2025.01/sql/create-materialized-view/#querying-materialized-views-with-refresh-strategies) during the refresh
 operation, we recommend turning the cluster on ahead of the scheduled time to
 allow hydration to complete. This can be controlled using the `HYDRATION
 TIME ESTIMATE` clause.
@@ -288,7 +288,7 @@ TIME ESTIMATE` clause.
 #### Introspection
 
 To check the scheduling strategy associated with a cluster, you can query the
-[`mz_internal.mz_cluster_schedules`](/sql/system-catalog/mz_internal/#mz_cluster_schedules)
+[`mz_internal.mz_cluster_schedules`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_cluster_schedules)
 system catalog table:
 
 ```mzsql
@@ -302,7 +302,7 @@ WHERE c.name = 'my_refresh_cluster';
 ```
 
 To check if a scheduled cluster is turned on, you can query the
-[`mz_catalog.mz_cluster_replicas`](/sql/system-catalog/mz_catalog/#mz_cluster_replicas)
+[`mz_catalog.mz_cluster_replicas`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_cluster_replicas)
 system catalog table:
 
 ```mzsql
@@ -364,7 +364,7 @@ CREATE CLUSTER c (SIZE = '100cc', INTROSPECTION INTERVAL = 0);
 ```
 
 Disabling introspection can yield a small performance improvement, but you lose
-the ability to run [troubleshooting queries](/ops/troubleshooting/) against
+the ability to run [troubleshooting queries](/self-managed/v2025.01/ops/troubleshooting/) against
 that cluster replica.
 
 ### Empty
@@ -389,8 +389,8 @@ The privileges required to execute this statement are:
 - [`DROP CLUSTER`]
 
 [AWS availability zone IDs]: https://docs.aws.amazon.com/ram/latest/userguide/working-with-az-ids.html
-[`ALTER CLUSTER`]: /sql/alter-cluster/
-[`DROP CLUSTER`]: /sql/drop-cluster/
-[`SELECT`]: /sql/select
-[`SUBSCRIBE`]: /sql/subscribe
-[`mz_cluster_replica_sizes`]: /sql/system-catalog/mz_catalog#mz_cluster_replica_sizes
+[`ALTER CLUSTER`]: ]: /self-managed/v2025.01/sql/alter-cluster/
+[`DROP CLUSTER`]: ]: /self-managed/v2025.01/sql/drop-cluster/
+[`SELECT`]: ]: /self-managed/v2025.01/sql/select
+[`SUBSCRIBE`]: ]: /self-managed/v2025.01/sql/subscribe
+[`mz_cluster_replica_sizes`]: ]: /self-managed/v2025.01/sql/system-catalog/mz_catalog#mz_cluster_replica_sizes

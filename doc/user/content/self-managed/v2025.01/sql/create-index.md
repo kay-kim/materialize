@@ -8,7 +8,7 @@ menu:
     parent: 'commands'
 ---
 
-`CREATE INDEX` creates an in-memory [index](/concepts/indexes/) on a source, view, or materialized
+`CREATE INDEX` creates an in-memory [index](/self-managed/v2025.01/concepts/indexes/) on a source, view, or materialized
 view.
 
 In Materialize, indexes store query results in memory within a [cluster](https://materialize.com/docs/concepts/clusters/),
@@ -51,10 +51,10 @@ Field | Use
 **DEFAULT** | Creates a default index using a set of columns that uniquely identify each row. If this set of columns can't be inferred, all columns are used.
 _index&lowbar;name_ | A name for the index.
 _obj&lowbar;name_ | The name of the source, view, or materialized view on which you want to create an index.
-_cluster_name_ | The [cluster](/sql/create-cluster) to maintain this index. If not specified, defaults to the active cluster.
-_method_ | The name of the index method to use. The only supported method is [`arrangement`](/overview/arrangements).
+_cluster_name_ | The [cluster](/self-managed/v2025.01/sql/create-cluster) to maintain this index. If not specified, defaults to the active cluster.
+_method_ | The name of the index method to use. The only supported method is [`arrangement`](/self-managed/v2025.01/overview/arrangements).
 _col&lowbar;expr_**...** | The expressions to use as the key for the index.
-_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* <br>Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). **Note:** Configuring indexes to retain history is not recommended. As an alternative, consider creating a materialized view for your subscription query and configuring the history retention period on the view instead. See [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). <br>Accepts positive [interval](/sql/types/interval/) values (e.g. `'1hr'`). <br>Default: `1s`.
+_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* <br>Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). **Note:** Configuring indexes to retain history is not recommended. As an alternative, consider creating a materialized view for your subscription query and configuring the history retention period on the view instead. See [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). <br>Accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values (e.g. `'1hr'`). <br>Default: `1s`.
 
 ## Details
 

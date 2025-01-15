@@ -25,7 +25,7 @@ _value_                 | The value to assign to the configuration parameter.
 
 ## Privileges
 
-[_Superuser_ privileges](/manage/access-control/#account-management) are required to execute
+[_Superuser_ privileges](/self-managed/v2025.01/manage/access-control/#account-management) are required to execute
 this statement.
 
 ## Related pages

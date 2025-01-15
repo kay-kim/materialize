@@ -17,10 +17,10 @@ or on a cloud provider.
 
 {{< multilinkbox >}}
 {{< linkbox title="Using Docker/kind" >}}
-[Install locally on kind](/self-managed/installation/install-on-local-kind/)
+[Install locally on kind](/self-managed/v2025.01/installation/install-on-local-kind/)
 {{</ linkbox >}}
 {{< linkbox  title="Using Docker/minikube" >}}
-[Install locally on minikube](/self-managed/installation/install-on-local-minikube/)
+[Install locally on minikube](/self-managed/v2025.01/installation/install-on-local-minikube/)
 {{</ linkbox >}}
 {{</ multilinkbox >}}
 
@@ -28,17 +28,9 @@ or on a cloud provider.
 
 {{< multilinkbox >}}
 {{< linkbox title="AWS" >}}
-[Install on AWS](/self-managed/installation/install-on-aws/)
+[Install on AWS](/self-managed/v2025.01/installation/install-on-aws/)
 {{</ linkbox >}}
 {{< linkbox title="GCP" >}}
-[Install on GCP](/self-managed/installation/install-on-gcp/)
+[Install on GCP](/self-managed/v2025.01/installation/install-on-gcp/)
 {{</ linkbox >}}
 {{</ multilinkbox >}}
-
-## See also
-
-- [Materialize Kubernetes Operator Helm Chart](/self-managed/)
-- [Materialize Operator Configuration](/self-managed/configuration/)
-- [Troubleshooting](/self-managed/troubleshooting/)
-- [Operational guidelines](/self-managed/operational-guidelines/)
-- [Upgrading](/self-managed/upgrading/)

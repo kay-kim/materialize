@@ -2,7 +2,7 @@
 title: "Ingest data from Google Cloud SQL"
 description: "How to stream data from Google Cloud SQL for PostgreSQL to Materialize"
 aliases:
-  - /ingest-data/postgres-google-cloud-sql/
+  - /self-managed/v2025.01/ingest-data/postgres-google-cloud-sql/
 menu:
   main:
     parent: "postgresql"
@@ -11,7 +11,7 @@ menu:
 ---
 
 This page shows you how to stream data from [Google Cloud SQL for PostgreSQL](https://cloud.google.com/sql/postgresql)
-to Materialize using the[PostgreSQL source](/sql/create-source/postgres/).
+to Materialize using the[PostgreSQL source](/self-managed/v2025.01/sql/create-source/postgres/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}

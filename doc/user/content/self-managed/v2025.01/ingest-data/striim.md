@@ -2,7 +2,7 @@
 title: "Striim Cloud"
 description: "How to ingest Striim Change Data Capture (CDC) data into Materialize using the Kafka source"
 aliases:
-  - /integrations/striim/
+  - /self-managed/v2025.01/integrations/striim/
 ---
 
 [Striim](https://www.striim.com/) is a real-time data integration platform that
@@ -14,7 +14,7 @@ Capture (CDC) into Materialize using the [Kafka source](https://materialize.com/
 
 {{< note >}}
 We are in touch with the Striim team to build a direct CDC connector
-to Materialize. If you're interested in this integration, please [contact our team](https://materialize.com/docs/support/)!
+to Materialize. If you're interested in this integration, please [contact our team](https://materialize.com/docs/self-managed/v2025.01/support/)!
 {{</ note >}}
 
 As is, integrating Striim Cloud with Materialize requires using a message broker
@@ -91,7 +91,7 @@ scenarios, we recommend separating your workloads into multiple clusters for
 {{< /note >}}
 
 1. In the [SQL Shell](https://console.materialize.com/), or your preferred SQL
-   client connected to Materialize, use the [`CREATE CONNECTION`](/sql/create-connection/)
+   client connected to Materialize, use the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/)
    command to create connection objects with access and authentication details
    to your Kafka cluster and schema registry:
 
@@ -115,7 +115,7 @@ scenarios, we recommend separating your workloads into multiple clusters for
     );
     ```
 
-1. Use the [`CREATE SOURCE`](/sql/create-source/kafka/) command to connect
+1. Use the [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/kafka/) command to connect
    Materialize to your Kafka broker and schema registry using the connections you
    created in the previous step.
 
@@ -141,6 +141,6 @@ scenarios, we recommend separating your workloads into multiple clusters for
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE CONNECTION`](/sql/create-connection/)
-- [`CREATE SOURCE`: Kafka](/sql/create-source/kafka/)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/)
+- [`CREATE SOURCE`: Kafka](/self-managed/v2025.01/sql/create-source/kafka/)

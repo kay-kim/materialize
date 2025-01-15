@@ -137,11 +137,3 @@ For locally-attached NVMe storage,
 ## Network policies
 
 Enabling network policies ...
-
-## See also
-
-- [Materialize Kubernetes Operator Helm Chart](/self-managed/)
-- [Configuration](/self-managed/configuration/)
-- [Installation](/self-managed/installation/)
-- [Troubleshooting](/self-managed/troubleshooting/)
-- [Upgrading](/self-managed/upgrading/)

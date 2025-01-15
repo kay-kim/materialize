@@ -5,7 +5,7 @@ menu:
   main:
     parent: commands
 aliases:
-    - /sql/show-connection
+    - /self-managed/v2025.01/sql/show-connection
 ---
 
 `SHOW CONNECTIONS` lists the connections configured in Materialize.
@@ -20,7 +20,7 @@ SHOW CONNECTIONS
 
 Option                        | Description
 ------------------------------|------------
-**FROM** \<schema_name\>      | If specified, only show connections from the specified schema. For available schema names, see [`SHOW SCHEMAS`](/sql/show-schemas).
+**FROM** \<schema_name\>      | If specified, only show connections from the specified schema. For available schema names, see [`SHOW SCHEMAS`](/self-managed/v2025.01/sql/show-schemas).
 **LIKE** \<pattern\>          | If specified, only show connections that match the pattern.
 **WHERE** <condition(s)>      | If specified, only show connections that match the condition(s).
 

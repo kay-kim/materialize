@@ -2,9 +2,9 @@
 title: "Redpanda Cloud"
 description: "How to securely connect a Redpanda Cloud cluster as a source to Materialize."
 aliases:
-  - /integrations/redpanda-cloud/
-  - /connect-sources/redpanda-cloud/
-  - /ingest-data/redpanda-cloud/
+  - /self-managed/v2025.01/integrations/redpanda-cloud/
+  - /self-managed/v2025.01/connect-sources/redpanda-cloud/
+  - /self-managed/v2025.01/ingest-data/redpanda-cloud/
 menu:
   main:
     parent: "redpanda"
@@ -103,7 +103,7 @@ start by selecting the relevant option.
 
 1. In the Materialize [SQL shell](https://console.materialize.com/), or your
 preferred SQL client, create a connection with your Redpanda Cloud cluster
-access and authentication details using the [`CREATE CONNECTION`](/sql/create-connection/)
+access and authentication details using the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/)
 command:
 
     ```mzsql
@@ -119,7 +119,7 @@ command:
       );
     ```
 
-1. Use the [`CREATE SOURCE`](/sql/create-source/) command to connect Materialize
+1. Use the [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/) command to connect Materialize
    to your Redpanda Cloud cluster and start ingesting data from your target topic.
    By default, the source will be created in the active cluster; to use a
    different cluster, use the `IN CLUSTER` clause.
@@ -139,9 +139,9 @@ This example walked through creating a source, which is a way of connecting
 Materialize to an external data source. We created a connection to Redpanda
 Cloud using SASL authentication and credentials securely stored as secrets in
 Materialize's secret management system. For input formats, we used `JSON`, but
-you can also ingest Kafka messages formatted in e.g. [Avro and Protobuf](/sql/create-source/kafka/#supported-formats).
+you can also ingest Kafka messages formatted in e.g. [Avro and Protobuf](/self-managed/v2025.01/sql/create-source/kafka/#supported-formats).
 You can find more details about the various different supported formats and
-possible configurations in the [reference documentation](/sql/create-source/kafka/).
+possible configurations in the [reference documentation](/self-managed/v2025.01/sql/create-source/kafka/).
 
 {{< /tab >}}
 
@@ -201,7 +201,7 @@ in a region supported by Materialize: `us-east-1`,`us-west-2`, or `eu-west-1`.
     ```
 
 1. In the Materialize [SQL shell](https://console.materialize.com/), or your
-preferred SQL client, create a [PrivateLink connection](/ingest-data/network-security/privatelink/)
+preferred SQL client, create a [PrivateLink connection](/self-managed/v2025.01/ingest-data/network-security/privatelink/)
 using the service name from the previous step. Be sure to specify **all
 availability zones** of your Redpanda Cloud cluster.
 
@@ -268,7 +268,7 @@ principal:
     ```
 
 1. In Materialize, validate the AWS PrivateLink connection you created using the
-[`VALIDATE CONNECTION`](/sql/validate-connection) command:
+[`VALIDATE CONNECTION`](/self-managed/v2025.01/sql/validate-connection) command:
 
     ```mzsql
     VALIDATE CONNECTION rp_privatelink;
@@ -279,7 +279,7 @@ principal:
     This can take several minutes, and report errors like `Error: Endpoint cannot be
     discovered` while the policies are being updated and the endpoint resources are
     being re-evaluated. If the validation errors persist for longer than 10
-    minutes, double-check the ARNs and service names and [contact our team](https://materialize.com/docs/support/).
+    minutes, double-check the ARNs and service names and [contact our team](https://materialize.com/docs/self-managed/v2025.01/support/).
 
 1. Finally, create a connection to your Redpanda Cloud cluster using the AWS
 Privatelink connection you created earlier:
@@ -306,9 +306,9 @@ This example walked through creating a source, which is a way of connecting
 Materialize to an external data source. We created a connection to Redpanda
 Cloud using AWS PrivateLink and credentials securely stored as secrets in
 Materialize's secret management system. For input formats, we used `JSON`, but
-you can also ingest Redpanda messages formatted in e.g. [Avro and Protobuf](/sql/create-source/kafka/#supported-formats).
+you can also ingest Redpanda messages formatted in e.g. [Avro and Protobuf](/self-managed/v2025.01/sql/create-source/kafka/#supported-formats).
 You can find more details about the various different supported formats and
-possible configurations in the [reference documentation](/sql/create-source/kafka/).
+possible configurations in the [reference documentation](/self-managed/v2025.01/sql/create-source/kafka/).
 
 {{< /tab >}}
 {{< /tabs >}}

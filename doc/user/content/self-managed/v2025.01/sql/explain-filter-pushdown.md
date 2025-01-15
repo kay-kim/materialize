@@ -47,7 +47,7 @@ the shard.
 ## Examples
 
 For the following examples, assume that you have created [an auction house load
-generator source](/sql/create-source/load-generator/#creating-an-auction-load-generator)
+generator source](/self-managed/v2025.01/sql/create-source/load-generator/#creating-an-auction-load-generator)
 in your environment.
 
 ### Explaining a `SELECT` query

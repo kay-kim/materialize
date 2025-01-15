@@ -2,9 +2,9 @@
 title: "Redpanda"
 description: "Get details about using Materialize with Redpanda"
 aliases:
-  - /third-party/redpanda/
-  - /integrations/redpanda/
-  - /connect-sources/redpanda/
+  - /self-managed/v2025.01/third-party/redpanda/
+  - /self-managed/v2025.01/integrations/redpanda/
+  - /self-managed/v2025.01/connect-sources/redpanda/
 menu:
   main:
     parent: "redpanda"
@@ -38,5 +38,5 @@ For more information on general Redpanda configuration, see the
 
 ## Related pages
 
-- [`CREATE SOURCE`](/sql/create-source/kafka/)
-- [`CREATE SINK`](/sql/create-sink/)
+- [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/kafka/)
+- [`CREATE SINK`](/self-managed/v2025.01/sql/create-sink/)

@@ -2,7 +2,7 @@
 title: "Single sign-on (SSO)"
 description: "Configure single sign-on (SSO) using SAML or Open ID Connect as an additional layer of account security."
 aliases:
-  - /manage/sso/
+  - /self-managed/v2025.01/manage/sso/
 ---
 
 As an **administrator** of a Materialize organization, you can configure single
@@ -16,7 +16,7 @@ all systems in your organization.
 {{< note >}}
 Single sign-on in Materialize only supports authentication into the Materialize
 console. Permissions within the database are handled separately using
-[role-based access control](/manage/access-control/).
+[role-based access control](/self-managed/v2025.01/manage/access-control/).
 {{</ note >}}
 
 ## Before you begin
@@ -60,4 +60,4 @@ To make Materialize metadata available to Datadog, you must configure and run th
 
     - `Organization Member`: can login to the console and has restricted access
       to the database, depending  on the privileges defined via
-      [role-based access control (RBAC)](/manage/access-control/#role-based-access-control-rbac).
+      [role-based access control (RBAC)](/self-managed/v2025.01/manage/access-control/#role-based-access-control-rbac).

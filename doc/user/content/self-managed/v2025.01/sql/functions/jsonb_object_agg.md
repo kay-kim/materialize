@@ -7,7 +7,7 @@ menu:
 ---
 
 The `jsonb_object_agg(keys, values)` aggregate function zips together `keys`
-and `values` into a [`jsonb`](/sql/types/jsonb) object.
+and `values` into a [`jsonb`](/self-managed/v2025.01/sql/types/jsonb) object.
 The input values to the aggregate can be [filtered](../filters).
 
 ## Syntax
@@ -81,4 +81,4 @@ The `FILTER` clause in the statement above returns values that are not `NULL` an
 
 ## See also
 
-* [`jsonb_agg`](/sql/functions/jsonb_agg)
+* [`jsonb_agg`](/self-managed/v2025.01/sql/functions/jsonb_agg)

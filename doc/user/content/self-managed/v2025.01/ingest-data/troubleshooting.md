@@ -8,15 +8,15 @@ menu:
     parent: ingest-data
     weight: 40
 aliases:
-  - /ops/diagnosing-using-sql/
-  - /ops/troubleshooting/
+  - /self-managed/v2025.01/ops/diagnosing-using-sql/
+  - /self-managed/v2025.01/ops/troubleshooting/
 ---
 
 As you wire up data ingestion in Materialize, you might run into some snags or
 unexpected scenarios. This guide collects common questions around data
 ingestion to help you troubleshoot your sources. If you're looking for
 troubleshooting guidance for slow or unresponsive queries, check out the
-[`Transform data` troubleshooting](/transform-data/troubleshooting) guide
+[`Transform data` troubleshooting](/self-managed/v2025.01/transform-data/troubleshooting) guide
 instead.
 
 {{< tip >}}
@@ -30,7 +30,7 @@ to https://console.materialize.com/, clicking the **Sources** tab in the
 navigation bar, and clicking the affected source.
 
 Alternatively, you can get this information from the system catalog by querying
-the [`mz_source_statuses`](/sql/system-catalog/mz_internal/#mz_source_statuses)
+the [`mz_source_statuses`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_source_statuses)
 table:
 
 ```mzsql
@@ -61,7 +61,7 @@ Snapshotting can take between a few minutes to several hours, depending on the
 size of your dataset and the [size of your ingestion cluster](https://materialize.com/docs/sql/create-cluster/#disk-enabled-sizes).
 
 To determine whether your source has completed ingesting the initial snapshot,
-you can query the [`mz_source_statistics`](/sql/system-catalog/mz_internal/#mz_source_statistics)
+you can query the [`mz_source_statistics`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_source_statistics)
 system catalog table:
 
 ```mzsql
@@ -81,7 +81,7 @@ monitor its progress. See [How do I monitor source ingestion progress?](#how-do-
 ## How do I monitor source ingestion progress?
 
 Repeatedly query the
-[`mz_source_statistics`](/sql/system-catalog/mz_internal/#mz_source_statistics)
+[`mz_source_statistics`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_source_statistics)
 table and look for ingestion statistics that advance over time:
 
 ```mzsql

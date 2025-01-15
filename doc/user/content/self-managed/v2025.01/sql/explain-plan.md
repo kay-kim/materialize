@@ -2,7 +2,7 @@
 title: "EXPLAIN PLAN"
 description: "`EXPLAIN PLAN` is used to inspect the plans of `SELECT` statements, indexes, and materialized views."
 aliases:
-  - /sql/explain/
+  - /self-managed/v2025.01/sql/explain/
 menu:
   main:
     parent: commands
@@ -211,7 +211,7 @@ Join on=(#1 = #2 AND #3 = #4) type=delta
 The `%0`, `%1`, etc. refer to each of the join inputs.
 A *differential* join shows one join path, which is simply a sequence of binary
 joins (each of whose results need to be maintained as state).
-A [*delta* join](/transform-data/optimization/#optimize-multi-way-joins-with-delta-joins)
+A [*delta* join](/self-managed/v2025.01/transform-data/optimization/#optimize-multi-way-joins-with-delta-joins)
 shows a join path for each of the inputs.
 The expressions in
 a bracket show the key for joining with that input. The letters after the brackets
@@ -236,7 +236,7 @@ Finish order_by=[#1 asc nulls_last, #0 desc nulls_first] limit=5 output=[#0, #1]
     ReadStorage materialize.public.s
 ```
 
-Below the plan, a "Used indexes" section indicates which indexes will be used by the query, [and in what way](/transform-data/optimization/#use-explain-to-verify-index-usage).
+Below the plan, a "Used indexes" section indicates which indexes will be used by the query, [and in what way](/self-managed/v2025.01/transform-data/optimization/#use-explain-to-verify-index-usage).
 
 ### Reference: Plan operators
 
@@ -254,7 +254,7 @@ Below the plan, a "Used indexes" section indicates which indexes will be used by
 
 ## Examples
 
-For the following examples, let's assume that you have [the auction house load generator](/sql/create-source/load-generator/#creating-an-auction-load-generator) created in your current environment.
+For the following examples, let's assume that you have [the auction house load generator](/self-managed/v2025.01/sql/create-source/load-generator/#creating-an-auction-load-generator) created in your current environment.
 
 ### Explaining a `SELECT` query
 

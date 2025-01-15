@@ -5,7 +5,7 @@ menu:
   main:
     parent: commands
 aliases:
-    - /sql/show-column
+    - /self-managed/v2025.01/sql/show-column
 ---
 
 `SHOW COLUMNS` lists the columns available for an object. This can be a source,

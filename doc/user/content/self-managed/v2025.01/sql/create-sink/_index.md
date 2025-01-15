@@ -11,7 +11,7 @@ menu:
     weight: 30
 ---
 
-A [sink](/concepts/sinks/) describes an external system you
+A [sink](/self-managed/v2025.01/concepts/sinks/) describes an external system you
 want Materialize to write data to, and provides details about how to encode
 that data.
 
@@ -22,8 +22,8 @@ following external systems:
 
 {{< multilinkbox >}}
 {{< linkbox title="Message Brokers" >}}
-- [Kafka](/sql/create-sink/kafka)
-- [Redpanda](/sql/create-sink/kafka)
+- [Kafka](/self-managed/v2025.01/sql/create-sink/kafka)
+- [Redpanda](/self-managed/v2025.01/sql/create-sink/kafka)
 {{</ linkbox >}}
 {{</ multilinkbox >}}
 
@@ -67,7 +67,7 @@ The privileges required to execute this statement are:
 
 ## Related pages
 
-- [Sinks](/concepts/sinks/)
-- [`SHOW SINKS`](/sql/show-sinks/)
-- [`SHOW COLUMNS`](/sql/show-columns/)
-- [`SHOW CREATE SINK`](/sql/show-create-sink/)
+- [Sinks](/self-managed/v2025.01/concepts/sinks/)
+- [`SHOW SINKS`](/self-managed/v2025.01/sql/show-sinks/)
+- [`SHOW COLUMNS`](/self-managed/v2025.01/sql/show-columns/)
+- [`SHOW CREATE SINK`](/self-managed/v2025.01/sql/show-create-sink/)

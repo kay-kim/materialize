@@ -120,7 +120,8 @@ Check out the {{< self-managed/latest_version >}} tag.
       ```
 
       If you run into an error during deployment, refer to the
-      [Troubleshooting](/self-hosted/troubleshooting) guide.
+      [Troubleshooting](/self-managed/v2025.01/installation/troubleshooting/)
+      guide.
 
 1. Install PostgreSQL and minIO.
 
@@ -205,7 +206,8 @@ Check out the {{< self-managed/latest_version >}} tag.
        ```
 
        If you run into an error during deployment, refer to the
-       [Troubleshooting](/self-hosted/troubleshooting) guide.
+       [Troubleshooting](/self-managed/v2025.01/installation/troubleshooting/)
+       guide.
 
 1. Open the Materialize console in your browser:
 
@@ -237,13 +239,3 @@ Check out the {{< self-managed/latest_version >}} tag.
       [https://localhost:8080](https://localhost:8080).
 
       ![Image of self-managed Materialize console running on local minikube](/images/self-managed/self-managed-console-minkiube.png)
-
-
-## See also
-
-- [Materialize Kubernetes Operator Helm Chart](/self-hosted/)
-- [Materialize Operator Configuration](/self-hosted/configuration/)
-- [Troubleshooting](/self-managed/troubleshooting/)
-- [Operational guidelines](/self-managed/operational-guidelines/)
-- [Installation](/self-managed/installation/)
-- [Upgrading](/self-managed/upgrading/)

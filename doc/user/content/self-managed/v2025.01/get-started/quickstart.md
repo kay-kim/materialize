@@ -7,17 +7,17 @@ menu:
     weight: 15
     name: "Quickstart"
 aliases:
-  - /katacoda/
-  - /quickstarts/
-  - /install/
+  - /self-managed/v2025.01/katacoda/
+  - /self-managed/v2025.01/quickstarts/
+  - /self-managed/v2025.01/install/
 ---
 
 {{% text-style %}}
 
 Materialize provides always-fresh results while also providing [strong
-consistency guarantees](/get-started/isolation-level/). In Materialize, both
-[indexes](/concepts/indexes/ "Indexes represents query results stored in memory
-within a cluster") and [materialized views](/concepts/views/#materialized-views)
+consistency guarantees](/self-managed/v2025.01/get-started/isolation-level/). In Materialize, both
+[indexes](/self-managed/v2025.01/concepts/indexes/ "Indexes represents query results stored in memory
+within a cluster") and [materialized views](/self-managed/v2025.01/concepts/views/#materialized-views)
 **incrementally update** results when Materialize ingests new data; i.e., work
 is performed on writes. Because work is performed on writes, reads from these
 objects return up-to-date results while being computationally **free**.
@@ -26,11 +26,11 @@ In this quickstart, you will continuously ingest a sample auction data set to
 build an operational use case around finding auction winners and auction
 flippers. Specifically, you will:
 
-- Create and query various [views](/concepts/views/) on sample auction data. The
+- Create and query various [views](/self-managed/v2025.01/concepts/views/) on sample auction data. The
   data is continually generated at 1 second intervals to mimic a data-intensive
   workload.
 
-- Create an [index](/concepts/indexes "Indexes represents query results stored
+- Create an [index](/self-managed/v2025.01/concepts/indexes "Indexes represents query results stored
   in memory within a cluster") to compute and store view results in memory. As
   new auction data arrives, the index **incrementally updates** view
   results instead of recalculating the results from scratch, making fresh
@@ -48,7 +48,7 @@ free
 trial](https://materialize.com/register/?utm_campaign=General&utm_source=documentation).
 
 Alternatively, you can [download the Materialize
-Emulator](/get-started/install-materialize-emulator/) to test locally. However,
+Emulator](/self-managed/v2025.01/get-started/install-materialize-emulator/) to test locally. However,
 the Materialize Emulator does not provide the full experience of using
 Materialize.
 
@@ -64,9 +64,9 @@ Materialize.
 ## Step 1. Create a schema
 
 By default, you are using the `quickstart` cluster, working in the
-`materialize.public` [namespace](/sql/namespaces/), where:
+`materialize.public` [namespace](/self-managed/v2025.01/sql/namespaces/), where:
 
-- A [cluster](/concepts/clusters/) is an isolated pool of compute resources
+- A [cluster](/self-managed/v2025.01/concepts/clusters/) is an isolated pool of compute resources
   (CPU, memory, and scratch disk space) for running your workloads),
 
 - `materialize` is the database name, and
@@ -85,7 +85,7 @@ Alternatively, by double-quoting the name, you can bypass the aforementioned
 constraints with the following exception: schema names, whether double-quoted or
 not, cannot contain the dot (`.`).
 
-See also [Naming restrictions](/sql/identifiers/#naming-restrictions).
+See also [Naming restrictions](/self-managed/v2025.01/sql/identifiers/#naming-restrictions).
 
 1. Enter a schema name in the text field and click the `Create` button.
 
@@ -94,17 +94,17 @@ See also [Naming restrictions](/sql/identifiers/#naming-restrictions).
 
 ## Step 2. Create the source
 
-[Sources](/concepts/sources/) are external systems from which Materialize reads
+[Sources](/self-managed/v2025.01/concepts/sources/) are external systems from which Materialize reads
 in data. This tutorial uses Materialize's [sample `Auction` load
-generator](/sql/create-source/load-generator/#auction) to create the source.
+generator](/self-managed/v2025.01/sql/create-source/load-generator/#auction) to create the source.
 
-1. Create the [source](/concepts/sources "External systems from which
-   Materialize reads data.") using the [`CREATE SOURCE`](/sql/create-source/)
+1. Create the [source](/self-managed/v2025.01/concepts/sources "External systems from which
+   Materialize reads data.") using the [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/)
    command.
 
    For the [sample `Auction` load
-   generator](/sql/create-source/load-generator/#auction), the quickstart uses
-   [`CREATE SOURCE`](/sql/create-source/) with the `FROM LOAD GENERATOR` clause
+   generator](/self-managed/v2025.01/sql/create-source/load-generator/#auction), the quickstart uses
+   [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/) with the `FROM LOAD GENERATOR` clause
    that works specifically with Materialize's sample data generators. The
    tutorial specifies that the generator should emit new data every 1s.
 
@@ -120,7 +120,7 @@ generator](/sql/create-source/load-generator/#auction) to create the source.
     upstream table that is selected for ingestion, Materialize creates a
     subsource.
 
-1. Use the [`SHOW SOURCES`](/sql/show-sources/) command to see the results of
+1. Use the [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources/) command to see the results of
    the previous step.
 
     ```mzsql
@@ -141,7 +141,7 @@ generator](/sql/create-source/load-generator/#auction) to create the source.
     | users                  | subsource      | quickstart |         |
     ```
 
-    A [`subsource`](/sql/show-subsources) is how Materialize refers to a table
+    A [`subsource`](/self-managed/v2025.01/sql/show-subsources) is how Materialize refers to a table
     that has the following properties:
 
     - A subsource can only be written by the source; in this case, the
@@ -149,7 +149,7 @@ generator](/sql/create-source/load-generator/#auction) to create the source.
 
     - Users can read from subsources.
 
-1. Use the [`SELECT`](/sql/select) statement to query `auctions` and `bids`.
+1. Use the [`SELECT`](/self-managed/v2025.01/sql/select) statement to query `auctions` and `bids`.
 
     * View a sample row in `auctions`:
 
@@ -208,7 +208,7 @@ generator](/sql/create-source/load-generator/#auction) to create the source.
 
 ## Step 3. Create a view to find winning bids
 
-A [view](/concepts/views/) is a saved name for the underlying `SELECT`
+A [view](/self-managed/v2025.01/concepts/views/) is a saved name for the underlying `SELECT`
 statement, providing an alias/shorthand when referencing the query. The
 underlying query is not executed during the view creation; instead, the
 underlying query is executed when the view is referenced.
@@ -218,8 +218,8 @@ winning bid for an auction is the highest bid entered for an auction before the
 auction ended. As new auction and bid data appears, the query must be rerun to
 get up-to-date results.
 
-1. Using the [`CREATE VIEW`](/sql/create-view/) command, create a
-   [**view**](/concepts/views/ "Saved name/alias for a query") to find the
+1. Using the [`CREATE VIEW`](/self-managed/v2025.01/serve-results/s3/) command, create a
+   [**view**](/self-managed/v2025.01/concepts/views/ "Saved name/alias for a query") to find the
    winning (highest) bids.
 
    ```mzsql
@@ -236,12 +236,12 @@ get up-to-date results.
      b.buyer;
    ```
 
-   Materialize provides an idiomatic way to perform [Top-K queries](/transform-data/idiomatic-materialize-sql/top-k/)
-   using the [`DISTINCT ON`](/transform-data/idiomatic-materialize-sql/top-k/#for-k--1-1)
+   Materialize provides an idiomatic way to perform [Top-K queries](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/)
+   using the [`DISTINCT ON`](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/#for-k--1-1)
    clause. This clause is used to group by account `id` and return the first
    element within that group according to the specified ordering.
 
-1. [`SELECT`](/sql/select/) from the view to execute the underlying query.
+1. [`SELECT`](/self-managed/v2025.01/sql/select/) from the view to execute the underlying query.
    For example:
 
    ```mzsql
@@ -263,7 +263,7 @@ get up-to-date results.
    grows.
 
    In Materialize, to make the queries more performant even as data
-   continues to grow, you can create [**indexes**](/concepts/indexes/) on views.
+   continues to grow, you can create [**indexes**](/self-managed/v2025.01/concepts/indexes/) on views.
    Indexes provide always fresh view results in memory within a cluster by
    performing incremental updates as new data arrives. Queries can then read
    from the in-memory, already up-to-date results instead of re-running the
@@ -275,17 +275,17 @@ get up-to-date results.
 ## Step 4. Create an index to provide up-to-date results
 
 Indexes in Materialize represents query results stored in memory within a
-cluster. In Materialize, you can create [indexes](/concepts/indexes/) on views
+cluster. In Materialize, you can create [indexes](/self-managed/v2025.01/concepts/indexes/) on views
 to provide always fresh, up-to-date view results in memory within a cluster.
 Queries can then read from the in-memory, already up-to-date results instead of
 re-running the underlying statement.
 
 To provide the up-to-date results, indexes **perform incremental updates** as
 inputs change instead of recalculating the results from scratch. Additionally,
-indexes can also help [optimize operations](/transform-data/optimization/) like
+indexes can also help [optimize operations](/self-managed/v2025.01/transform-data/optimization/) like
 point lookups and joins.
 
-1. Use the [`CREATE INDEX`](/sql/create-index/) command to create the following
+1. Use the [`CREATE INDEX`](/self-managed/v2025.01/sql/create-index/) command to create the following
    index on the `winning_bids` view.
 
     ```mzsql
@@ -299,8 +299,8 @@ point lookups and joins.
    up-to-date results and are computationally **free**.
 
    This index can **also** help [optimize
-   operations](/transform-data/optimization/) like point lookups and [delta
-   joins](/transform-data/optimization/#optimize-multi-way-joins-with-delta-joins)
+   operations](/self-managed/v2025.01/transform-data/optimization/) like point lookups and [delta
+   joins](/self-managed/v2025.01/transform-data/optimization/#optimize-multi-way-joins-with-delta-joins)
    on the index column(s) as well as support ad-hoc queries.
 
 1. Rerun the previous queries on `winning_bids`.
@@ -360,13 +360,13 @@ creates:
     to provide up-to-date data.
 
     To view a sample row in `flip_activities`, run the following
-    [`SELECT`](/sql/select) command:
+    [`SELECT`](/self-managed/v2025.01/sql/select) command:
 
     ```mzsql
     SELECT * FROM flip_activities LIMIT 10;
     ```
 
-1. Use [`CREATE TABLE`](/sql/create-table) to create a `known_flippers` table
+1. Use [`CREATE TABLE`](/self-managed/v2025.01/sql/create-table) to create a `known_flippers` table
    that you can manually populate with known flippers. That is, assume that
    separate from your auction activities data, you receive independent data
    specifying users as flippers.
@@ -407,12 +407,12 @@ you will serve results may be preferred.
 
 ## Step 6. Subscribe to see results change
 
-[`SUBSCRIBE`](/sql/subscribe/) to `flippers` to see new flippers appear as new
+[`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) to `flippers` to see new flippers appear as new
 data arrives (either from the known_flippers table or the flip_activities view).
 
-1. Use [`SUBSCRIBE`](/sql/subscribe/) command to see flippers
+1. Use [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) command to see flippers
    as new data arrives (either from the `known_flippers` table or the
-   `flip_activities` view). [`SUBSCRIBE`](/sql/subscribe/) returns data from a
+   `flip_activities` view). [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) returns data from a
    source, table, view, or materialized view as they occur, in this case, the
    view `flippers`.
 
@@ -425,7 +425,7 @@ data arrives (either from the known_flippers table or the flip_activities view).
    ```
 
    The optional [`WITH (snapshot = false)`
-   option](/sql/subscribe/#with-options) indicates that the command displays
+   option](/self-managed/v2025.01/sql/subscribe/#with-options) indicates that the command displays
    only the new flippers that come in after the start of the `SUBSCRIBE`
    operation, and not the flippers in the view at the start of the operation.
 
@@ -520,7 +520,7 @@ data comes in, this step creates the following views for completed auctions:
 
 To clean up the quickstart environment:
 
-1. Use the [`DROP SOURCE ... CASCADE`](/sql/drop-source/) command to drop
+1. Use the [`DROP SOURCE ... CASCADE`](/self-managed/v2025.01/sql/drop-source/) command to drop
    `auction_house` source and its dependent objects, including views and indexes
    created on the `auction_house` subsources.
 
@@ -528,7 +528,7 @@ To clean up the quickstart environment:
    DROP SOURCE auction_house CASCADE;
    ```
 
-1. Use the [`DROP TABLE`](/sql/drop-table) command to drop the separate
+1. Use the [`DROP TABLE`](/self-managed/v2025.01/sql/drop-table) command to drop the separate
    `known_flippers` table.
 
    ```mzsql
@@ -537,7 +537,7 @@ To clean up the quickstart environment:
 
 ## Summary
 
-In Materialize, [indexes](/concepts/indexes/) represent query results stored in
+In Materialize, [indexes](/self-managed/v2025.01/concepts/indexes/) represent query results stored in
 memory within a cluster. When you create an index on a view, the index
 incrementally updates the view results (instead of recalculating the results
 from scratch) as Materialize ingests new data. These up-to-date results are then
@@ -566,35 +566,35 @@ The quickstart used an index since:
 
 Before creating an index (which represents query results stored in memory),
 consider its memory usage as well as its [compute cost
-implications](/administration/billing/#compute). For best practices when
-creating indexes, see [Index Best Practices](/concepts/indexes/#best-practices).
+implications](/self-managed/v2025.01/administration/billing/#compute). For best practices when
+creating indexes, see [Index Best Practices](/self-managed/v2025.01/concepts/indexes/#best-practices).
 
 ### Additional information
 
-- [Clusters](/concepts/clusters)
-- [Indexes](/concepts/indexes)
-- [Sources](/concepts/sources)
-- [Views](/concepts/views/)
+- [Clusters](/self-managed/v2025.01/concepts/clusters)
+- [Indexes](/self-managed/v2025.01/concepts/indexes)
+- [Sources](/self-managed/v2025.01/concepts/sources)
+- [Views](/self-managed/v2025.01/concepts/views/)
 - [Idiomatic Materialize SQL
-  chart](/transform-data/idiomatic-materialize-sql/appendix/idiomatic-sql-chart/)
-- [Usage & Billing](/administration/billing/#compute)
-- [`CREATE INDEX`](/sql/create-index/)
-- [`CREATE SCHEMA`](/sql/create-schema/)
-- [`CREATE SOURCE`](/sql/create-source/)
-- [`CREATE TABLE`](/sql/create-table)
-- [`CREATE VIEW`](/sql/create-view/)
-- [`DROP VIEW`](/sql/drop-view)
-- [`DROP SOURCE`](/sql/drop-source/)
-- [`DROP TABLE`](/sql/drop-table)
-- [`SELECT`](/sql/select)
-- [`SUBSCRIBE`](/sql/subscribe/)
+  chart](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/appendix/idiomatic-sql-chart/)
+- [Usage & Billing](/self-managed/v2025.01/administration/billing/#compute)
+- [`CREATE INDEX`](/self-managed/v2025.01/sql/create-index/)
+- [`CREATE SCHEMA`](/self-managed/v2025.01/sql/create-schema/)
+- [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/)
+- [`CREATE TABLE`](/self-managed/v2025.01/sql/create-table)
+- [`CREATE VIEW`](/self-managed/v2025.01/serve-results/s3/)
+- [`DROP VIEW`](/self-managed/v2025.01/sql/drop-view)
+- [`DROP SOURCE`](/self-managed/v2025.01/sql/drop-source/)
+- [`DROP TABLE`](/self-managed/v2025.01/sql/drop-table)
+- [`SELECT`](/self-managed/v2025.01/sql/select)
+- [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/)
 
 ## Next steps
 
 [//]: # "TODO(morsapaes) Extend to suggest third party tools. dbt, Census and Metabase could all fit here to do interesting things as a follow-up."
 
 To get started ingesting your own data from an external system like Kafka, MySQL
-or PostgreSQL, check the documentation for [sources](/sql/create-source/), and
+or PostgreSQL, check the documentation for [sources](/self-managed/v2025.01/sql/create-source/), and
 navigate to **Data** > **Sources** > **New source** in the [Materialize Console](https://console.materialize.com/)
 to create your first source.
 

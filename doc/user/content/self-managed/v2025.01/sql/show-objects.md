@@ -5,7 +5,7 @@ menu:
   main:
     parent: commands
 aliases:
-    - /sql/show-object
+    - /self-managed/v2025.01/sql/show-object
 ---
 
 `SHOW OBJECTS` returns a list of all objects in Materialize for a given schema.

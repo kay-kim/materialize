@@ -6,7 +6,7 @@ menu:
     parent: access-control
     weight: 20
 aliases:
-  - /sql/builtin-roles/
+  - /self-managed/v2025.01/sql/builtin-roles/
 ---
 
 This page outlines how to create and manage roles in Materialize.
@@ -60,10 +60,10 @@ DROP ROLE <role_name>;
 ## Builtin roles
 Certain internal objects may only be queried by superusers or by users
 belonging to a particular builtin role, which superusers may
-[grant](/sql/grant-role). These include the following:
+[grant](/self-managed/v2025.01/sql/grant-role). These include the following:
 
 | Name                  | Description                                                                                                                                                                                                                                                                                                                                                                                                   |
 |-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `mz_monitor`          | Grants access to objects that reveal actions taken by other users, in particular, SQL statements they have issued. Includes [`mz_recent_activity_log`](/sql/system-catalog/mz_internal#mz_recent_activity_log) and [`mz_notices`](/sql/system-catalog/mz_internal#mz_notices).                                                                                                                                    |
-| `mz_monitor_redacted` | Grants access to objects that reveal less sensitive information about actions taken by other users, for example, SQL statements they have issued with constant values redacted. Includes `mz_recent_activity_log_redacted`, [`mz_notices_redacted`](/sql/system-catalog/mz_internal#mz_notices_redacted), and [`mz_statement_lifecycle_history`](/sql/system-catalog/mz_internal#mz_statement_lifecycle_history). |
+| `mz_monitor`          | Grants access to objects that reveal actions taken by other users, in particular, SQL statements they have issued. Includes [`mz_recent_activity_log`](/self-managed/v2025.01/sql/system-catalog/mz_internal#mz_recent_activity_log) and [`mz_notices`](/self-managed/v2025.01/sql/system-catalog/mz_internal#mz_notices).                                                                                                                                    |
+| `mz_monitor_redacted` | Grants access to objects that reveal less sensitive information about actions taken by other users, for example, SQL statements they have issued with constant values redacted. Includes `mz_recent_activity_log_redacted`, [`mz_notices_redacted`](/self-managed/v2025.01/sql/system-catalog/mz_internal#mz_notices_redacted), and [`mz_statement_lifecycle_history`](/self-managed/v2025.01/sql/system-catalog/mz_internal#mz_statement_lifecycle_history). |
 |                       |

@@ -2,7 +2,7 @@
 title: "now and mz_now functions"
 description: "Details the differences between the `now()` and `mz_now()` functions."
 aliases:
-  - /sql/functions/now_and_mz_logical_timestamp/
+  - /self-managed/v2025.01/sql/functions/now_and_mz_logical_timestamp/
 menu:
   main:
     parent: 'sql-functions'
@@ -24,7 +24,7 @@ The typical uses of `now()` and `mz_now()` are:
 
   You can use `mz_now()` in a `WHERE` or `HAVING` clause to limit the working dataset.
   This is referred to as a **temporal filter**.
-  See the [temporal filter](/sql/patterns/temporal-filters) pattern for more details.
+  See the [temporal filter](/self-managed/v2025.01/sql/patterns/temporal-filters) pattern for more details.
 
 * **Query timestamp introspection**
 
@@ -33,14 +33,14 @@ The typical uses of `now()` and `mz_now()` are:
 
 ### Logical timestamp selection
 
-When using the [serializable](/get-started/isolation-level#serializable)
+When using the [serializable](/self-managed/v2025.01/get-started/isolation-level#serializable)
 isolation level, the logical timestamp may be arbitrarily ahead of or behind the
 system clock. For example, at a wall clock time of 9pm, Materialize may choose
 to execute a serializable query as of logical time 8:30pm, perhaps because data
 for 8:30–9pm has not yet arrived. In this scenario, `now()` would return 9pm,
 while `mz_now()` would return 8:30pm.
 
-When using the [strict serializable](/get-started/isolation-level#strict-serializable)
+When using the [strict serializable](/self-managed/v2025.01/get-started/isolation-level#strict-serializable)
 isolation level, Materialize attempts to keep the logical timestamp reasonably
 close to wall clock time. In most cases, the logical timestamp of a query will
 be within a few seconds of the wall clock time. For example, when executing
@@ -55,7 +55,7 @@ In this scenario, both `now()` and `mz_now()` would return 9pm.
     create an index or a materialized view on a query that calls `now()`.
 
   * Queries that use `mz_now()` can only be materialized if the call to
-    `mz_now()` is used in a [temporal filter](/sql/patterns/temporal-filters).
+    `mz_now()` is used in a [temporal filter](/self-managed/v2025.01/sql/patterns/temporal-filters).
 
 These limitations are in place because `now()` changes every microsecond and
 `mz_now()` changes every millisecond. Allowing these functions to be
@@ -159,5 +159,5 @@ ERROR:  cannot materialize call to current_timestamp
 ERROR:  cannot materialize call to mz_now
 ```
 
-[`mz_timestamp`]: /sql/types/mz_timestamp
-[`timestamp with time zone`]: /sql/types/timestamptz
+[`mz_timestamp`]: ]: /self-managed/v2025.01/sql/types/mz_timestamp
+[`timestamp with time zone`]: ]: /self-managed/v2025.01/sql/types/timestamptz

@@ -50,7 +50,7 @@ whether users are on CockroachDB core or enterprise."
 [Changefeeds](https://www.cockroachlabs.com/docs/stable/change-data-capture-overview)
 capture row-level changes resulting from `INSERT`, `UPDATE`, and `DELETE`
 operations against CockroachDB tables and publish them as events to Kafka
-(or other Kafka API-compatible broker). You can then use the [Kafka source](/sql/create-source/kafka/#using-debezium)
+(or other Kafka API-compatible broker). You can then use the [Kafka source](/self-managed/v2025.01/sql/create-source/kafka/#using-debezium)
 to consume these changefeed events into Materialize, making the data available
 for transformation.
 
@@ -99,11 +99,11 @@ integration guides after."
 Now that you've created an ingestion cluster, you can connect Materialize to
 your Kafka broker and start ingesting data. The exact steps depend on your
 authentication and networking configurations, so refer to the
-[`CREATE CONNECTION`](/sql/create-connection/#kafka) documentation for further
+[`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#kafka) documentation for further
 guidance.
 
 1. In the [SQL Shell](https://console.materialize.com/), or your preferred SQL
-   client connected to Materialize, use the [`CREATE SECRET`](/sql/create-secret/)
+   client connected to Materialize, use the [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret/)
    command to securely store the credentials to connect to your Kafka broker
    and, optionally, schema registry:
 
@@ -113,7 +113,7 @@ guidance.
     CREATE SECRET csr_password AS '<CSR_PASSWORD>';
     ```
 
-1. Use the [`CREATE CONNECTION`](/sql/create-connection/#kafka) command to create
+1. Use the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#kafka) command to create
    a connection object with access and authentication details for Materialize to
    use:
 
@@ -137,7 +137,7 @@ guidance.
     );
     ```
 
-1. Use the [`CREATE SOURCE`](/sql/create-source/) command to connect Materialize
+1. Use the [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/) command to connect Materialize
    to your Kafka broker and start ingesting data from the target topic:
 
    ```mzsql
@@ -171,15 +171,15 @@ With Materialize ingesting your CockroachDB data into durable storage, you can
 start exploring the data, computing real-time results that stay up-to-date as
 new data arrives, and serving results efficiently.
 
-- Explore your data with [`SHOW SOURCES`](/sql/show-sources) and [`SELECT`](/sql/select/).
+- Explore your data with [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources) and [`SELECT`](/self-managed/v2025.01/sql/select/).
 
-- Compute real-time results in memory with [`CREATE VIEW`](/sql/create-view/)
-  and [`CREATE INDEX`](/sql/create-index/) or in durable
-  storage with [`CREATE MATERIALIZED VIEW`](/sql/create-materialized-view/).
+- Compute real-time results in memory with [`CREATE VIEW`](/self-managed/v2025.01/serve-results/s3/)
+  and [`CREATE INDEX`](/self-managed/v2025.01/sql/create-index/) or in durable
+  storage with [`CREATE MATERIALIZED VIEW`](/self-managed/v2025.01/sql/create-materialized-view/).
 
-- Serve results to a PostgreSQL-compatible SQL client or driver with [`SELECT`](/sql/select/)
-  or [`SUBSCRIBE`](/sql/subscribe/) or to an external message broker with
-  [`CREATE SINK`](/sql/create-sink/).
+- Serve results to a PostgreSQL-compatible SQL client or driver with [`SELECT`](/self-managed/v2025.01/sql/select/)
+  or [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) or to an external message broker with
+  [`CREATE SINK`](/self-managed/v2025.01/sql/create-sink/).
 
-- Check out the [tools and integrations](/integrations/) supported by
+- Check out the [tools and integrations](/self-managed/v2025.01/integrations/) supported by
   Materialize.

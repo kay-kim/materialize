@@ -2,8 +2,8 @@
 title: "Rules execution engine"
 description: "Encode rules as data and apply them using lateral joins."
 aliases:
-  - /guides/rules-engine/
-  - /sql/patterns/rules-engine/
+  - /self-managed/v2025.01/guides/rules-engine/
+  - /self-managed/v2025.01/sql/patterns/rules-engine/
 menu:
   main:
     parent: 'sql-patterns'
@@ -63,7 +63,7 @@ In our example, for each rule in a `bird_rules` dataset, we filter the `birds` d
     (2, 'P', 'LTE', 100.0, '["Black","White"]'),
     (3, 'R', 'GTE', 20.0, '["Red"]');
     ```
-    Each rule has a unique `id` and encodes filters on starting letter, wingspan, and color. For `wingspan_operator`, `'GTE'` means "greater than or equal" and `'LTE'` means "less than or equal". For more complicated rules with varying schemas, consider using the [`jsonb` type](/sql/types/jsonb) and adjust the logic in the upcoming `LATERAL` join to suit your needs.
+    Each rule has a unique `id` and encodes filters on starting letter, wingspan, and color. For `wingspan_operator`, `'GTE'` means "greater than or equal" and `'LTE'` means "less than or equal". For more complicated rules with varying schemas, consider using the [`jsonb` type](/self-managed/v2025.01/sql/types/jsonb) and adjust the logic in the upcoming `LATERAL` join to suit your needs.
 
 ### Create the View
 

@@ -6,8 +6,6 @@ menu:
     parent: concepts
     weight: 25
     identifier: 'concepts-sinks'
-aliases:
-  - /get-started/key-concepts/#sinks
 ---
 
 ## Overview
@@ -19,8 +17,8 @@ the stream of changes to that view or source. In effect, Materialize sinks act a
 change data capture (CDC) producers for the given source or view.
 
 Currently, Materialize only supports sending sink data to Kafka. See
-the [Kafka sink documentation](/sql/create-sink/kafka) for details.
+the [Kafka sink documentation](/self-managed/v2025.01/sql/create-sink/kafka) for details.
 
 ## Related pages
 
-- [`CREATE SINK`](/sql/create-sink)
+- [`CREATE SINK`](/self-managed/v2025.01/sql/create-sink)

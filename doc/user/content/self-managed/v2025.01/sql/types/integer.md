@@ -5,12 +5,12 @@ menu:
   main:
     parent: 'sql-types'
 aliases:
-  - /sql/types/bigint
-  - /sql/types/int
-  - /sql/types/int2
-  - /sql/types/int4
-  - /sql/types/int8
-  - /sql/types/smallint
+  - /self-managed/v2025.01/sql/types/bigint
+  - /self-managed/v2025.01/sql/types/int
+  - /self-managed/v2025.01/sql/types/int2
+  - /self-managed/v2025.01/sql/types/int4
+  - /self-managed/v2025.01/sql/types/int8
+  - /self-managed/v2025.01/sql/types/smallint
 ---
 
 ## `smallint` info

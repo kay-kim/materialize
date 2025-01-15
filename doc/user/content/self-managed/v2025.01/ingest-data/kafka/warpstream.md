@@ -2,9 +2,9 @@
 title: "WarpStream"
 description: "How to securely connect WarpStream to Materialize for efficient data streaming."
 aliases:
-  - /integrations/warpstream/
-  - /connect-sources/warpstream/
-  - /ingest-data/warpstream/
+  - /self-managed/v2025.01/integrations/warpstream/
+  - /self-managed/v2025.01/connect-sources/warpstream/
+  - /self-managed/v2025.01/ingest-data/warpstream/
 menu:
   main:
     parent: "kafka"

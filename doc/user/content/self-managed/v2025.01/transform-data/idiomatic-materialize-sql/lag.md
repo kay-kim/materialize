@@ -89,7 +89,7 @@ ORDER BY fieldA;
 
 <red>
 
-Avoid the use of [`LAG(fieldZ) OVER (ORDER BY ...)`](/sql/functions/#lag) window
+Avoid the use of [`LAG(fieldZ) OVER (ORDER BY ...)`](/self-managed/v2025.01/sql/functions/#lag) window
 function when the order by field increases in a regular pattern.
 
 </red>
@@ -117,7 +117,7 @@ FROM tableA;
 
 **Idiomatic Materialize SQL:** To access the lag (previous row's field value)
 ordered by some field that increases in a **regular** pattern, use a self
-[`LEFT JOIN/LEFT OUTER JOIN`](/sql/select/join/#left-outer-join) that specifies
+[`LEFT JOIN/LEFT OUTER JOIN`](/self-managed/v2025.01/sql/select/join/#left-outer-join) that specifies
 an **equality condition** on the order by field (e.g., `ON t1.order_field =
 t2.order_field + 1`, `ON t1.order_field = t2.order_field * 2`, etc.). The `LEFT
 JOIN/LEFT OUTER JOIN` query *includes* the first row, returning `null` as its
@@ -135,7 +135,7 @@ lag value.
 <td><blue>Idiomatic Materialize SQL</blue></td>
 <td class="copyableCode">
 
-Use a self [`LEFT JOIN/LEFT OUTER JOIN`](/sql/select/join/#left-outer-join)
+Use a self [`LEFT JOIN/LEFT OUTER JOIN`](/self-managed/v2025.01/sql/select/join/#left-outer-join)
 (e.g., `FROM tableA t1 LEFT JOIN tableA t2`) that specifies an **equality
 match** on the lag's order by field (e.g., `fieldA`). The order by field must
 increment in a regular pattern in order to be represented by an equality
@@ -171,7 +171,7 @@ ORDER BY fieldA;
 <red>
 
 Avoid the use of [`LAG(fieldZ) OVER (ORDER BY ...) window
-function`](/sql/functions/#lag) when the order by field increases in a regular
+function`](/self-managed/v2025.01/sql/functions/#lag) when the order by field increases in a regular
 pattern.
 
 </red>
@@ -199,7 +199,7 @@ FROM tableA;
 {{< note >}}
 
 The example data can be found in the
-[Appendix](/transform-data/idiomatic-materialize-sql/appendix/example-orders).
+[Appendix](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/appendix/example-orders).
 
 {{</ note >}}
 
@@ -250,7 +250,7 @@ ordering can be represented by some **equality condition**.
 <td>
 
 <red>Avoid the use of [`LAG() OVER (ORDER BY ...)` window
-function](/sql/functions/#lag) to access previous row's value if the order by
+function](/self-managed/v2025.01/sql/functions/#lag) to access previous row's value if the order by
 field increases in a regular pattern.</red>
 
 <br>
@@ -272,7 +272,7 @@ FROM orders_daily_totals;
 
 Using idiomatic Materialize SQL, the following example finds the previous day's
 order total. The example uses a self [`LEFT JOIN/LEFT OUTER
-JOIN`](/sql/select/join/#left-outer-join) on `orders_daily_totals`. The
+JOIN`](/self-managed/v2025.01/sql/select/join/#left-outer-join) on `orders_daily_totals`. The
 row ordering on the `order_date` field is represented by an **equality
 condition** using an [interval of `1
 DAY`](https://materialize.com/docs/sql/types/interval/#valid-operations). The
@@ -316,7 +316,7 @@ ordering can be represented by some **equality condition**.
 <td>
 
 <red>Avoid the use of [`LAG() OVER (ORDER BY ...)`
-window function](/sql/functions/#lag) to access previous row's value if the
+window function](/self-managed/v2025.01/sql/functions/#lag) to access previous row's value if the
 order by field increases in a regular pattern.</red>
 
 <br>
@@ -337,8 +337,8 @@ FROM orders_daily_totals;
 
 ## See also
 
-- [Lead over](/transform-data/idiomatic-materialize-sql/lead)
+- [Lead over](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/lead)
 - [`INTERVAL`](https://materialize.com/docs/sql/types/interval/)
-- [`LEFT JOIN/LEFT OUTER JOIN`](/sql/select/join/#left-outer-join)
-- [`LAG()`](/sql/functions/#lag)
-- [Window functions](/sql/functions/#window-functions)
+- [`LEFT JOIN/LEFT OUTER JOIN`](/self-managed/v2025.01/sql/select/join/#left-outer-join)
+- [`LAG()`](/self-managed/v2025.01/sql/functions/#lag)
+- [Window functions](/self-managed/v2025.01/sql/functions/#window-functions)

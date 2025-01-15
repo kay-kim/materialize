@@ -42,8 +42,8 @@ performance.
 
 ## See also
 
-- [SQL Functions](/sql/functions/)
-- [SQL Types](/sql/types/)
-- [SELECT](/sql/select/)
-- [DISTINCT](/sql/select/#select-distinct)
-- [DISTINCT ON](/sql/select/#select-distinct-on)
+- [SQL Functions](/self-managed/v2025.01/sql/functions/)
+- [SQL Types](/self-managed/v2025.01/sql/types/)
+- [SELECT](/self-managed/v2025.01/sql/select/)
+- [DISTINCT](/self-managed/v2025.01/sql/select/#select-distinct)
+- [DISTINCT ON](/self-managed/v2025.01/sql/select/#select-distinct-on)

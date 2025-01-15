@@ -2,8 +2,8 @@
 title: "Deepnote"
 description: "How to create collaborative data notebooks with Deepnote"
 aliases:
-  - /third-party/deepnote/
-  - /integrations/deepnote/
+  - /self-managed/v2025.01/third-party/deepnote/
+  - /self-managed/v2025.01/integrations/deepnote/
 menu:
   main:
     parent: "bi-tools"

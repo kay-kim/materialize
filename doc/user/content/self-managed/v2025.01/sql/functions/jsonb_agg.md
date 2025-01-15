@@ -7,7 +7,7 @@ menu:
 ---
 
 The `jsonb_agg(expression)` function aggregates all values indicated by its expression,
-returning the values (including nulls) as a [`jsonb`](/sql/types/jsonb) array.
+returning the values (including nulls) as a [`jsonb`](/self-managed/v2025.01/sql/types/jsonb) array.
 The input values to the aggregate can be [filtered](../filters).
 
 ## Syntax
@@ -67,4 +67,4 @@ FROM (
 
 ## See also
 
-* [`jsonb_object_agg`](/sql/functions/jsonb_object_agg)
+* [`jsonb_object_agg`](/self-managed/v2025.01/sql/functions/jsonb_object_agg)

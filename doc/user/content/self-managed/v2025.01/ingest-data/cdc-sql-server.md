@@ -2,9 +2,9 @@
 title: "SQL Server CDC using Kafka and Debezium"
 description: "How to propagate Change Data Capture (CDC) data from a SQL Server database to Materialize"
 aliases:
-  - /guides/cdc-sql-server/
-  - /integrations/cdc-sql-server/
-  - /connect-sources/cdc-sql-server/
+  - /self-managed/v2025.01/guides/cdc-sql-server/
+  - /self-managed/v2025.01/integrations/cdc-sql-server/
+  - /self-managed/v2025.01/connect-sources/cdc-sql-server/
 menu:
   main:
     parent: "sql-server"
@@ -24,7 +24,7 @@ incrementally updated results on top of CDC data.
 
 ## Kafka + Debezium
 
-Use [Debezium](https://debezium.io/) and the [Kafka source](/sql/create-source/kafka/#using-debezium)
+Use [Debezium](https://debezium.io/) and the [Kafka source](/self-managed/v2025.01/sql/create-source/kafka/#using-debezium)
 to propagate CDC data from SQL Server to Materialize. Debezium captures
 row-level changes resulting from `INSERT`, `UPDATE`, and `DELETE` operations in
 the upstream database and publishes them as events to Kafka using Kafka
@@ -156,7 +156,7 @@ to Kafka.
 Debezium emits change events using an envelope that contains detailed
 information about upstream database operations, like the `before` and `after`
 values for each record. To create a source that interprets the
-[Debezium envelope](/sql/create-source/kafka/#using-debezium) in Materialize:
+[Debezium envelope](/self-managed/v2025.01/sql/create-source/kafka/#using-debezium) in Materialize:
 
 ```mzsql
 CREATE SOURCE kafka_repl

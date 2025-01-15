@@ -2,8 +2,8 @@
 title: "AWS PrivateLink connections"
 description: "How to connect Materialize to a Kafka broker, or a PostgreSQL database using an AWS PrivateLink connection"
 aliases:
-  - /ops/network-security/privatelink/
-  - /connect-sources/privatelink/
+  - /self-managed/v2025.01/ops/network-security/privatelink/
+  - /self-managed/v2025.01/connect-sources/privatelink/
 menu:
   main:
     parent: "network-security"
@@ -43,12 +43,12 @@ the TCP listeners (step 3) and the VPC endpoint service (step 5).
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE CONNECTION`](/sql/create-connection)
-- [`CREATE SOURCE`: Kafka](/sql/create-source/kafka)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection)
+- [`CREATE SOURCE`: Kafka](/self-managed/v2025.01/sql/create-source/kafka)
 - Integration guides: [Self-hosted
-  PostgreSQL](/ingest-data/postgres/self-hosted/), [Amazon RDS for
-  PostgreSQL](/ingest-data/postgres/amazon-rds/), [Self-hosted
-  Kafka](/ingest-data/kafka/kafka-self-hosted), [Amazon
-  MSK](/ingest-data/kafka/amazon-msk), [Redpanda
-  Cloud](/ingest-data/redpanda/redpanda-cloud/)
+  PostgreSQL](/self-managed/v2025.01/ingest-data/postgres/self-hosted/), [Amazon RDS for
+  PostgreSQL](/self-managed/v2025.01/ingest-data/postgres/amazon-rds/), [Self-hosted
+  Kafka](/self-managed/v2025.01/ingest-data/kafka/kafka-self-hosted), [Amazon
+  MSK](/self-managed/v2025.01/ingest-data/kafka/amazon-msk), [Redpanda
+  Cloud](/self-managed/v2025.01/ingest-data/redpanda/redpanda-cloud/)

@@ -14,7 +14,7 @@ menu:
 SHOW CREATE TABLE <table_name>
 ```
 
-For available table names, see [`SHOW TABLES`](/sql/show-tables).
+For available table names, see [`SHOW TABLES`](/self-managed/v2025.01/sql/show-tables).
 
 ## Examples
 

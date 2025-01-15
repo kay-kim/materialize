@@ -14,7 +14,7 @@ menu:
 SHOW CREATE INDEX <index_name>
 ```
 
-For available index names, see [`SHOW INDEXES`](/sql/show-indexes).
+For available index names, see [`SHOW INDEXES`](/self-managed/v2025.01/sql/show-indexes).
 
 ## Examples
 

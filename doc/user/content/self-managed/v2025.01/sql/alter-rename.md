@@ -17,7 +17,7 @@ Note that renaming databases is not supported {{% gh-discussion 29635 %}}.
 Field | Use
 ------|-----
 _name_ | The identifier of the item you want to rename.
-_new&lowbar;name_ | The new [identifier](/sql/identifiers) you want the item to use.
+_new&lowbar;name_ | The new [identifier](/self-managed/v2025.01/sql/identifiers) you want the item to use.
 
 ## Details
 
@@ -98,7 +98,7 @@ You could not rename `v1` to:
 - `d1`
 - `materialize` or `public` (implicitly referenced by `materialize.public.v1` using the default database and schema)
 
-However, you could rename `v1` to any other [legal identifier](/sql/identifiers).
+However, you could rename `v1` to any other [legal identifier](/self-managed/v2025.01/sql/identifiers).
 
 ## Examples
 
@@ -128,9 +128,9 @@ The privileges required to execute this statement are:
 
 ## See also
 
-- [`SHOW CREATE VIEW`](/sql/show-create-view)
-- [`SHOW VIEWS`](/sql/show-views)
-- [`SHOW SOURCES`](/sql/show-sources)
-- [`SHOW INDEXES`](/sql/show-indexes)
-- [`SHOW SECRETS`](/sql/show-secrets)
-- [`SHOW SINKS`](/sql/show-sinks)
+- [`SHOW CREATE VIEW`](/self-managed/v2025.01/sql/show-create-view)
+- [`SHOW VIEWS`](/self-managed/v2025.01/sql/show-views)
+- [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources)
+- [`SHOW INDEXES`](/self-managed/v2025.01/sql/show-indexes)
+- [`SHOW SECRETS`](/self-managed/v2025.01/sql/show-secrets)
+- [`SHOW SINKS`](/self-managed/v2025.01/sql/show-sinks)

@@ -1,14 +1,12 @@
 ---
 title: "Confluent Cloud"
 description: "How to securely connect a Confluent Cloud Kafka cluster as a source to Materialize."
-aliases:
-  - /integrations/confluent-cloud/
-  - /connect-sources/confuent-cloud/
-  - /ingest-data/confluent-cloud/
 menu:
   main:
     parent: "kafka"
     name: "Confluent Cloud"
+aliases:
+  - /self-managed/v2025.01/integrations/confluent-cloud/
 ---
 
 [//]: # "TODO(morsapaes) The Kafka guides need to be rewritten for consistency
@@ -120,6 +118,6 @@ of the following steps:
     connection to Confluent Cloud Kafka using SASL authentication and credentials
     securely stored as secrets in Materialize's secret management system. For
     input formats, we used `JSON`, but you can also ingest Kafka messages
-    formatted in e.g. [Avro and Protobuf](/sql/create-source/kafka/#supported-formats).
+    formatted in e.g. [Avro and Protobuf](/self-managed/v2025.01/sql/create-source/kafka/#supported-formats).
     You can find more details about the various different supported formats and
-    possible configurations in the [reference documentation](/sql/create-source/kafka/).
+    possible configurations in the [reference documentation](/self-managed/v2025.01/sql/create-source/kafka/).

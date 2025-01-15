@@ -32,7 +32,7 @@ Field   | Use
 --------|-----
 _name_  | The identifier of the source you want to alter.
 **ADD SUBSOURCE** ... | Add the identified tables from the upstream database (`table_name`) to the named PostgreSQL or MySQL source, with the option of choosing the name for the subsource in Materialize (`subsrc_name`). Supports [additional options](#add-subsource-with_options).
-_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
+_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
 
 ### **ADD SUBSOURCE** `with_options`
 
@@ -69,7 +69,7 @@ ALTER SOURCE pg_src ADD SUBSOURCE tbl_a, tbl_b AS b WITH (TEXT COLUMNS [tbl_a.co
 
 ### Dropping subsources
 
-To drop a subsource, use the [`DROP SOURCE`](/sql/drop-source/) command:
+To drop a subsource, use the [`DROP SOURCE`](/self-managed/v2025.01/sql/drop-source/) command:
 
 ```mzsql
 DROP SOURCE tbl_a, b CASCADE;
@@ -83,6 +83,6 @@ The privileges required to execute this statement are:
 
 ## See also
 
-- [`CREATE SOURCE`](/sql/create-source/)
-- [`DROP SOURCE`](/sql/drop-source/)
-- [`SHOW SOURCES`](/sql/show-sources)
+- [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/)
+- [`DROP SOURCE`](/self-managed/v2025.01/sql/drop-source/)
+- [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources)

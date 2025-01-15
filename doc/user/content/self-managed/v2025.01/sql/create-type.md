@@ -56,7 +56,7 @@ Custom types](../types/#custom-types).
 
 ### Properties
 
-All custom type properties' values must refer to [named types](/sql/types), e.g.
+All custom type properties' values must refer to [named types](/self-managed/v2025.01/sql/types), e.g.
 `integer`.
 
 To create a custom nested `list` or `map`, you must first create a custom `list`

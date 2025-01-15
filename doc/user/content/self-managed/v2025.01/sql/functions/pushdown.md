@@ -15,7 +15,7 @@ instead of error.
 This allows `try_parse_monotonic_iso8601_timestamp` to be used with
 the [temporal filter pushdown] feature on `text` timestamps.
 This is particularly useful when working with
-[JSON sources](/sql/create-source/#json),
+[JSON sources](/self-managed/v2025.01/sql/create-source/#json),
 or other external data sources that store timestamps as strings.
 
 Specifically, the accepted format is `YYYY-MM-DDThh:mm:ss.sssZ`:
@@ -63,5 +63,5 @@ SELECT try_parse_monotonic_iso8601_timestamp('nope') AS ts;
 
 [ISO 8601]: https://en.wikipedia.org/wiki/ISO_8601
 [Date.toISOString()]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
-[temporal filter pushdown]: /transform-data/patterns/temporal-filters/#temporal-filter-pushdown
-[jsonb]: /sql/types/jsonb/
+[temporal filter pushdown]: /self-managed/v2025.01/transform-data//patterns/temporal-filters/#temporal-filter-pushdown
+[jsonb]: ]: /self-managed/v2025.01/sql/types/jsonb/

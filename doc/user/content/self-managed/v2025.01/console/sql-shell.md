@@ -22,6 +22,6 @@ The SQL Shell also includes:
 - A top navigation panel, where you can select your cluster and database and
   schema.
 
-- A [Quickstart](/get-started/quickstart/) tutorial. You can close the
+- A [Quickstart](/self-managed/v2025.01/get-started/quickstart/) tutorial. You can close the
   Quickstart by clicking the **Close Quickstart** button in the top-right
   corner.

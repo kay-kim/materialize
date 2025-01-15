@@ -10,8 +10,8 @@ menu:
 {{< note >}}
 
 Depending on your use case, instead of a materialized view, you might prefer to
-[create a view and index it](/concepts/views/#views). In Materialize, [indexes
-on views](/concepts/indexes/) **maintain and incrementally update view results
+[create a view and index it](/self-managed/v2025.01/concepts/views/#views). In Materialize, [indexes
+on views](/self-managed/v2025.01/concepts/indexes/) **maintain and incrementally update view results
 in memory** for the cluster where you create the index.  See [Usage Patterns](#usage-patterns).
 
 {{</ note >}}
@@ -19,7 +19,7 @@ in memory** for the cluster where you create the index.  See [Usage Patterns](#u
 `CREATE MATERIALIZED VIEW` defines a view that is persisted in durable storage and
 incrementally updated as new data arrives.
 
-A materialized view specifies a [cluster](/concepts/clusters/) that
+A materialized view specifies a [cluster](/self-managed/v2025.01/concepts/clusters/) that
 is tasked with keeping its results up-to-date, but **can be referenced in
 any cluster**. This allows you to effectively decouple the computational
 resources used for view maintenance from the resources used for query serving.
@@ -44,7 +44,7 @@ _select&lowbar;stmt_ | The [`SELECT` statement](../select) whose results you wan
 | Field      | Value     | Description                                                                                                                                                       |
 | ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **ASSERT NOT NULL** _col_ident_ | `text` | The column identifier for which to create a [non-null assertion](#non-null-assertions). To specify multiple columns, use the option multiple times. |
-| **RETAIN HISTORY FOR** _retention_period_ | `interval` | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
+| **RETAIN HISTORY FOR** _retention_period_ | `interval` | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
 | **REFRESH _refresh_strategy_** | | ***Private preview.** This option has known performance or stability issues and is under active development.* The refresh strategy for the materialized view. See [Refresh strategies](#refresh-strategies) for syntax options. <br>Default: `ON COMMIT`. |
 
 ## Details
@@ -104,7 +104,7 @@ otherwise, you'll want to stick with the [default behavior](#refresh-on-commit).
 
 Materialized views configured with a refresh strategy are **not incrementally
 maintained** and must recompute their results from scratch on every refresh.
-Because these views can be hosted in [scheduled clusters](/sql/create-cluster/#scheduling),
+Because these views can be hosted in [scheduled clusters](/self-managed/v2025.01/sql/create-cluster/#scheduling),
 which automatically turn on and off based on the configured refresh strategies,
 this feature can lead to significant cost savings when handling large volumes of
 historical data that is updated less frequently.
@@ -239,8 +239,8 @@ Materialized views configured with [`REFRESH EVERY` strategies](#refresh-every)
 have a period of unavailability around the scheduled refresh times — during this
 period, the view **will not return any results**. To avoid unavailability
 during the refresh operation, you must host these views in
-[**scheduled clusters**](/sql/create-cluster/#scheduling), which can be
-configured to automatically [turn on ahead of the scheduled refresh time](/sql/create-cluster/#hydration-time-estimate).
+[**scheduled clusters**](/self-managed/v2025.01/sql/create-cluster/#scheduling), which can be
+configured to automatically [turn on ahead of the scheduled refresh time](/self-managed/v2025.01/sql/create-cluster/#hydration-time-estimate).
 
 **Example**
 
@@ -274,7 +274,7 @@ Because the materialized view is hosted on a scheduled cluster that is
 configured to **turn on ahead of any scheduled refreshes**, you can expect
 `my_scheduled_cluster` to be provisioned at 11PM UTC — or, 1 hour ahead of the
 scheduled refresh time for `mv_refresh_every`. This means that the cluster can
-backfill the view with pre-existing data — a process known as [_hydration_](/transform-data/troubleshooting/#hydrating-upstream-objects)
+backfill the view with pre-existing data — a process known as [_hydration_](/self-managed/v2025.01/transform-data/troubleshooting/#hydrating-upstream-objects)
 — ahead of the refresh operation, which **reduces the total unavailability window
 of the view** to just the duration of the refresh.
 

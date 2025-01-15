@@ -1,5 +1,5 @@
 1. In the [SQL Shell](https://console.materialize.com/), or your preferred SQL
-   client connected to Materialize, use the [`CREATE CONNECTION`](/sql/create-connection/#ssh-tunnel)
+   client connected to Materialize, use the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#ssh-tunnel)
    command to create an SSH tunnel connection:
 
     ```mzsql
@@ -28,7 +28,7 @@
     echo "ssh-ed25519 AAAA...hLYV materialize" >> ~/.ssh/authorized_keys
     ```
 
-1. Back in the SQL client connected to Materialize, validate the SSH tunnel connection you created using the [`VALIDATE CONNECTION`](/sql/validate-connection) command:
+1. Back in the SQL client connected to Materialize, validate the SSH tunnel connection you created using the [`VALIDATE CONNECTION`](/self-managed/v2025.01/sql/validate-connection) command:
 
     ```mzsql
     VALIDATE CONNECTION ssh_connection;
@@ -36,13 +36,13 @@
 
     If no validation error is returned, move to the next step.
 
-1. Use the [`CREATE SECRET`](/sql/create-secret/) command to securely store the password for the `materialize` MySQL user you created [earlier](#2-create-a-user-for-replication):
+1. Use the [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret/) command to securely store the password for the `materialize` MySQL user you created [earlier](#2-create-a-user-for-replication):
 
     ```mzsql
     CREATE SECRET mysqlpass AS '<PASSWORD>';
     ```
 
-1. Use the [`CREATE CONNECTION`](/sql/create-connection/) command to create another connection object, this time with database access and authentication details for Materialize to use:
+1. Use the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/) command to create another connection object, this time with database access and authentication details for Materialize to use:
 
     ```mzsql
     CREATE CONNECTION mysql_connection TO MYSQL (
@@ -53,7 +53,7 @@
 
     - Replace `<host>` with your MySQL endpoint.
 
-1. Use the [`CREATE SOURCE`](/sql/create-source/) command to connect Materialize to your Azure instance and start ingesting data:
+1. Use the [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/) command to connect Materialize to your Azure instance and start ingesting data:
 
     ```mzsql
     CREATE SOURCE mz_source
@@ -69,5 +69,5 @@
       instead of `FOR ALL TABLES`.
 
     - To handle unsupported data types, use the `TEXT COLUMNS` or `IGNORE
-      COLUMNS` options. Check out the [reference documentation](/sql/create-source/mysql/#supported-types)
+      COLUMNS` options. Check out the [reference documentation](/self-managed/v2025.01/sql/create-source/mysql/#supported-types)
       for guidance.

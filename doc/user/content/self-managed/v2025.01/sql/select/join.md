@@ -2,8 +2,8 @@
 title: "JOIN"
 description: "`JOIN` lets you combine two or more table expressions."
 aliases:
-  - /transform-data/join/
-  - /sql/join/
+  - /self-managed/v2025.01/transform-data/join/
+  - /self-managed/v2025.01/sql/join/
 menu:
   main:
     parent: 'SELECT'
@@ -16,7 +16,7 @@ expression.
 ## Conceptual framework
 
 Much like an RDBMS, Materialize can join together any two table expressions (in
-our case, either [sources](/sql/create-source) or [views](/sql/create-view)) into
+our case, either [sources](/self-managed/v2025.01/sql/create-source) or [views](/self-managed/v2025.01/serve-results/s3)) into
 a single table expression.
 
 Materialize has much broader support for `JOIN` than most streaming platforms,
@@ -39,17 +39,17 @@ expect.
 
 Field | Use
 ------|-----
-_select&lowbar;pred_ | The predicating [`SELECT`](/sql/select) clauses you want to use, e.g. `SELECT col_ref FROM table_ref...`. The _table&lowbar;ref_ from the _select&lowbar;pred_ is the left-hand table.
+_select&lowbar;pred_ | The predicating [`SELECT`](/self-managed/v2025.01/sql/select) clauses you want to use, e.g. `SELECT col_ref FROM table_ref...`. The _table&lowbar;ref_ from the _select&lowbar;pred_ is the left-hand table.
 **NATURAL** | Join table expressions on all columns with the same names in both tables. This is similar to the `USING` clause naming all identically named columns in both tables.
 **LATERAL** | Let the following subquery or table function call refer to columns from join's left-hand side. See [`LATERAL` subqueries](#lateral-subqueries) below.
 _join\_type_ | The type of `JOIN` you want to use _(`INNER` is implied default)_.
-_select\_stmt_ | A [`SELECT` statement](/sql/select).
+_select\_stmt_ | A [`SELECT` statement](/self-managed/v2025.01/sql/select).
 _table\_ref_ | The table expression you want to join, i.e. the right-hand table.
-_table\_func\_call_ | A call to a [table function](/sql/functions/#table-functions).
+_table\_func\_call_ | A call to a [table function](/self-managed/v2025.01/sql/functions/#table-functions).
 **USING (** _col\_ref..._ **)** | If the join condition does not require table-level qualification (i.e. joining tables on columns with the same name), the columns to join the tables on. For example, `USING (customer_id)`.
 _join\_using\_alias_ | A table alias for the join columns specified in the `USING` clause. The columns will remain referenceable by their original names. For example, given `lhs JOIN rhs USING (c) AS joint`, the column `c` will be referenceable as `lhs.c`, `rhs.c`, and `joint.c`.
 **ON** _expression_ | The condition on which to join the tables. For example `ON purchase.customer_id = customer.id`.
-_select&lowbar;pred_ | The remaining [`SELECT`](/sql/select) clauses you want to use, e.g. `...WHERE expr GROUP BY col_ref HAVING expr`.
+_select&lowbar;pred_ | The remaining [`SELECT`](/self-managed/v2025.01/sql/select) clauses you want to use, e.g. `...WHERE expr GROUP BY col_ref HAVING expr`.
 
 **Note**: It's possible to join together table expressions as inner joins without using this clause whatsoever, e.g. `SELECT cols... FROM t1, t2 WHERE t1.x = t2.x GROUP BY cols...`
 
@@ -82,7 +82,7 @@ left-hand row according to the usual rules of the selected join type.
 {{< warning >}}
 `LATERAL` subqueries can be very expensive to compute. For best results, do not
 materialize a view containing a `LATERAL` subquery without first inspecting the
-plan via the [`EXPLAIN PLAN`](/sql/explain-plan/) statement. In many common patterns
+plan via the [`EXPLAIN PLAN`](/self-managed/v2025.01/sql/explain-plan/) statement. In many common patterns
 involving `LATERAL` joins, Materialize can optimize away the join entirely.
 {{< /warning >}}
 
@@ -104,7 +104,7 @@ SELECT * FROM
 ```
 
 For a real-world example of a `LATERAL` subquery, see the [Top-K by group
-idiom](/transform-data/idiomatic-materialize-sql/top-k/).
+idiom](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/).
 
 
 ## Examples
@@ -253,5 +253,5 @@ diagram shows how cross joins form the Cartesian product.
 
 ## Related pages
 
-- [`SELECT`](/sql/select)
-- [`CREATE VIEW`](/sql/create-view)
+- [`SELECT`](/self-managed/v2025.01/sql/select)
+- [`CREATE VIEW`](/self-managed/v2025.01/serve-results/s3)

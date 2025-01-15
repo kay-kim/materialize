@@ -15,7 +15,7 @@ menu:
 Field                | Use
 ---------------------|------------------------------------------------
 _name_               | The identifier of the item you want to swap.
-_target&lowbar;name_ | The target [identifier](/sql/identifiers) of the item you want to swap with.
+_target&lowbar;name_ | The target [identifier](/self-managed/v2025.01/sql/identifiers) of the item you want to swap with.
 
 ## Examples
 
@@ -42,9 +42,9 @@ The privileges required to execute this statement are:
 
 ## See also
 
-- [`SHOW CREATE VIEW`](/sql/show-create-view)
-- [`SHOW VIEWS`](/sql/show-views)
-- [`SHOW SOURCES`](/sql/show-sources)
-- [`SHOW INDEXES`](/sql/show-indexes)
-- [`SHOW SECRETS`](/sql/show-secrets)
-- [`SHOW SINKS`](/sql/show-sinks)
+- [`SHOW CREATE VIEW`](/self-managed/v2025.01/sql/show-create-view)
+- [`SHOW VIEWS`](/self-managed/v2025.01/sql/show-views)
+- [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources)
+- [`SHOW INDEXES`](/self-managed/v2025.01/sql/show-indexes)
+- [`SHOW SECRETS`](/self-managed/v2025.01/sql/show-secrets)
+- [`SHOW SINKS`](/self-managed/v2025.01/sql/show-sinks)

@@ -40,7 +40,7 @@ contact your Materialize support.
 For clusters that do not contain sources or sinks, Materialize supports altering
 the cluster size with no downtime (i.e., graceful cluster resizing).
 
-For more information, see [Graceful cluster resizing](/sql/alter-cluster/#graceful-cluster-resizing).
+For more information, see [Graceful cluster resizing](/self-managed/v2025.01/sql/alter-cluster/#graceful-cluster-resizing).
 
 ### Real-time recency
 
@@ -49,7 +49,7 @@ recency, where the results are guaranteed to contain all visible data according
 to physical time.
 
 For more information, see [Real-time
-recency](/get-started/isolation-level/#real-time-recency).
+recency](/self-managed/v2025.01/get-started/isolation-level/#real-time-recency).
 
 ### Refresh strategies for materialized views
 
@@ -60,7 +60,7 @@ optimize for performance and cost (e.g., hot vs. cold data). To support these
 use cases, you can configure the refresh strategy of a materialized view.
 
 For more information, see [Refresh
-strategies](/sql/create-materialized-view/#refresh-strategies).
+strategies](/self-managed/v2025.01/sql/create-materialized-view/#refresh-strategies).
 
 ### Scheduled clusters
 
@@ -68,57 +68,57 @@ To support refresh strategies for materialized views[(Private
 Preview)](#refresh-strategies-for-materialized-views), Materialize supports
 scheduling clusters to automatically turn on and off. Scheduled clusters can
 only contain materialized views configured with a [non-default refresh
-strategy](/sql/create-materialized-view/#refresh-strategies).
+strategy](/self-managed/v2025.01/sql/create-materialized-view/#refresh-strategies).
 
 For more information, see:
 
-- [Scheduling](/sql/create-cluster/#scheduling).
+- [Scheduling](/self-managed/v2025.01/sql/create-cluster/#scheduling).
 
-- [`CREATE CLUSTER`](/sql/create-cluster).
-- [`ALTER CLUSTER`](/sql/alter-cluster).
+- [`CREATE CLUSTER`](/self-managed/v2025.01/sql/create-cluster).
+- [`ALTER CLUSTER`](/self-managed/v2025.01/sql/alter-cluster).
 
 ### Support for Fivetran
 
 Materialize adds support for Fivetran to sync data into Materialize.
 
-For more information, see [Fivetran](/ingest-data/fivetran/).
+For more information, see [Fivetran](/self-managed/v2025.01/ingest-data/fivetran/).
 
 ### SUBSCRIBE: ENVELOPE DEBEZIUM
 
 Materialize adds the `ENVELOPE DEBEZIUM` option to the
-[`SUBSCRIBE`](/sql/subscribe/) command.  `ENVELOPE DEBEZIUM` modifies the
+[`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) command.  `ENVELOPE DEBEZIUM` modifies the
 `SUBSCRIBE` output to support upserts that use a [Debezium-style diff
-envelope](/sql/subscribe/#envelope-debezium).
+envelope](/self-managed/v2025.01/sql/subscribe/#envelope-debezium).
 
 For more information, see [`SUBSCRIBE`: `ENVELOPE
-DEBEZIUM`](/sql/subscribe/#envelope-debezium).
+DEBEZIUM`](/self-managed/v2025.01/sql/subscribe/#envelope-debezium).
 
 ### SUBSCRIBE: WITHIN TIMESTAMP ORDER BY
 
 Materialize adds the `WITHIN TIMESTAMP ORDER BY` option to the
-[`SUBSCRIBE`](/sql/subscribe/) command. `WITHIN TIMESTAMP ORDER BY` modifies the
+[`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) command. `WITHIN TIMESTAMP ORDER BY` modifies the
 output ordering of `SUBSCRIBE`.
 
 For more information, see [`SUBSCRIBE`: `WITHIN TIMESTAMP ORDER
-BY`](/sql/subscribe/#within-timestamp-order-by).
+BY`](/self-managed/v2025.01/sql/subscribe/#within-timestamp-order-by).
 
 ### Sink headers
 
 Materialize adds the `HEADERS` option to the [`CREATE
-SINK`](/sql/create-sink/kafka/#headers) command to support adding additional
+SINK`](/self-managed/v2025.01/sql/create-sink/kafka/#headers) command to support adding additional
 headers  to each message emitted by the sink.
 
 For more information, see [`CREATE SINK`: `PARTITION
-BY`](/sql/create-sink/kafka/#headers).
+BY`](/self-managed/v2025.01/sql/create-sink/kafka/#headers).
 
 ### Sink partitioning strategy
 
 Materialize adds the `PARTITION BY` option to the [`CREATE
-SINK`](/sql/create-sink/kafka/#partitioning) command to support  custom
+SINK`](/self-managed/v2025.01/sql/create-sink/kafka/#partitioning) command to support  custom
 partitioning strategy.
 
 For more information, see [`CREATE SINK`: `PARTITION
-BY`](/sql/create-sink/kafka/#partitioning).
+BY`](/self-managed/v2025.01/sql/create-sink/kafka/#partitioning).
 
 ### Value decoding error handling
 
@@ -126,7 +126,7 @@ Materialize adds the `VALUE DECODING ERRORS = INLINE` option to configure the
 source to continue ingesting data in the presence of value decoding errors.
 
 For more information, see [`CREATE SOURCE`: `VALUE DECODING
-ERRORS`](/sql/create-source/kafka/#value-decoding-errors).
+ERRORS`](/self-managed/v2025.01/sql/create-source/kafka/#value-decoding-errors).
 
 ### Retention period
 
@@ -134,16 +134,16 @@ Materialize adds history retention period configuration for its objects.
 
 For more information, see:
 
-- [`CREATE INDEX`:`retention_period`](/sql/create-index/#with_options)
+- [`CREATE INDEX`:`retention_period`](/self-managed/v2025.01/sql/create-index/#with_options)
 - [`CREATE
-  INDEX`:`retention_period`](/sql/create-materialized-view/#with_options)
-- [`CREATE INDEX`:`retention_period`](/sql/create-table/#with_options)
+  INDEX`:`retention_period`](/self-managed/v2025.01/sql/create-materialized-view/#with_options)
+- [`CREATE INDEX`:`retention_period`](/self-managed/v2025.01/sql/create-table/#with_options)
 - [`CREATE SOURCE: Kafka`:
-  `retention_period`](/sql/create-source/kafka/#with_options)
+  `retention_period`](/self-managed/v2025.01/sql/create-source/kafka/#with_options)
 - [`CREATE SOURCE: MySQL`:
-  `retention_period`](/sql/create-source/mysql/#with_options)
+  `retention_period`](/self-managed/v2025.01/sql/create-source/mysql/#with_options)
 - [`CREATE SOURCE: PostgreSQL`:
-  `retention_period`](/sql/create-source/postgres/#with_options)
+  `retention_period`](/self-managed/v2025.01/sql/create-source/postgres/#with_options)
 
 ## Public preview
 
@@ -161,7 +161,7 @@ warehouses** like Snowflake, Databricks or BigQuery.
 | Azure Blob Storage                          |            |
 
 For more information on bulk exports to object storage, see the
-[reference documentation](/sql/copy-to/#copy-to-s3) and the warehouse-specific
+[reference documentation](/self-managed/v2025.01/sql/copy-to/#copy-to-s3) and the warehouse-specific
 integration guides:
 
 | Cloud data warehouse service                | Integration guide                                                                     |
@@ -191,7 +191,7 @@ Materialize supports the use of an AWS Connection to perform:
   storage](#bulk-exports-to-object-storage).
 
 For more information, see [`CREATE Connection:
-AWS`](/sql/create-connection/#aws).
+AWS`](/self-managed/v2025.01/sql/create-connection/#aws).
 
 ### Various mz_internal tables
 
@@ -213,23 +213,23 @@ time.
 
 {{< /warning >}}
 
-For more information, see [mz_internal](/sql/system-catalog/mz_internal/).
+For more information, see [mz_internal](/self-managed/v2025.01/sql/system-catalog/mz_internal/).
 
 ### EXPLAIN FILTER PUSHDOWN
 
-Materialize adds the [`EXPLAIN FILTER PUSHDOWN`](/sql/explain-filter-pushdown/)
+Materialize adds the [`EXPLAIN FILTER PUSHDOWN`](/self-managed/v2025.01/sql/explain-filter-pushdown/)
 command to display the filter pushdown statistics for `SELECT` statements and
 materialized views.
 
 For more information, see [`EXPLAIN FILTER
-PUSHDOWN`](/sql/explain-filter-pushdown/).
+PUSHDOWN`](/self-managed/v2025.01/sql/explain-filter-pushdown/).
 
 ### Recursive CTE
 
 Materialize adds the `WITH MUTUALLY RECURSIVE` option to support recursive CTEs.
 
 For more information, see [`WITH MUTUALLY
-RECURSIVE`](/sql/select/recursive-ctes/).
+RECURSIVE`](/self-managed/v2025.01/sql/select/recursive-ctes/).
 
 ## Private previews enabled by default
 
@@ -240,4 +240,4 @@ The features listed below are in preview but enabled by default.
 Materialize provides an interactive WebSocket API endpoint. This feature is
 enabled by default.
 
-For more information, see [Websocket API](/integrations/websocket-api/).
+For more information, see [Websocket API](/self-managed/v2025.01/integrations/websocket-api/).

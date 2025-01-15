@@ -2,7 +2,7 @@
 title: "Materialize CDC"
 description: "The Materialize CDC format is a format for change datafeeds that has been designed especially to prevent errors resulting from record duplication or missequencing."
 aliases:
-  - /connect/materialize-cdc/
+  - /self-managed/v2025.01/connect/materialize-cdc/
 draft: true
 #menu:
   #main:
@@ -15,12 +15,12 @@ Change data capture (CDC) tools provide feeds that record any changes to a datab
 
 The **Materialize CDC format** has been designed to provide a downstream data consumer (like Materialize) with enough information to recognize when records are duplicated or out of order. For a technical deep dive on the subject, see our blog post on [Change Data Capture](https://materialize.com/change-data-capture-part-1/).
 
-Currently, the Materialize CDC format is only supported for [Avro-formatted Kafka sources](/sql/create-source/avro-kafka). If you're interested in using it for another source type, let us know in our [Slack workspace](https://materialize.com/s/chat).
+Currently, the Materialize CDC format is only supported for [Avro-formatted Kafka sources](/self-managed/v2025.01/sql/create-source/avro-kafka). If you're interested in using it for another source type, let us know in our [Slack workspace](https://materialize.com/s/chat).
 
 To use the Materialize CDC format, you must:
 
 1. Transform the changefeed produced by your CDC tool into the Materialize CDC format.
-2. Define the Materialize CDC format in an Avro schema when you [create a source](/sql/create-source/avro-kafka/) in Materialize.
+2. Define the Materialize CDC format in an Avro schema when you [create a source](/self-managed/v2025.01/sql/create-source/avro-kafka/) in Materialize.
 
 ## Materialize CDC schema components
 
@@ -136,7 +136,7 @@ Field | Description
 
 ## Example Materialize CDC workflow
 
-You specify the use of the Materialize CDC format in the [Avro schema](/sql/create-source/kafka/#format_spec) when a source is created.
+You specify the use of the Materialize CDC format in the [Avro schema](/self-managed/v2025.01/sql/create-source/kafka/#format_spec) when a source is created.
 
 ```mzsql
   CREATE CONNECTION kafka_conn TO KAFKA (BROKER 'kafka_url:9092');

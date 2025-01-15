@@ -12,8 +12,8 @@ menu:
 ## Change Data Capture (CDC)
 
 Materialize supports PostgreSQL as a real-time data source. The
-[PostgreSQL source](/sql/create-source/postgres//) uses PostgreSQL's
-[replication protocol](/sql/create-source/postgres/#change-data-capture)
+[PostgreSQL source](/self-managed/v2025.01/sql/create-source/postgres//) uses PostgreSQL's
+[replication protocol](/self-managed/v2025.01/sql/create-source/postgres/#change-data-capture)
 to **continually ingest changes** resulting from CRUD operations in the upstream
 database. The native support for PostgreSQL Change Data Capture (CDC) in
 Materialize gives you the following benefits:

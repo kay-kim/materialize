@@ -11,11 +11,11 @@ menu:
 `CREATE CLUSTER REPLICA` is deprecated.
 
 We recommend migrating to a [managed
-cluster](/sql/alter-cluster/#converting-unmanaged-to-managed-clusters) instead
+cluster](/self-managed/v2025.01/sql/alter-cluster/#converting-unmanaged-to-managed-clusters) instead
 of manually creating and dropping replicas.
 {{< /warning >}}
 
-`CREATE CLUSTER REPLICA` provisions a new replica of a [cluster](/concepts/clusters/).
+`CREATE CLUSTER REPLICA` provisions a new replica of a [cluster](/self-managed/v2025.01/concepts/clusters/).
 
 ## Conceptual framework
 
@@ -46,7 +46,7 @@ _replica_name_ | A name for this replica.
 ### Size
 
 The `SIZE` option for replicas is identical to the [`SIZE` option for
-clusters](/sql/create-cluster/#size) option, except that the size applies only
+clusters](/self-managed/v2025.01/sql/create-cluster/#size) option, except that the size applies only
 to the new replica.
 
 ### Credit usage
@@ -103,4 +103,4 @@ The privileges required to execute this statement are:
 - Ownership of `cluster_name`.
 
 [AWS availability zone ID]: https://docs.aws.amazon.com/ram/latest/userguide/working-with-az-ids.html
-[`DROP CLUSTER REPLICA`]: /sql/drop-cluster-replica
+[`DROP CLUSTER REPLICA`]: ]: /self-managed/v2025.01/sql/drop-cluster-replica

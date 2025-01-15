@@ -52,23 +52,23 @@ operators:
   - operator: FlatMap
     plan_types: "optimized"
     description: |
-      Appends the result of some (one-to-many) [table function](/sql/functions/#table-functions) to each row in the input.
+      Appends the result of some (one-to-many) [table function](/self-managed/v2025.01/sql/functions/#table-functions) to each row in the input.
     uses_memory: False
     memory_details: ""
     expansive: True
     expansive_details: |
-      Depends on the [table function](/sql/functions/#table-functions) used.
+      Depends on the [table function](/self-managed/v2025.01/sql/functions/#table-functions) used.
     example: "`FlatMap jsonb_foreach(#3)`"
 
   - operator: CallTable
     plan_types: "raw"
     description: |
-      Appends the result of some (one-to-many) [table function](/sql/functions/#table-functions) to each row in the input.
+      Appends the result of some (one-to-many) [table function](/self-managed/v2025.01/sql/functions/#table-functions) to each row in the input.
     uses_memory: False
     memory_details: ""
     expansive: True
     expansive_details: |
-      Depends on the [table function](/sql/functions/#table-functions) used.
+      Depends on the [table function](/self-managed/v2025.01/sql/functions/#table-functions) used.
     example: "`CallTable generate_series(1, 7, 1)`"
 
   - operator: Filter
@@ -127,7 +127,7 @@ operators:
     memory_details: |
       Can use significant amount as the operator can significantly overestimate
       the size. For `MIN` and `MAX` aggregates, consult
-      [`mz_introspection.mz_expected_group_size_advice`](/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice).
+      [`mz_introspection.mz_expected_group_size_advice`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice).
     expansive: False
     example: "`Reduce group_by=[#0] aggregates=[max((#0 * #1))]`"
 
@@ -143,7 +143,7 @@ operators:
     memory_details: |
       Can use significant amount as the operator can significantly overestimate
       the size. For `MIN` and `MAX` aggregates, consult
-      [`mz_introspection.mz_expected_group_size_advice`](/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice).
+      [`mz_introspection.mz_expected_group_size_advice`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice).
     expansive: False
     example: "`Reduce group_by=[#0] aggregates=[max((#0 * #1))]`"
 
@@ -175,7 +175,7 @@ operators:
     memory_details: |
       Can use significant amount as the operator can significantly overestimate
       the size. Consult
-      [`mz_introspection.mz_expected_group_size_advice`](/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice).
+      [`mz_introspection.mz_expected_group_size_advice`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice).
     expansive: False
     example: "`TopK order_by=[#1 asc nulls_last, #0 desc nulls_first] limit=5`"
 

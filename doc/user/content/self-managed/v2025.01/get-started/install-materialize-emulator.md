@@ -65,7 +65,7 @@ not suitable for production deployments</redb>.
    When running locally:
 
    - The Docker container binds exclusively to localhost for security reasons.
-   - The [Materialize Console](/console/) is available on port `6874`.
+   - The [Materialize Console](/self-managed/v2025.01/console/) is available on port `6874`.
    - The SQL interface is available on port `6875`.
    - Logs are available via `docker logs <container-id>`.
    - A default user `materialize` is created.
@@ -85,19 +85,19 @@ not suitable for production deployments</redb>.
    | Port     | `6875`        |
    | Username | `materialize` |
 
-   For example, if using [`psql`](/integrations/sql-clients/#psql):
+   For example, if using [`psql`](/self-managed/v2025.01/integrations/sql-clients/#psql):
 
    ```sh
    psql postgres://materialize@localhost:6875/materialize
    ```
 
 1. Once connected, you can get started with the
-   [Quickstart](/get-started/quickstart).
+   [Quickstart](/self-managed/v2025.01/get-started/quickstart).
 
 ### Next steps
 
 - To start ingesting your own data from an external system like Kafka, MySQL or
-  PostgreSQL, check the documentation for [sources](/sql/create-source/).
+  PostgreSQL, check the documentation for [sources](/self-managed/v2025.01/sql/create-source/).
 
 - Join the [Materialize Community on Slack](https://materialize.com/s/chat).
 

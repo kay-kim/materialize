@@ -17,7 +17,7 @@ separates compute and storage to offer features like **autoscaling**,
 **branching** and **bottomless storage**.
 
 This page shows you how to stream data from a Neon database to Materialize using
-the [PostgreSQL source](/sql/create-source/postgres/).
+the [PostgreSQL source](/self-managed/v2025.01/sql/create-source/postgres/).
 
 ## Before you begin
 
@@ -236,7 +236,7 @@ Now that you've configured your database network and created an ingestion
 cluster, you can connect Materialize to your Neon database and start
 ingesting data.
 
-1. Run the [`CREATE SECRET`](/sql/create-secret/) command to securely store the
+1. Run the [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret/) command to securely store the
    password for the `materialize` PostgreSQL user you created [earlier](#2-create-a-publication-and-a-replication-user):
 
     ```mzsql
@@ -247,7 +247,7 @@ ingesting data.
     the **Connection Details** widget on the Neon **Dashboard**.
 
 
-2. Use the [`CREATE CONNECTION`](/sql/create-connection/) command to create a
+2. Use the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/) command to create a
    connection object with access and authentication details for Materialize to
    use:
 
@@ -277,7 +277,7 @@ ingesting data.
     - Replace `<database>` with the name of the database containing the tables
       you want to replicate to Materialize (e.g., `dbname`).
 
-3. Use the [`CREATE SOURCE`](/sql/create-source/) command to connect Materialize
+3. Use the [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/) command to connect Materialize
    to your Neon database and start ingesting data from the publication
    you created earlier:
 
@@ -294,8 +294,8 @@ ingesting data.
     (<schema1>,<schema2>)` or `FOR TABLES (<table1>, <table2>)` instead of `FOR
     ALL TABLES`.
 
-4. After source creation, you can handle upstream [schema changes](/sql/create-source/postgres/#schema-changes)
-   for specific replicated tables using the [`ALTER SOURCE...{ADD | DROP} SUBSOURCE`](/sql/alter-source/#context)
+4. After source creation, you can handle upstream [schema changes](/self-managed/v2025.01/sql/create-source/postgres/#schema-changes)
+   for specific replicated tables using the [`ALTER SOURCE...{ADD | DROP} SUBSOURCE`](/self-managed/v2025.01/sql/alter-source/#context)
    syntax.
 
 ### 3. Monitor the ingestion status

@@ -2,11 +2,11 @@
 title: "Ingest data from Self-hosted Kafka"
 description: "How to connect a self-hosted Kafka cluster as a source to Materialize."
 aliases:
-  - /integrations/aws-kafka/
-  - /integrations/amazon-kafka/
-  - /connect-sources/amazon-kafka/
-  - /ingest-data/kafka-self-hosted/
-  - /ingest-data/kafka/upstash-kafka/
+  - /self-managed/v2025.01/integrations/aws-kafka/
+  - /self-managed/v2025.01/integrations/amazon-kafka/
+  - /self-managed/v2025.01/connect-sources/amazon-kafka/
+  - /self-managed/v2025.01/ingest-data/kafka-self-hosted/
+  - /self-managed/v2025.01/ingest-data/kafka/upstash-kafka/
 menu:
   main:
     parent: "kafka"
@@ -95,7 +95,7 @@ CREATE CONNECTION kafka_connection TO KAFKA (
 1. Update your Kafka cluster firewall rules to allow traffic from each IP
    address from the previous step.
 
-1. Create a [Kafka connection](/sql/create-connection/#kafka) that references
+1. Create a [Kafka connection](/self-managed/v2025.01/sql/create-connection/#kafka) that references
    your Kafka cluster:
 
     ```mzsql
@@ -116,7 +116,7 @@ CREATE CONNECTION kafka_connection TO KAFKA (
 ## Creating a source
 
 The Kafka connection created in the previous section can then be reused across
-multiple [`CREATE SOURCE`](/sql/create-source/kafka/) statements:
+multiple [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/kafka/) statements:
 
 ```mzsql
 CREATE SOURCE json_source
@@ -129,6 +129,6 @@ cluster, use the `IN CLUSTER` clause.
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE CONNECTION`](/sql/create-connection)
-- [`CREATE SOURCE`: Kafka](/sql/create-source/kafka)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection)
+- [`CREATE SOURCE`: Kafka](/self-managed/v2025.01/sql/create-source/kafka)

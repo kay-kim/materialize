@@ -2,8 +2,8 @@
 title: "Tableau"
 description: "How to create real-time dashboards with Tableau"
 aliases:
-  - /third-party/tableau/
-  - /integrations/tableau/
+  - /self-managed/v2025.01/third-party/tableau/
+  - /self-managed/v2025.01/integrations/tableau/
 menu:
   main:
     parent: "bi-tools"

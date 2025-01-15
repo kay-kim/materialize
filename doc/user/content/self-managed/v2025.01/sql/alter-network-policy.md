@@ -9,7 +9,7 @@ menu:
 {{< private-preview />}}
 
 `ALTER NETWORK POLICY` alters an existing network policy. Network policies are
-part of Materialize's framework for [access control](/manage/access-control/).
+part of Materialize's framework for [access control](/self-managed/v2025.01/manage/access-control/).
 
 Changes to a network policy will only affect new connections
 and **will not** terminate active connections.
@@ -47,7 +47,7 @@ will be pre-installed. This policy has a wide open ingress rule `allow
 {{< note >}}
 The default value for the `network_policy` session parameter is `default`.
 Before dropping the `default` network policy, a _superuser_ (i.e. `Organization
-Admin`) must run [`ALTER SYSTEM SET network_policy`](/sql/alter-system-set) to
+Admin`) must run [`ALTER SYSTEM SET network_policy`](/self-managed/v2025.01/sql/alter-system-set) to
 change the default value.
 {{< /note >}}
 

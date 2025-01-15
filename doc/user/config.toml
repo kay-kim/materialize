@@ -82,7 +82,7 @@ weight = 13
 [[menu.main]]
 name = "Query using `SELECT`"
 parent = "serve"
-url = "/sql/select/"
+url = "/self-managed/v2025.01/sql/select/"
 weight = 5
 
 [[menu.main]]
@@ -94,7 +94,7 @@ weight = 10
 [[menu.main]]
 name = "Subscribe to results (`SUBSCRIBE`)"
 parent = "serve"
-url = "/sql/subscribe/"
+url = "/self-managed/v2025.01/sql/subscribe/"
 weight = 15
 
 [[menu.main]]
@@ -106,13 +106,13 @@ weight = 20
 [[menu.main]]
 name = "Kafka"
 parent = "sink"
-url = "/sql/create-sink"
+url = "/self-managed/v2025.01/sql/create-sink"
 weight = 20
 
 [[menu.main]]
 name = "Redpanda"
 parent = "sink"
-url = "/sql/create-sink"
+url = "/self-managed/v2025.01/sql/create-sink"
 weight = 30
 #
 # Manage Materialize
@@ -143,14 +143,14 @@ weight = 15
 identifier = "cs_redpanda"
 name = "Redpanda"
 parent = "create-source"
-url = "/sql/create-source/kafka"
+url = "/self-managed/v2025.01/sql/create-source/kafka"
 weight = 10
 
 [[menu.main]]
 identifier = "csink_redpanda"
 name = "Redpanda"
 parent = "create-sink"
-url = "/sql/create-sink/kafka"
+url = "/self-managed/v2025.01/sql/create-sink/kafka"
 
 [[menu.main]]
 name = "SQL commands"
@@ -161,12 +161,12 @@ weight = 100
 [[menu.main]]
 name = "CREATE SOURCE"
 parent = 'commands'
-url = '/sql/create-source'
+url = '/self-managed/v2025.01/sql/create-source'
 
 [[menu.main]]
 name = "CREATE SINK"
 parent = 'commands'
-url = '/sql/create-sink'
+url = '/self-managed/v2025.01/sql/create-sink'
 
 #
 # Tools and integrations
@@ -229,4 +229,3 @@ url = "s3://materialize-website?region=us-east-1"
 # website or other versions of the docs (e.g., cloud, other self-managed
 # versions).
 include = "docs/self-managed/v2025.01/**"
-

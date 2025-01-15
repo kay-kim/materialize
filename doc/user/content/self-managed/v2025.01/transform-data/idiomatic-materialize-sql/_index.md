@@ -9,7 +9,7 @@ menu:
     identifier: idiomatic-materialize-sql
 
 aliases:
-  - /transform-data/patterns/window-functions/
+  - /self-managed/v2025.01/transform-data/patterns/window-functions/
 ---
 
 Materialize follows the SQL standard (SQL-92) implementation and strives for
@@ -33,13 +33,13 @@ Idiomatic Materialize
 <tr>
 <td>
 
-[`ANY()` Equi-join condition](/transform-data/idiomatic-materialize-sql/any/)
+[`ANY()` Equi-join condition](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/any/)
 
 </td>
 <td>
 
 [Use `UNNEST()` or `DISTINCT UNNEST()` to expand the values and
-join](/transform-data/idiomatic-materialize-sql/any/).
+join](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/any/).
 
 </td>
 </tr>
@@ -47,12 +47,12 @@ join](/transform-data/idiomatic-materialize-sql/any/).
 <tr>
 <td>
 
-[First value within groups](/transform-data/idiomatic-materialize-sql/first-value/)
+[First value within groups](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/first-value/)
 
 </td>
 <td>
 
-[Use `MIN/MAX ... GROUP BY` subquery](/transform-data/idiomatic-materialize-sql/first-value/).
+[Use `MIN/MAX ... GROUP BY` subquery](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/first-value/).
 
 </td>
 </tr>
@@ -61,13 +61,13 @@ join](/transform-data/idiomatic-materialize-sql/any/).
 <td>
 
 [Lag over a regularly increasing
-field](/transform-data/idiomatic-materialize-sql/lag/)
+field](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/lag/)
 
 </td>
 <td>
 
 [Use self join or a self `LEFT JOIN/LEFT OUTER JOIN` by an **equality match** on
-the regularly increasing field](/transform-data/idiomatic-materialize-sql/lag/).
+the regularly increasing field](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/lag/).
 
 </td>
 </tr>
@@ -75,12 +75,12 @@ the regularly increasing field](/transform-data/idiomatic-materialize-sql/lag/).
 <tr>
 <td>
 
-[Last value within groups](/transform-data/idiomatic-materialize-sql/last-value/)
+[Last value within groups](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/last-value/)
 
 </td>
 <td>
 
-[Use `MIN/MAX ... GROUP BY` subquery](/transform-data/idiomatic-materialize-sql/last-value/)
+[Use `MIN/MAX ... GROUP BY` subquery](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/last-value/)
 
 </td>
 </tr>
@@ -89,13 +89,13 @@ the regularly increasing field](/transform-data/idiomatic-materialize-sql/lag/).
 <td>
 
 [Lead over a regularly increasing
-field](/transform-data/idiomatic-materialize-sql/lead/)
+field](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/lead/)
 
 </td>
 <td>
 
 [Use self join or a self `LEFT JOIN/LEFT OUTER JOIN` by an **equality match** on
-the regularly increasing field](/transform-data/idiomatic-materialize-sql/lead/).
+the regularly increasing field](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/lead/).
 
 </td>
 </tr>
@@ -104,14 +104,14 @@ the regularly increasing field](/transform-data/idiomatic-materialize-sql/lead/)
 <tr>
 <td>
 
-[Top-K](/transform-data/idiomatic-materialize-sql/top-k/)
+[Top-K](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/)
 
 </td>
 <td>
 
 [Use an `ORDER BY ... LIMIT` subquery with a `LATERAL JOIN` on a `DISTINCT`
 subquery (or, for K=1,  a `SELECT DISTINCT ON ... ORDER BY ... LIMIT`
-query)](/transform-data/idiomatic-materialize-sql/top-k/)
+query)](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/)
 
 </td>
 </tr>

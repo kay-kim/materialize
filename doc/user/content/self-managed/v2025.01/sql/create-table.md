@@ -18,7 +18,7 @@ created but rows can be added to at will via [`INSERT`](../insert) statements.
 
 {{< warning >}}
 At the moment, tables have many [known limitations](#known-limitations). In most
-situations, you should use [sources](/sql/create-source) instead.
+situations, you should use [sources](/self-managed/v2025.01/sql/create-source) instead.
 {{< /warning >}}
 
 [//]: # "TODO(morsapaes) Bring back When to use a table? once there's more
@@ -43,8 +43,8 @@ _table&lowbar;name_ | A name for the table.
 _col&lowbar;name_ | The name of the column to be created in the table.
 _col&lowbar;type_ | The data type of the column indicated by _col&lowbar;name_.
 **NOT NULL** | Do not allow the column to contain _NULL_ values. Columns without this constraint can contain _NULL_ values.
-*default_expr* | A default value to use for the column in an [`INSERT`](/sql/insert) statement if an explicit value is not provided. If not specified, `NULL` is assumed.
-_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
+*default_expr* | A default value to use for the column in an [`INSERT`](/self-managed/v2025.01/sql/insert) statement if an explicit value is not provided. If not specified, `NULL` is assumed.
+_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
 
 ## Details
 

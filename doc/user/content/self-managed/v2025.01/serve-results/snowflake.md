@@ -29,7 +29,7 @@ Materialize to Snowflake using Amazon S3 as the intermediate object store.
 
 ## Step 1. Set up bulk exports to Amazon S3
 
-Follow the [Amazon S3 integration guide](/serve-results/s3/) to set up an Amazon
+Follow the [Amazon S3 integration guide](/self-managed/v2025.01/serve-results/s3/) to set up an Amazon
 S3 bucket that Materialize securely writes data into. This will be your
 starting point for bulk-loading Materialize data into Snowflake.
 

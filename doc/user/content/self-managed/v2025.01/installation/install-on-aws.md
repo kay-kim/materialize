@@ -52,7 +52,7 @@ When operating in AWS, we recommend:
 - Using the `r8g`, `r7g`, and `r6g` families when running without local disk.
 
 - Using the `r7gd` and `r6gd` families of instances (and `r8gd` once available)
-  when running with local disk (Recommended for production.  See [Operational guidelines](/self-managed/operational-guidelines/#locally-attached-nvme-storage-openebs) for more information.)
+  when running with local disk (Recommended for production.  See [Operational guidelines](/self-managed/v2025.01/installation/operational-guidelines/#locally-attached-nvme-storage-openebs) for more information.)
 
 See [A. Set up AWS Kubernetes environment](#a-set-up-aws-kubernetes-environment)
 for a sample setup.
@@ -240,10 +240,10 @@ for evaluation purposes only. The module deploys a sample infrastructure on AWS
 
       ```
 
-   For production, if you have [opted for locally-attached storage](/self-managed/operational-guidelines/#locally-attached-nvme-storage-openebs),
+   For production, if you have [opted for locally-attached storage](/self-managed/v2025.01/installation/operational-guidelines/#locally-attached-nvme-storage-openebs),
    include the storage configuration in your configuration file.  See the
    [Locally-attached NVMe storage
-   (OpenEBS)](/self-managed/operational-guidelines/#locally-attached-nvme-storage-openebs)
+   (OpenEBS)](/self-managed/v2025.01/installation/operational-guidelines/#locally-attached-nvme-storage-openebs)
    for details.
 
 1. Install the Materialize operator `materialize-operator`, specifying the path
@@ -275,7 +275,7 @@ for evaluation purposes only. The module deploys a sample infrastructure on AWS
     ```
 
     If you run into an error during deployment, refer to the
-    [Troubleshooting](/self-hosted/troubleshooting) guide.
+    [Troubleshooting](/self-managed/v2025.01/installation/troubleshooting) guide.
 
 ## C. Install Materialize
 
@@ -445,7 +445,7 @@ kubectl get pv
 kubectl get pvc -A
 ```
 
-See also [Troubleshooting](/self-hosted/troubleshooting).
+See also [Troubleshooting](/self-managed/v2025.01/installation/troubleshooting/).
 
 ## Cleanup
 
@@ -480,12 +480,3 @@ To delete your S3 bucket, you may need to empty the S3 bucket first.  If the
 `terraform destroy` command fails because the S3 bucket is not empty, empty the
 S3 bucket first and rerun the `terraform destroy` command.
 {{</ tip >}}
-
-## See also
-
-- [Materialize Kubernetes Operator Helm Chart](/self-managed/)
-- [Materialize Operator Configuration](/self-managed/configuration/)
-- [Troubleshooting](/self-managed/troubleshooting/)
-- [Operational guidelines](/self-managed/operational-guidelines/)
-- [Installation](/self-managed/installation/)
-- [Upgrading](/self-managed/upgrading/)

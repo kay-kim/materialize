@@ -6,7 +6,7 @@ menu:
     parent: 'commands'
 ---
 
-`ALTER SECRET` changes the contents of a secret. To rename a secret, see [`ALTER...RENAME`](/sql/alter-rename/).
+`ALTER SECRET` changes the contents of a secret. To rename a secret, see [`ALTER...RENAME`](/self-managed/v2025.01/sql/alter-rename/).
 
 ## Syntax
 
@@ -59,12 +59,12 @@ The privileges required to execute this statement are:
 
 ## Related pages
 
-- [`ALTER...RENAME`](/sql/alter-rename/)
-- [`SHOW SECRETS`](/sql/show-secrets)
-- [`DROP SECRET`](/sql/drop-secret)
+- [`ALTER...RENAME`](/self-managed/v2025.01/sql/alter-rename/)
+- [`SHOW SECRETS`](/self-managed/v2025.01/sql/show-secrets)
+- [`DROP SECRET`](/self-managed/v2025.01/sql/drop-secret)
 
-[`CREATE CONNECTION`]: /sql/create-connection/
-[`CREATE SOURCE`]: /sql/create-source
-[`CREATE SINK`]: /sql/create-sink
-[`ALTER SOURCE`]: /sql/alter-source
-[`ALTER SINK`]: /sql/alter-sink
+[`CREATE CONNECTION`]: ]: /self-managed/v2025.01/sql/create-connection/
+[`CREATE SOURCE`]: ]: /self-managed/v2025.01/sql/create-source
+[`CREATE SINK`]: ]: /self-managed/v2025.01/sql/create-sink
+[`ALTER SOURCE`]: ]: /self-managed/v2025.01/sql/alter-source
+[`ALTER SINK`]: ]: /self-managed/v2025.01/sql/alter-sink

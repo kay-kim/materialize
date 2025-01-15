@@ -50,7 +50,7 @@ and retrieve the AWS principal needed to configure the AWS PrivateLink service.
     Note the **service name** that is generated for the endpoint service.
 
 1. #### Create an AWS PrivateLink connection
-     In Materialize, create an [AWS PrivateLink connection](/sql/create-connection/#aws-privatelink) that references the endpoint service that you created in the previous step.
+     In Materialize, create an [AWS PrivateLink connection](/self-managed/v2025.01/sql/create-connection/#aws-privatelink) that references the endpoint service that you created in the previous step.
 
      ```mzsql
     CREATE CONNECTION privatelink_svc TO AWS PRIVATELINK (
@@ -88,7 +88,7 @@ and retrieve the AWS principal needed to configure the AWS PrivateLink service.
 
 ## Validate the AWS PrivateLink connection
 
-Validate the AWS PrivateLink connection you created using the [`VALIDATE CONNECTION`](/sql/validate-connection) command:
+Validate the AWS PrivateLink connection you created using the [`VALIDATE CONNECTION`](/self-managed/v2025.01/sql/validate-connection) command:
 
 ```mzsql
 VALIDATE CONNECTION privatelink_svc;

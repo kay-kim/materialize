@@ -8,7 +8,7 @@ menu:
     name: "Quickstart"
     identifier: "quickstart-webhooks"
 aliases:
-  - /ingest-data/webhook-quickstart/
+  - /self-managed/v2025.01/ingest-data/webhook-quickstart/
 ---
 
 Webhook sources let your applications push webhook events into Materialize. This
@@ -30,7 +30,7 @@ and pop open the SQL Shell.
 ## Step 1. Create a secret
 
 To validate requests between the webhook event generator and Materialize, you
-need a [secret](/sql/create-secret/):
+need a [secret](/self-managed/v2025.01/sql/create-secret/):
 
 ```mzsql
 CREATE SECRET demo_webhook AS '<secret_value>';
@@ -62,7 +62,7 @@ CREATE SOURCE webhook_demo FROM WEBHOOK
 ```
 
 After a successful run, the command returns a `NOTICE` message containing the
-unique [webhook URL](/sql/create-source/webhook/#webhook-url)
+unique [webhook URL](/self-managed/v2025.01/sql/create-source/webhook/#webhook-url)
 that allows you to `POST` events to the source. Copy and store it. You will need
 it for the next step.
 
@@ -115,7 +115,7 @@ FROM webhook_demo;
 
 ## Step 5. Subscribe to see the output
 
-To see results change over time, let’s [`SUBSCRIBE`](/sql/subscribe/) to the
+To see results change over time, let’s [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) to the
 `webhook_demo_parsed ` view:
 
 ```mzsql
@@ -138,5 +138,5 @@ DROP SECRET demo_webhook;
 
 ## Next steps
 
-To get started with your own data, check out the [reference documentation](/sql/create-source/webhook/)
+To get started with your own data, check out the [reference documentation](/self-managed/v2025.01/sql/create-source/webhook/)
 for the webhook source.

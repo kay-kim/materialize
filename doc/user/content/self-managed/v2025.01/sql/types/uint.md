@@ -5,9 +5,9 @@ menu:
   main:
     parent: 'sql-types'
 aliases:
-  - /sql/types/uint2
-  - /sql/types/uint4
-  - /sql/types/uint8
+  - /self-managed/v2025.01/sql/types/uint2
+  - /self-managed/v2025.01/sql/types/uint4
+  - /self-managed/v2025.01/sql/types/uint8
 ---
 
 ## `uint2` info

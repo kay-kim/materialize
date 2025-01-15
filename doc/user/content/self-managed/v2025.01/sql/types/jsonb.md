@@ -5,7 +5,7 @@ menu:
   main:
     parent: 'sql-types'
 aliases:
-  - /sql/types/json
+  - /self-managed/v2025.01/sql/types/json
 ---
 
 `jsonb` data expresses a JSON object similar to
@@ -61,7 +61,7 @@ SELECT * FROM jsonb_object_keys('{"1":2,"3":4}'::jsonb);
   - Boolean
   - Null
 - Numbers in `jsonb` elements are all equivalent to
-  [`numeric`](/sql/types/numeric) in SQL.
+  [`numeric`](/self-managed/v2025.01/sql/types/numeric) in SQL.
 
 ### Valid casts
 
@@ -82,7 +82,7 @@ You can explicitly [cast](../../functions/cast) from [`text`](../text) to `jsonb
 #### Notes about converting `jsonb` to `text`
 
 `jsonb` can have some odd-feeling corner cases when converting to or from
-[`text`](/sql/types/text).
+[`text`](/self-managed/v2025.01/sql/types/text).
 
 - `jsonb::text` always produces the printed version of the JSON.
 
@@ -274,7 +274,7 @@ Note that all returned values are `string`.
 #### Path access as `jsonb` (`#>`)
 
 You can access specific elements in a `jsonb` value using a "path", which is a
-[text array](/sql/types/array) where each element is either a field key or an
+[text array](/self-managed/v2025.01/sql/types/array) where each element is either a field key or an
 array element:
 
 ```mzsql
@@ -607,6 +607,6 @@ WHERE t.content LIKE 'h%';
 
 Note that the output is `jsonb`.
 
-[Slice syntax]: /sql/types/list#slicing-ranges
-[`list`]: /sql/types/list
-[`array`]: /sql/types/array
+[Slice syntax]: ]: /self-managed/v2025.01/sql/types/list#slicing-ranges
+[`list`]: ]: /self-managed/v2025.01/sql/types/list
+[`array`]: ]: /self-managed/v2025.01/sql/types/array

@@ -49,7 +49,7 @@ this could be the cause of your query slowness.
 #### Address
 
 To troubleshoot and fix a lagging materialized view or index, follow the steps
-in the [dataflow troubleshooting](/transform-data/dataflow-troubleshooting) guide.
+in the [dataflow troubleshooting](/self-managed/v2025.01/transform-data/dataflow-troubleshooting) guide.
 
 *Do you have multiple materialized views chained on top of each other? Are you
 seeing small amounts of lag?*<br>
@@ -61,8 +61,8 @@ one.
 Other options to consider:
 
 * If you've gone through the dataflow troubleshooting and do not want to make
-  any changes to your query, consider [sizing up your cluster](/sql/create-cluster/#size).
-* You can also consider changing your [isolation level](/get-started/isolation-level/),
+  any changes to your query, consider [sizing up your cluster](/self-managed/v2025.01/sql/create-cluster/#size).
+* You can also consider changing your [isolation level](/self-managed/v2025.01/get-started/isolation-level/),
   depending on the consistency guarantees that you need. With a lower isolation
   level, you may be able to query stale results out of lagging indexes and
   materialized views.
@@ -78,15 +78,15 @@ ways:
 #### Indexing and query optimization
 
 Like in any other database, index design affects query performance. If the
-dependencies of your query don't have [indexes](/sql/create-index/) defined,
-you should consider creating one (or many). Check out the [optimization guide](/transform-data/optimization)
+dependencies of your query don't have [indexes](/self-managed/v2025.01/sql/create-index/) defined,
+you should consider creating one (or many). Check out the [optimization guide](/self-managed/v2025.01/transform-data/optimization)
 for guidance on how to optimize query performance. For information on when
 to use a materialized view versus an index, check out the
-[materialized view reference documentation](/sql/create-materialized-view/#details) .
+[materialized view reference documentation](/self-managed/v2025.01/sql/create-materialized-view/#details) .
 
 If the dependencies of your query are indexed, you should confirm that the query
 is actually using the index! This information is available in the query plan,
-which you can view using the [`EXPLAIN PLAN`](/sql/explain-plan/) command. If
+which you can view using the [`EXPLAIN PLAN`](/self-managed/v2025.01/sql/explain-plan/) command. If
 you run `EXPLAIN PLAN` for your query and see the index(es) under `Used indexes`,
 this means that the index was correctly used. If that's not the case, consider:
 
@@ -131,7 +131,7 @@ WHERE mz_now() <= event_ts + INTERVAL '1hr'
 
 Materialize is able to “push down” temporal filters all the way down to its
 storage layer, skipping over old data that isn't relevant to the query. For
-more details on temporal filter pushdown, see the [reference documentation](/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
+more details on temporal filter pushdown, see the [reference documentation](/self-managed/v2025.01/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
 
 ### Other things to consider
 
@@ -216,7 +216,7 @@ guidance.
 ### Stalled source
 
 <!-- TODO: update this to use the query history UI once it's available -->
-To detect and address stalled sources, follow the [`Ingest data` troubleshooting](/ingest-data/troubleshooting)
+To detect and address stalled sources, follow the [`Ingest data` troubleshooting](/self-managed/v2025.01/ingest-data/troubleshooting)
 guide.
 
 ### Hydrating upstream objects
@@ -231,8 +231,7 @@ to the [workflow graph](#detect) for the object in the Materialize console.
 Hydration time is proportional to data volume and query complexity. This means
 that you should expect objects with large volumes of data and/or complex
 queries to take longer to hydrate. You should also expect hydration to be
-triggered every time a cluster is restarted or sized up, including during
-[Materialize's routine maintenance window](/releases#schedule).
+triggered every time a cluster is restarted or sized up.
 
 ### Unhealthy cluster
 
@@ -258,7 +257,7 @@ navigation bar, and click on the cluster name.
 Your query may have been the root cause of the increased memory and CPU usage,
 or it may have been something else happening on the cluster at the same time.
 To troubleshoot and fix memory and CPU usage, follow the steps in the
-[dataflow troubleshooting](/transform-data/dataflow-troubleshooting) guide.
+[dataflow troubleshooting](/self-managed/v2025.01/transform-data/dataflow-troubleshooting) guide.
 
 For guidance on how to reduce memory and CPU usage for this or another query,
 take a look at the [indexing and query optimization](#indexing-and-query-optimization)
@@ -274,41 +273,41 @@ If your query was not the root cause, you can wait for the other activity on the
 cluster to stop and memory/CPU to go down, or switch to a different cluster.
 
 If you've gone through the dataflow troubleshooting and do not want to make any
-changes to your query, consider [sizing up your cluster](/sql/create-cluster/#size).
+changes to your query, consider [sizing up your cluster](/self-managed/v2025.01/sql/create-cluster/#size).
 A larger size cluster will provision more memory and CPU resources.
 
 ## Which part of my query runs slowly or uses a lot of memory?
 
 {{< public-preview />}}
 
-You can [`EXPLAIN`](/sql/explain-plan/) a query to see how it will be run as a
+You can [`EXPLAIN`](/self-managed/v2025.01/sql/explain-plan/) a query to see how it will be run as a
 dataflow. In particular, `EXPLAIN PHYSICAL PLAN` will show the concrete, fully
 optimized plan that Materialize will run. That plan is written in our "low-level
 intermediate representation" (LIR).
 
-For [indexes](/concepts/indexes) and [materialized
-views](/concepts/views#materialized-views), you can use
-[`mz_introspection.mz_lir_mapping`](/sql/system-catalog/mz_introspection/#mz_lir_mapping)
+For [indexes](/self-managed/v2025.01/concepts/indexes) and [materialized
+views](/self-managed/v2025.01/concepts/views#materialized-views), you can use
+[`mz_introspection.mz_lir_mapping`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_lir_mapping)
 to attribute various performance characteristics to the operators inside your
 query.
 
 Every time you create an index or materialized view, Materialize uses
-[`mz_introspection.mz_lir_mapping`](/sql/system-catalog/mz_introspection/#mz_lir_mapping)
+[`mz_introspection.mz_lir_mapping`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_lir_mapping)
 to map the higher-level LIR operators to zero or more lower-level
 dataflow operators. You can construct queries that will combine
 information from
-[`mz_introspection.mz_lir_mapping`](/sql/system-catalog/mz_introspection/#mz_lir_mapping)
+[`mz_introspection.mz_lir_mapping`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_lir_mapping)
 and other internal views to discover which parts of your query are
 computationally expensive (e.g.,
-[`mz_introspection.mz_compute_operator_durations_histogram`](/sql/system-catalog/mz_introspection/#mz_compute_operator_durations_histogram), [`mz_introspection.mz_scheduling_elapsed`](/sql/system-catalog/mz_introspection/#mz_scheduling_elapsed))
-or consuming excessive memory (e.g., [`mz_introspection.mz_arrangement_sizes`](/sql/system-catalog/mz_introspection/#mz_arrangement_sizes)).
+[`mz_introspection.mz_compute_operator_durations_histogram`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_compute_operator_durations_histogram), [`mz_introspection.mz_scheduling_elapsed`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_scheduling_elapsed))
+or consuming excessive memory (e.g., [`mz_introspection.mz_arrangement_sizes`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_arrangement_sizes)).
 
 To show how you can use
-[`mz_introspection.mz_lir_mapping`](/sql/system-catalog/mz_introspection/#mz_lir_mapping)
+[`mz_introspection.mz_lir_mapping`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_lir_mapping)
 to attribute performance characteristics, the attribution examples in this
 section reference the `wins_by_item` index (and the underlying `winning_bids`
 view) from the [quickstart
-guide](/get-started/quickstart/#step-2-create-the-source):
+guide](/self-managed/v2025.01/get-started/quickstart/#step-2-create-the-source):
 
 ```sql
 CREATE SOURCE auction_house
@@ -341,9 +340,9 @@ We attribute four different kinds of performance data to parts of the
 When optimizing a query, it helps to be able to attribute 'cost' to its parts,
 starting with how much time is spent computing in each part overall. Materialize
 reports the time spent in each _dataflow operator_ in
-[`mz_introspection.mz_compute_operator_durations_histogram`](/sql/system-catalog/mz_introspection/#mz_compute_operator_durations_histogram).
+[`mz_introspection.mz_compute_operator_durations_histogram`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_compute_operator_durations_histogram).
 By joining it with
-[`mz_introspection.mz_lir_mapping`](/sql/system-catalog/mz_introspection/#mz_lir_mapping),
+[`mz_introspection.mz_lir_mapping`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_lir_mapping),
 we can attribute the time spent in each operator to the higher-level, more
 intelligible LIR operators.
 
@@ -393,13 +392,13 @@ To examine the query in more detail:
 (`SUM(duration_ns)`).
 
 - The query joins with
-  [`mz_catalog.mz_objects`](/sql/system-catalog/mz_catalog/#mz_objects) to find
+  [`mz_catalog.mz_objects`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_objects) to find
   the actual name corresponding to the `global_id`.  The `WHERE mo.name IN ...`
   clause of the query ensures we only see information about this index and view.
   If you leave this `WHERE` clause out, you will see information on _every_
   view, materialized view, and index on your current cluster.
 
-- The `operator` is indented using [`REPEAT`](/sql/functions/#repeat) and
+- The `operator` is indented using [`REPEAT`](/self-managed/v2025.01/sql/functions/#repeat) and
   `mz_lir_mapping.nesting`. The indenting, combined with ordering by
   `mz_lir_mapping.lir_id` descending, gives us a tree-shaped view of the LIR
   plan.
@@ -413,9 +412,9 @@ If you have not read about [attributing computation time](#attributing-computati
 {{< /tip >}}
 
 To find the memory usage of each operator for the index and view, join
-[`mz_introspection.mz_lir_mapping`](/sql/system-catalog/mz_introspection/#mz_lir_mapping)
+[`mz_introspection.mz_lir_mapping`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_lir_mapping)
 with
-[`mz_introspection.mz_arrangement_sizes`](/sql/system-catalog/mz_introspection/#mz_arrangement_sizes):
+[`mz_introspection.mz_arrangement_sizes`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_arrangement_sizes):
 
 ```sql
   SELECT mo.name AS name, global_id, lir_id, parent_lir_id, REPEAT(' ', nesting * 2) || operator AS operator,
@@ -437,7 +436,7 @@ vary):
 
 The results show:
 
-- The [`TopK`](/transform-data/idiomatic-materialize-sql/top-k/) is
+- The [`TopK`](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/) is
   overwhelmingly responsible for memory usage.
 
 - Arranging the `bids` table (`lir_id` 4) and `auctions` table (`lir_id` 2) are
@@ -453,10 +452,10 @@ If you have not read about [attributing computation time](#attributing-computati
 {{< /tip >}}
 
 The
-[`mz_introspection.mz_expected_group_size_advice`](/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice)
+[`mz_introspection.mz_expected_group_size_advice`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice)
 looks at your running dataflow and suggests parameters you can set. We
 can attribute this to particular parts of our query using
-[`mz_introspection.mz_lir_mapping`](/sql/system-catalog/mz_introspection/#mz_lir_mapping):
+[`mz_introspection.mz_lir_mapping`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_lir_mapping):
 
 ```sql
   SELECT mo.name AS name, mlm.global_id AS global_id, lir_id, parent_lir_id, REPEAT(' ', nesting * 2) || operator AS operator,
@@ -474,7 +473,7 @@ ORDER BY mlm.global_id, lir_id DESC;
 ```
 
 Each `TopK` operator will have an [associated `DISTINCT ON INPUT GROUP SIZE`
-query hint](/transform-data/idiomatic-materialize-sql/top-k/#query-hints-1):
+query hint](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/#query-hints-1):
 
 {{< yaml-table data="query_attribution_topk_hints_output" >}}
 
@@ -515,10 +514,10 @@ If you have not read about [attributing computation time](#attributing-computati
 {{< /tip >}}
 
 
-[Worker skew](/transform-data/dataflow-troubleshooting/#is-work-distributed-equally-across-workers) occurs when your data do not end up getting evenly
+[Worker skew](/self-managed/v2025.01/transform-data/dataflow-troubleshooting/#is-work-distributed-equally-across-workers) occurs when your data do not end up getting evenly
 partitioned between workers.  Worker skew can only happen when your
 cluster has more than one worker. You can query
-[`mz_catalog.mz_cluster_replica_sizes`](/sql/system-catalog/mz_catalog/#mz_cluster_replica_sizes)
+[`mz_catalog.mz_cluster_replica_sizes`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_cluster_replica_sizes)
 to determine how many workers a given cluster size has; in our example, there are 4 workers.
 
 You can identify worker skew by comparing a worker's time spent to the
@@ -561,10 +560,10 @@ skewed workload.
 ### Writing your own attribution queries
 
 Materialize maps LIR nodes to ranges of dataflow operators in
-[`mz_introspection.mz_lir_mapping`](/sql/system-catalog/mz_introspection/#mz_lir_mapping).
+[`mz_introspection.mz_lir_mapping`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_lir_mapping).
 By combining information from
-[`mz_catalog`](/sql/system-catalog/mz_catalog/) and
-[`mz_introspection`](/sql/system-catalog/mz_introspection/),
+[`mz_catalog`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/) and
+[`mz_introspection`](/self-managed/v2025.01/sql/system-catalog/mz_introspection/),
 you can better understand your dataflows' behavior. Using the above queries as a
 starting point, you can build your own attribution queries. When building your own, keep the following in mind:
 
@@ -600,7 +599,7 @@ in the [Materialize console](https://console.materialize.com/). You can filter
 and sort statements by type, duration, and other dimensions.
 
 This data is also available via the
-[mz_internal.mz_recent_activity_log](/sql/system-catalog/mz_internal/#mz_recent_activity_log)
+[mz_internal.mz_recent_activity_log](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_recent_activity_log)
 catalog table.
 
 It's important to note that the default (and max) sample rate for most
@@ -608,6 +607,6 @@ Materialize organizations is 99%, which means that not all statements will be
 captured in the log. The sampling rate is not user-configurable, and may change
 at any time.
 
-If you're looking for a complete audit history, use the [mz_audit_events](/sql/system-catalog/mz_catalog/#mz_audit_events)
+If you're looking for a complete audit history, use the [mz_audit_events](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_audit_events)
 catalog table, which records all DDL commands issued against your Materialize
 region.

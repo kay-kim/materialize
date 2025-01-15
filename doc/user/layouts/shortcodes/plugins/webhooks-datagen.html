@@ -83,7 +83,7 @@
 
   function generateDataAndSend() {
     const generatedData = JSON.parse(
-      jsonSchemaTextarea.value.replace(/"faker\.(.+?)"/g, (_, match) => {
+      jsonSchemaTextarea.value.replace(/self-managed/v2025.01/"faker\.(.+?)"/g, (_, match) => {
         try {
           const fakerValue = eval(`faker.${match}`);
           return JSON.stringify(fakerValue);

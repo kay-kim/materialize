@@ -5,13 +5,13 @@ menu:
   main:
     parent: 'sql-patterns'
 aliases:
-  - /transform-data/patterns/time-travel-queries/
-  - /transform-data/patterns/time-travel-queries/#history-retention-period
+  - /self-managed/v2025.01/transform-data/patterns/time-travel-queries/
+  - /self-managed/v2025.01/transform-data/patterns/time-travel-queries/#history-retention-period
 ---
 
 [//]: # "TODO: Move to Serve results section"
 
-[Subscriptions](/sql/subscribe/) allow you to stream changing results from
+[Subscriptions](/self-managed/v2025.01/sql/subscribe/) allow you to stream changing results from
 Materialize to an external application programatically. Like any connection over
 the network, subscriptions might get disrupted for both expected and unexpected
 reasons. In such cases, it can be useful to have a mechanism to gracefully
@@ -92,12 +92,12 @@ See [Considerations](#considerations).
 
 {{</ important >}}
 
-To set the history retention period for [sources](/sql/create-source/),
-[tables](/sql/create-table/), and [materialized
-views](/sql/create-materialized-view/), you can either:
+To set the history retention period for [sources](/self-managed/v2025.01/sql/create-source/),
+[tables](/self-managed/v2025.01/sql/create-table/), and [materialized
+views](/self-managed/v2025.01/sql/create-materialized-view/), you can either:
 
 - Specify the `RETAIN HISTORY` option in the `CREATE` statement. The `RETAIN
-   HISTORY` option accepts positive [interval](/sql/types/interval/)
+   HISTORY` option accepts positive [interval](/self-managed/v2025.01/sql/types/interval/)
    values (e.g., `'1hr'`). For example:
 
    ```mzsql
@@ -112,7 +112,7 @@ views](/sql/create-materialized-view/), you can either:
    ```
 
 - Specify the `RETAIN HISTORY` option in the `ALTER` statement. The `RETAIN
-  HISTORY` option accepts positive [interval](/sql/types/interval/) values
+  HISTORY` option accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values
   (e.g., `'1hr'`). For example:
 
   ```mzsql
@@ -123,7 +123,7 @@ views](/sql/create-materialized-view/), you can either:
 
 To see what history retention period has been configured for an object, look up
 the object in the
-[`mz_internal.mz_history_retention_strategies`](/sql/system-catalog/mz_internal/#mz_history_retention_strategies)
+[`mz_internal.mz_history_retention_strategies`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_history_retention_strategies)
 catalog table. For example:
 
 ```mzsql
@@ -218,7 +218,7 @@ continuous query against Materialize in your application code:
    this to `SNAPSHOT false`.
 
 1. As results come in continuously, buffer the latest results in memory until
-you receive a [progress](/sql/subscribe#progress) message. At that point, the
+you receive a [progress](/self-managed/v2025.01/sql/subscribe#progress) message. At that point, the
 data up until the progress message is complete, so you can:
 
    1. Process all the buffered data in your application.
@@ -232,7 +232,7 @@ continuous query against Materialize in your application code:
    ```
 
    In a similar way, as results come in continuously, buffer the latest results
-   in memory until you receive a [progress](/sql/subscribe#progress) message. At that point,
+   in memory until you receive a [progress](/self-managed/v2025.01/sql/subscribe#progress) message. At that point,
    the data up until the progress message is complete, so you can:
 
    1. Process all the buffered data in your application.

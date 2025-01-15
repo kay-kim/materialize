@@ -7,13 +7,13 @@ menu:
 ---
 
 `COPY TO` outputs results from Materialize to standard output or object storage.
-This command is useful to output [`SUBSCRIBE`](/sql/subscribe/) results
+This command is useful to output [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) results
 [to `stdout`](#copy-to-stdout), or perform [bulk exports to Amazon S3](#copy-to-s3).
 
 ## Copy to `stdout`
 
 Copying results to `stdout` is useful to output the stream of updates from a
-[`SUBSCRIBE`](/sql/subscribe/) command in interactive SQL clients like `psql`.
+[`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/) command in interactive SQL clients like `psql`.
 
 ### Syntax {#copy-to-stdout-syntax}
 
@@ -21,7 +21,7 @@ Copying results to `stdout` is useful to output the stream of updates from a
 
 Field         | Use
 --------------|-----
-_query_       | The [`SELECT`](/sql/select) or [`SUBSCRIBE`](/sql/subscribe) query to output results for.
+_query_       | The [`SELECT`](/self-managed/v2025.01/sql/select) or [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe) query to output results for.
 _field_       | The name of the option you want to set.
 _val_         | The value for the option.
 
@@ -46,7 +46,7 @@ COPY (SUBSCRIBE some_view) TO STDOUT WITH (FORMAT binary);
 Copying results to Amazon S3 (or S3-compatible services) is useful to perform
 tasks like periodic backups for auditing, or downstream processing in
 analytical data warehouses like Snowflake, Databricks or BigQuery. For
-step-by-step instructions, see the integration guide for [Amazon S3](/serve-results/s3/).
+step-by-step instructions, see the integration guide for [Amazon S3](/self-managed/v2025.01/serve-results/s3/).
 
 The `COPY TO` command is _one-shot_: every time you want to export results, you
 must run the command. To automate exporting results on a regular basis, you can
@@ -59,9 +59,9 @@ orchestration platform like Airflow or Dagster.
 
 Field         | Use
 --------------|-----
-_query_       | The [`SELECT`](/sql/select) query to copy results out for.
+_query_       | The [`SELECT`](/self-managed/v2025.01/sql/select) query to copy results out for.
 _object_name_ | The name of the object to copy results out for.
-**AWS CONNECTION** _connection_name_ | The name of the AWS connection to use in the `COPY TO` command. For details on creating connections, check the [`CREATE CONNECTION`](/sql/create-connection/#aws) documentation page.
+**AWS CONNECTION** _connection_name_ | The name of the AWS connection to use in the `COPY TO` command. For details on creating connections, check the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#aws) documentation page.
 _s3_uri_      | The unique resource identifier (URI) of the Amazon S3 bucket (and prefix) to store the output results in.
 **FORMAT**    | The file format to write.
 _field_       | The name of the option you want to set.
@@ -106,7 +106,7 @@ Dictionary page encoding      | Plain
 Dictionary data page encoding | `RLE_DICTIONARY`
 
 If you run into a snag trying to ingest Parquet files produced by Materialize
-into your downstream systems, please [contact our team](https://materialize.com/docs/support/)
+into your downstream systems, please [contact our team](https://materialize.com/docs/self-managed/v2025.01/support/)
 or [open a bug report](https://github.com/MaterializeInc/materialize/discussions/new?category=bug-reports)!
 
 ##### Data types {#copy-to-s3-parquet-data-types}
@@ -126,30 +126,30 @@ to indicate the Materialize native type the field originated from.
 
 Materialize type | Arrow extension name | [Arrow type](https://github.com/apache/arrow/blob/main/format/Schema.fbs) | [Parquet primitive type](https://parquet.apache.org/docs/file-format/types/) | [Parquet logical type](https://github.com/apache/parquet-format/blob/master/LogicalTypes.md)
 ----------------------------------|----------------------------|------------|-------------------|--------------
-[`bigint`](/sql/types/integer/#bigint-info)         | `materialize.v1.bigint`    | `int64` | `INT64`
-[`boolean`](/sql/types/boolean/)        | `materialize.v1.boolean`   | `bool` | `BOOLEAN`
-[`bytea`](/sql/types/bytea/)            | `materialize.v1.bytea`     | `large_binary` | `BYTE_ARRAY`
-[`date`](/sql/types/date/)              | `materialize.v1.date`      | `date32` | `INT32` | `DATE`
-[`double precision`](/sql/types/float/#double-precision-info) | `materialize.v1.double`    | `float64` | `DOUBLE`
-[`integer`](/sql/types/integer/#integer-info)        | `materialize.v1.integer`   | `int32` | `INT32`
-[`jsonb`](/sql/types/jsonb/)            | `materialize.v1.jsonb`     | `large_utf8` | `BYTE_ARRAY`
-[`map`](/sql/types/map/)                | `materialize.v1.map`       | `map` (`struct` with fields `keys` and `values`) | Nested | `MAP`
-[`list`](/sql/types/list/)              | `materialize.v1.list`      | `list` | Nested
-[`numeric`](/sql/types/numeric/)        | `materialize.v1.numeric`   | `decimal128[38, 10 or max-scale]` | `FIXED_LEN_BYTE_ARRAY`             | `DECIMAL`
-[`real`](/sql/types/float/#real-info)             | `materialize.v1.real`      | `float32` | `FLOAT`
-[`smallint`](/sql/types/integer/#smallint-info)       | `materialize.v1.smallint`  | `int16` | `INT32` | `INT(16, true)`
-[`text`](/sql/types/text/)              | `materialize.v1.text`      | `utf8` or `large_utf8` | `BYTE_ARRAY` | `STRING`
-[`time`](/sql/types/time/)              | `materialize.v1.time`      | `time64[nanosecond]` | `INT64` | `TIME[isAdjustedToUTC = false, unit = NANOS]`
-[`uint2`](/sql/types/uint/#uint2-info)             | `materialize.v1.uint2`     | `uint16` | `INT32` | `INT(16, false)`
-[`uint4`](/sql/types/uint/#uint4-info)             | `materialize.v1.uint4`     | `uint32` | `INT32` | `INT(32, false)`
-[`uint8`](/sql/types/uint/#uint8-info)             | `materialize.v1.uint8`     | `uint64` | `INT64` | `INT(64, false)`
-[`timestamp`](/sql/types/timestamp/#timestamp-info)    | `materialize.v1.timestamp` | `time64[microsecond]` | `INT64` | `TIMESTAMP[isAdjustedToUTC = false, unit = MICROS]`
-[`timestamp with time zone`](/sql/types/timestamp/#timestamp-with-time-zone-info) | `materialize.v1.timestampz` | `time64[microsecond]` | `INT64` | `TIMESTAMP[isAdjustedToUTC = true, unit = MICROS]`
-[Arrays](/sql/types/array/) (`[]`)      | `materialize.v1.array`     | `struct` with `list` field `items` and `uint8` field `dimensions` | Nested
-[`uuid`](/sql/types/uuid/)              | `materialize.v1.uuid`      | `fixed_size_binary(16)` | `FIXED_LEN_BYTE_ARRAY`
-[`oid`](/sql/types/oid/)                      | Unsupported
-[`interval`](/sql/types/interval/)            | Unsupported
-[`record`](/sql/types/record/)                | Unsupported
+[`bigint`](/self-managed/v2025.01/sql/types/integer/#bigint-info)         | `materialize.v1.bigint`    | `int64` | `INT64`
+[`boolean`](/self-managed/v2025.01/sql/types/boolean/)        | `materialize.v1.boolean`   | `bool` | `BOOLEAN`
+[`bytea`](/self-managed/v2025.01/sql/types/bytea/)            | `materialize.v1.bytea`     | `large_binary` | `BYTE_ARRAY`
+[`date`](/self-managed/v2025.01/sql/types/date/)              | `materialize.v1.date`      | `date32` | `INT32` | `DATE`
+[`double precision`](/self-managed/v2025.01/sql/types/float/#double-precision-info) | `materialize.v1.double`    | `float64` | `DOUBLE`
+[`integer`](/self-managed/v2025.01/sql/types/integer/#integer-info)        | `materialize.v1.integer`   | `int32` | `INT32`
+[`jsonb`](/self-managed/v2025.01/sql/types/jsonb/)            | `materialize.v1.jsonb`     | `large_utf8` | `BYTE_ARRAY`
+[`map`](/self-managed/v2025.01/sql/types/map/)                | `materialize.v1.map`       | `map` (`struct` with fields `keys` and `values`) | Nested | `MAP`
+[`list`](/self-managed/v2025.01/sql/types/list/)              | `materialize.v1.list`      | `list` | Nested
+[`numeric`](/self-managed/v2025.01/sql/types/numeric/)        | `materialize.v1.numeric`   | `decimal128[38, 10 or max-scale]` | `FIXED_LEN_BYTE_ARRAY`             | `DECIMAL`
+[`real`](/self-managed/v2025.01/sql/types/float/#real-info)             | `materialize.v1.real`      | `float32` | `FLOAT`
+[`smallint`](/self-managed/v2025.01/sql/types/integer/#smallint-info)       | `materialize.v1.smallint`  | `int16` | `INT32` | `INT(16, true)`
+[`text`](/self-managed/v2025.01/sql/types/text/)              | `materialize.v1.text`      | `utf8` or `large_utf8` | `BYTE_ARRAY` | `STRING`
+[`time`](/self-managed/v2025.01/sql/types/time/)              | `materialize.v1.time`      | `time64[nanosecond]` | `INT64` | `TIME[isAdjustedToUTC = false, unit = NANOS]`
+[`uint2`](/self-managed/v2025.01/sql/types/uint/#uint2-info)             | `materialize.v1.uint2`     | `uint16` | `INT32` | `INT(16, false)`
+[`uint4`](/self-managed/v2025.01/sql/types/uint/#uint4-info)             | `materialize.v1.uint4`     | `uint32` | `INT32` | `INT(32, false)`
+[`uint8`](/self-managed/v2025.01/sql/types/uint/#uint8-info)             | `materialize.v1.uint8`     | `uint64` | `INT64` | `INT(64, false)`
+[`timestamp`](/self-managed/v2025.01/sql/types/timestamp/#timestamp-info)    | `materialize.v1.timestamp` | `time64[microsecond]` | `INT64` | `TIMESTAMP[isAdjustedToUTC = false, unit = MICROS]`
+[`timestamp with time zone`](/self-managed/v2025.01/sql/types/timestamp/#timestamp-with-time-zone-info) | `materialize.v1.timestampz` | `time64[microsecond]` | `INT64` | `TIMESTAMP[isAdjustedToUTC = true, unit = MICROS]`
+[Arrays](/self-managed/v2025.01/sql/types/array/) (`[]`)      | `materialize.v1.array`     | `struct` with `list` field `items` and `uint8` field `dimensions` | Nested
+[`uuid`](/self-managed/v2025.01/sql/types/uuid/)              | `materialize.v1.uuid`      | `fixed_size_binary(16)` | `FIXED_LEN_BYTE_ARRAY`
+[`oid`](/self-managed/v2025.01/sql/types/oid/)                      | Unsupported
+[`interval`](/self-managed/v2025.01/sql/types/interval/)            | Unsupported
+[`record`](/self-managed/v2025.01/sql/types/record/)                | Unsupported
 
 ### Examples {#copy-to-s3-examples}
 
@@ -193,7 +193,7 @@ The privileges required to execute this statement are:
 
 ## Related pages
 
-- [`CREATE CONNECTION`](/sql/create-connection)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection)
 - Integration guides:
-  - [Amazon S3](/serve-results/s3/)
-  - [Snowflake (via S3)](/serve-results/snowflake/)
+  - [Amazon S3](/self-managed/v2025.01/serve-results/s3/)
+  - [Snowflake (via S3)](/self-managed/v2025.01/serve-results/snowflake/)

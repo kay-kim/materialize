@@ -2,7 +2,7 @@
 title: "Golang cheatsheet"
 description: "Use Go to connect, insert, manage, query and stream from Materialize."
 aliases:
-  - /guides/golang/
+  - /self-managed/v2025.01/guides/golang/
 menu:
   main:
     parent: "client-libraries"
@@ -43,7 +43,7 @@ The remainder of this guide uses the [`*pgx.Conn`](https://pkg.go.dev/github.com
 
 ## Create tables
 
-Most data in Materialize will stream in via an external system, but a [table](/sql/create-table/) can be helpful for supplementary data. For example, you can use a table to join slower-moving reference or lookup data with a stream.
+Most data in Materialize will stream in via an external system, but a [table](/self-managed/v2025.01/sql/create-table/) can be helpful for supplementary data. For example, you can use a table to join slower-moving reference or lookup data with a stream.
 
 To create a table named `countries` in Materialize:
 
@@ -63,7 +63,7 @@ if err != nil {
 
 ## Insert data into tables
 
-To [insert a row](/sql/insert/) of data into a table named `countries` in Materialize:
+To [insert a row](/self-managed/v2025.01/sql/insert/) of data into a table named `countries` in Materialize:
 
 ```go
 insertSQL := "INSERT INTO countries (code, name) VALUES ($1, $2)"
@@ -116,7 +116,7 @@ if err != nil {
     log.Fatal(err)
 }
 ```
-For more information, see [`CREATE SOURCE`](/sql/create-source/).
+For more information, see [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/).
 
 ### Create a view from Go
 
@@ -133,13 +133,13 @@ if err != nil {
 }
 ```
 
-For more information, see [`CREATE MATERIALIZED VIEW`](/sql/create-materialized-view/).
+For more information, see [`CREATE MATERIALIZED VIEW`](/self-managed/v2025.01/sql/create-materialized-view/).
 
 ## Stream
 
-To take full advantage of incrementally updated materialized views from a Go application, instead of [querying](#query) Materialize for the state of a view at a point in time, use a [`SUBSCRIBE` statement](/sql/subscribe/) to request a stream of updates as the view changes.
+To take full advantage of incrementally updated materialized views from a Go application, instead of [querying](#query) Materialize for the state of a view at a point in time, use a [`SUBSCRIBE` statement](/self-managed/v2025.01/sql/subscribe/) to request a stream of updates as the view changes.
 
-To read a stream of updates from an existing materialized view, open a long-lived transaction with `BEGIN` and use [`SUBSCRIBE` with `FETCH`](/sql/subscribe/#subscribing-with-fetch) to repeatedly fetch all changes to the view since the last query:
+To read a stream of updates from an existing materialized view, open a long-lived transaction with `BEGIN` and use [`SUBSCRIBE` with `FETCH`](/self-managed/v2025.01/sql/subscribe/#subscribing-with-fetch) to repeatedly fetch all changes to the view since the last query:
 
 ```go
 tx, err := conn.Begin(ctx)
@@ -179,7 +179,7 @@ if err != nil {
 }
 ```
 
-The [SUBSCRIBE output format](/sql/subscribe/#output) of `subscribeResult` contains all of the columns of `counter_sum`, prepended with several additional columns that describe the nature of the update.  When a row of a subscribed view is **updated,** two objects will show up in the result set:
+The [SUBSCRIBE output format](/self-managed/v2025.01/sql/subscribe/#output) of `subscribeResult` contains all of the columns of `counter_sum`, prepended with several additional columns that describe the nature of the update.  When a row of a subscribed view is **updated,** two objects will show up in the result set:
 
 ```go
 {MzTimestamp:1646868332570 MzDiff:1 row...}
@@ -190,7 +190,7 @@ An `MzDiff` value of `-1` indicates that Materialize is deleting one row with th
 
 ## Clean up
 
-To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/integrations/sql-clients/) and then, run the following commands:
+To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/self-managed/v2025.01/integrations/sql-clients/) and then, run the following commands:
 
 ```mzsql
 DROP MATERIALIZED VIEW IF EXISTS counter_sum;

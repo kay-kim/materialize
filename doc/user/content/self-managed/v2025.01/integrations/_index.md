@@ -4,11 +4,11 @@ description: "Get details about third-party tools and integrations supported by 
 disable_list: true
 make_table_row_headers_searchable: true
 aliases:
-    - /third-party/supported-tools/
-    - /third-party/
-    - /third-party/postgres-cloud/
-    - /guides/postgres-cloud/
-    - /guides/
+    - /self-managed/v2025.01/third-party/supported-tools/
+    - /self-managed/v2025.01/third-party/
+    - /self-managed/v2025.01/third-party/postgres-cloud/
+    - /self-managed/v2025.01/guides/postgres-cloud/
+    - /self-managed/v2025.01/guides/
 
 menu:
   main:
@@ -43,26 +43,26 @@ For listed tools that are not yet production-ready, you can register your intere
 
 ### Kafka
 
-Kafka is supported as a [**source**](/concepts/sources), with features like **upserts** and **Debezium** CDC, and as a [**sink**](/concepts/sinks) with **exactly-once** semantics.
+Kafka is supported as a [**source**](/self-managed/v2025.01/concepts/sources), with features like **upserts** and **Debezium** CDC, and as a [**sink**](/self-managed/v2025.01/concepts/sinks) with **exactly-once** semantics.
 
 | Service                               | Support level                   | Notes                                                                                                                                                                                                                                                                                                                                                      |             |
 | ------------------------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| Apache Kafka                          | {{< supportLevel production >}} | See the [source](/sql/create-source/kafka/) and [sink](/sql/create-sink/kafka) documentation for more details.                                                                                                                                                                                                                                      |             |
-| Confluent Cloud                       | {{< supportLevel production >}} | Use SASL authentication to securely connect to a Confluent Cloud cluster. See the [Confluent Cloud guide](/integrations/confluent-cloud) for a step-by-step breakdown of the integration.                                                                                                                   |             |
-| Amazon MSK (Managed Streaming for Apache Kafka) | {{< supportLevel production >}} | See the [source documentation](/sql/create-source/kafka/) for more details, and the [Amazon MSK guide](/integrations/aws-msk/) for a step-by-step breakdown of the integration.                                                                                                                                                                               |             |
+| Apache Kafka                          | {{< supportLevel production >}} | See the [source](/self-managed/v2025.01/sql/create-source/kafka/) and [sink](/self-managed/v2025.01/sql/create-sink/kafka) documentation for more details.                                                                                                                                                                                                                                      |             |
+| Confluent Cloud                       | {{< supportLevel production >}} | Use SASL authentication to securely connect to a Confluent Cloud cluster. See the [Confluent Cloud guide](/self-managed/v2025.01/integrations/confluent-cloud/) for a step-by-step breakdown of the integration.                                                                                                                   |             |
+| Amazon MSK (Managed Streaming for Apache Kafka) | {{< supportLevel production >}} | See the [source documentation](/self-managed/v2025.01/sql/create-source/kafka/) for more details, and the [Amazon MSK guide](/self-managed/v2025.01/integrations/aws-msk/) for a step-by-step breakdown of the integration.                                                                                                                                                                               |             |
 | Heroku Kafka                          | {{< supportLevel alpha >}}      | Use SSL authentication and the Heroku-provided provided keys and certificates for security, and the `KAFKA_URL` as the broker address, after removing `kafka+ssl://`. |
-| WarpStream                            | {{< supportLevel beta >}}       | See the [WarpStream guide](/integrations/warpstream/) for a step-by-step breakdown of the integration.                                                                                                                                                                                                                                                    |             |
+| WarpStream                            | {{< supportLevel beta >}}       | See the [WarpStream guide](/self-managed/v2025.01/integrations/warpstream/) for a step-by-step breakdown of the integration.                                                                                                                                                                                                                                                    |             |
 
 ### Redpanda
 
-Being Kafka API-compatible, Redpanda is supported as a [**source**](/concepts/sources)
-and as a [**sink**](/concepts/sinks) at the same level and with the same
+Being Kafka API-compatible, Redpanda is supported as a [**source**](/self-managed/v2025.01/concepts/sources)
+and as a [**sink**](/self-managed/v2025.01/concepts/sinks) at the same level and with the same
 features as Kafka.
 
 | Service        | Support level             | Notes                                                                                                                                                                                                                                                                                                                                 |             |
 | -------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| Redpanda       | {{< supportLevel production >}} | See the [source](/sql/create-source/kafka/) and [sink](/sql/create-sink/kafka) documentation for more details.                                                                                                                                                                                                                 | [](#notify) |
-| Redpanda Cloud | {{< supportLevel production >}} | Use SASL authentication to securely connect to Redpanda Cloud clusters. See the [Redpanda documentation](https://docs.redpanda.com/docs/security/acls/#acls) for more details, and the [Redpanda Cloud guide](/integrations/redpanda-cloud/) for a step-by-step breakdown of the integration. | [](#notify) |
+| Redpanda       | {{< supportLevel production >}} | See the [source](/self-managed/v2025.01/sql/create-source/kafka/) and [sink](/self-managed/v2025.01/sql/create-sink/kafka) documentation for more details.                                                                                                                                                                                                                 | [](#notify) |
+| Redpanda Cloud | {{< supportLevel production >}} | Use SASL authentication to securely connect to Redpanda Cloud clusters. See the [Redpanda documentation](https://docs.redpanda.com/docs/security/acls/#acls) for more details, and the [Redpanda Cloud guide](/self-managed/v2025.01/integrations/redpanda-cloud/) for a step-by-step breakdown of the integration. | [](#notify) |
 
 ### Kinesis Data Streams
 
@@ -84,42 +84,42 @@ features as Kafka.
 
 Materialize can efficiently maintain real-time materialized views on top
 of **Change Data Capture (CDC)** data originating from a database, either by
-directly consuming its replication stream or via [Debezium](/integrations/debezium/).
+directly consuming its replication stream or via [Debezium](/self-managed/v2025.01/integrations/debezium/).
 
 ### PostgreSQL
 
-PostgreSQL 11+ is supported as a [**source**](/concepts/sources), both through
-the [direct PostgreSQL source](/sql/create-source/postgres/) and through
-[Debezium](/integrations/debezium/) (via Kafka or other Kafka API-compatible
+PostgreSQL 11+ is supported as a [**source**](/self-managed/v2025.01/concepts/sources), both through
+the [direct PostgreSQL source](/self-managed/v2025.01/sql/create-source/postgres/) and through
+[Debezium](/self-managed/v2025.01/integrations/debezium/) (via Kafka or other Kafka API-compatible
 broker). Using a PostgreSQL instance as a source requires enabling **logical
 replication**.
 
 | Service                         | Support level                    | Notes                                                                                                                                                                                                                                                                                         |             |
 | ------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| PostgreSQL _(direct)_           | {{< supportLevel production >}}        | See the [source documentation](/sql/create-source/postgres/) for more details, and the relevant integration guide for step-by-step instructions:<p></p><ul><li>[Amazon RDS for PostgreSQL](/ingest-data/postgres-amazon-rds)</li><li>[Amazon Aurora for PostgreSQL](/ingest-data/postgres-amazon-aurora)</li><li>[Azure DB for PostgreSQL](/ingest-data/postgres-azure-db)</li><li>[Google Cloud SQL for PostgreSQL](/ingest-data/postgres-google-cloud-sql)</li><li>[AlloyDB for PostgreSQL](/ingest-data/postgres-alloydb)</li><li>[Self-hosted PostgreSQL](/ingest-data/postgres-self-hosted)</li></ul> |
-| PostgreSQL _(via Debezium)_     | {{< supportLevel production >}}  | See the [PostgreSQL guide](/ingest-data/cdc-postgres-kafka-debezium/) for a step-by-step breakdown of the integration. |
+| PostgreSQL _(direct)_           | {{< supportLevel production >}}        | See the [source documentation](/self-managed/v2025.01/sql/create-source/postgres/) for more details, and the relevant integration guide for step-by-step instructions:<p></p><ul><li>[Amazon RDS for PostgreSQL](/self-managed/v2025.01/ingest-data/postgres-amazon-rds)</li><li>[Amazon Aurora for PostgreSQL](/self-managed/v2025.01/ingest-data/postgres-amazon-aurora)</li><li>[Azure DB for PostgreSQL](/self-managed/v2025.01/ingest-data/postgres-azure-db)</li><li>[Google Cloud SQL for PostgreSQL](/self-managed/v2025.01/ingest-data/postgres-google-cloud-sql)</li><li>[AlloyDB for PostgreSQL](/self-managed/v2025.01/ingest-data/postgres-alloydb)</li><li>[Self-hosted PostgreSQL](/self-managed/v2025.01/ingest-data/postgres-self-hosted)</li></ul> |
+| PostgreSQL _(via Debezium)_     | {{< supportLevel production >}}  | See the [PostgreSQL guide](/self-managed/v2025.01/ingest-data/cdc-postgres-kafka-debezium/) for a step-by-step breakdown of the integration. |
 
 ### MySQL
 
-MySQL 5.7+ is supported as a [**source**](/concepts/sources) both through the
-[direct MySQL source](/sql/create-source/mysql/) and through [Debezium](/integrations/debezium/)
+MySQL 5.7+ is supported as a [**source**](/self-managed/v2025.01/concepts/sources) both through the
+[direct MySQL source](/self-managed/v2025.01/sql/create-source/mysql/) and through [Debezium](/self-managed/v2025.01/integrations/debezium/)
 (via Kafka or other Kafka API-compatible broker). Using a MySQL database as a
-source requires enabling [**GTID-based binlog replication**](/sql/create-source/mysql/#change-data-capture).
+source requires enabling [**GTID-based binlog replication**](/self-managed/v2025.01/sql/create-source/mysql/#change-data-capture).
 
 | Service                | Support level                    | Notes                                                                                                |             |
 | ---------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------- |
-| MySQL _(direct)_       | {{< supportLevel production >}} | See the [source documentation](/sql/create-source/mysql/) for more details, and the relevant integration guide for step-by-step instructions:<p></p><ul><li>[Amazon RDS for MySQL](/ingest-data/mysql/amazon-rds)</li><li>[Amazon Aurora for MySQL](/ingest-data/mysql/amazon-aurora)</li><li>[Azure DB for MySQL](/ingest-data/mysql/azure-db)</li><li>[Google Cloud SQL for MySQL](/ingest-data/mysql/google-cloud-sql)</li><li>[Self-hosted MySQL](/ingest-data/mysql/self-hosted)</li></ul> |
-| MySQL _(via Debezium)_ | {{< supportLevel production >}}  | See the [MySQL CDC guide](/integrations/cdc-mysql/) for a step-by-step breakdown of the integration. |             |
+| MySQL _(direct)_       | {{< supportLevel production >}} | See the [source documentation](/self-managed/v2025.01/sql/create-source/mysql/) for more details, and the relevant integration guide for step-by-step instructions:<p></p><ul><li>[Amazon RDS for MySQL](/self-managed/v2025.01/ingest-data/mysql/amazon-rds)</li><li>[Amazon Aurora for MySQL](/self-managed/v2025.01/ingest-data/mysql/amazon-aurora)</li><li>[Azure DB for MySQL](/self-managed/v2025.01/ingest-data/mysql/azure-db)</li><li>[Google Cloud SQL for MySQL](/self-managed/v2025.01/ingest-data/mysql/google-cloud-sql)</li><li>[Self-hosted MySQL](/self-managed/v2025.01/ingest-data/mysql/self-hosted)</li></ul> |
+| MySQL _(via Debezium)_ | {{< supportLevel production >}}  | See the [MySQL CDC guide](/self-managed/v2025.01/integrations/cdc-mysql/) for a step-by-step breakdown of the integration. |             |
 
 ### CockroachDB
 
-CockroachDB is supported as a [**source**](/concepts/sources) through
+CockroachDB is supported as a [**source**](/self-managed/v2025.01/concepts/sources) through
 [Changefeeds](https://www.cockroachlabs.com/docs/stable/create-and-configure-changefeeds?)
 (via Kafka or other Kafka API-compatible broker).
 
 | Service                | Support level                    | Notes                                                                                                |             |
 | ---------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------- |
-| CockroachDB _(via Changefeeds)_ | {{< supportLevel production >}}  | See the [CockroachDB CDC guide](/ingest-data/cdc-cockroachdb/) for a step-by-step breakdown of the integration. |             |
+| CockroachDB _(via Changefeeds)_ | {{< supportLevel production >}}  | See the [CockroachDB CDC guide](/self-managed/v2025.01/ingest-data/cdc-cockroachdb/) for a step-by-step breakdown of the integration. |             |
 
 ### Other databases
 
@@ -132,7 +132,7 @@ Debezium has an extensive ecosystem of connectors, but each database has its own
 | Service                     | Support level                    | Notes                                                                                                                                                                                                                                                                                                                                                                                                                        |             |
 | --------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | MongoDB _(via Debezium)_    | {{< supportLevel researching >}} | Not supported yet. Subscribe via "Notify Me" to register interest.                                                                                                                                                                                                                                                                                                                                           | [](#notify) |
-| SQL Server _(via Debezium)_ | {{< supportLevel alpha >}}       | Supported with known limitations. See the [SQL Server CDC guide](/integrations/cdc-sql-server/) for a step-by-step breakdown of the integration.                                                                                                                                                                                                                                                             | [](#notify) |
+| SQL Server _(via Debezium)_ | {{< supportLevel alpha >}}       | Supported with known limitations. See the [SQL Server CDC guide](/self-managed/v2025.01/integrations/cdc-sql-server/) for a step-by-step breakdown of the integration.                                                                                                                                                                                                                                                             | [](#notify) |
 
 👋 _Is there another database you'd like to use with Materialize? Submit a [feature request](https://github.com/MaterializeInc/materialize/discussions/new?category=feature-requests&labels=A-integration)._
 
@@ -142,7 +142,7 @@ Debezium has an extensive ecosystem of connectors, but each database has its own
 
 | Service              | Support level                    | Notes                                                                                                                                                                                                            |             |
 | -------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| Amazon S3            | {{< supportLevel production >}} | Supported as a _one-shot_ sink. See the [Amazon S3 integration guide](/serve-results/s3/) for a step-by-step breakdown of the integration. |
+| Amazon S3            | {{< supportLevel production >}} | Supported as a _one-shot_ sink. See the [Amazon S3 integration guide](/self-managed/v2025.01/serve-results/s3/) for a step-by-step breakdown of the integration. |
 
 ### Other object storage services
 
@@ -161,7 +161,7 @@ Materialize integrates with dbt through the [`dbt-materialize`](https://github.c
 
 | Service   | Support level                    | Notes                                                                                                                                                                                                                          |             |
 | --------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| dbt Core  | {{< supportLevel beta >}}        | See the [`dbt-materialize` reference documentation](https://materialize.com/docs/manage/dbt/) for more details, and the [development workflows guide](/integrations/dbt/) for common dbt patterns. | [](#notify) |
+| dbt Core  | {{< supportLevel beta >}}        | See the [`dbt-materialize` reference documentation](https://materialize.com/docs/manage/dbt/) for more details, and the [development workflows guide](/self-managed/v2025.01/integrations/dbt/) for common dbt patterns. | [](#notify) |
 | dbt Cloud | {{< supportLevel in-progress >}} | Not supported yet. We are working with the dbt community to bring native Materialize support to dbt Cloud soon.                                                                                                                | [](#notify) |
 
 ### Terraform
@@ -183,11 +183,11 @@ support for these modules.
 
 | Service      | Support level                    | Notes                                                                                                                                                                                                                                                                             |             |
 | ------------ | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| psql         | {{< supportLevel production >}}  | See [SQL Clients](/integrations/sql-clients/#psql) for more details. Some backslash meta-commands are not yet supported.
-| DBeaver      | {{< supportLevel production >}}  | Connect using the [Materialize database driver](/integrations/sql-clients/#dbeaver). See [SQL Clients](/integrations/sql-clients/#dbeaver) for more details.                   |
-| DataGrip IDE | {{< supportLevel beta >}}        | Connect using the [PostgreSQL database driver](https://www.jetbrains.com/datagrip/features/postgresql/). See [SQL Clients](/integrations/sql-clients/#datagrip) for more details.
+| psql         | {{< supportLevel production >}}  | See [SQL Clients](/self-managed/v2025.01/integrations/sql-clients/#psql) for more details. Some backslash meta-commands are not yet supported.
+| DBeaver      | {{< supportLevel production >}}  | Connect using the [Materialize database driver](/self-managed/v2025.01/integrations/sql-clients/#dbeaver). See [SQL Clients](/self-managed/v2025.01/integrations/sql-clients/#dbeaver) for more details.                   |
+| DataGrip IDE | {{< supportLevel beta >}}        | Connect using the [PostgreSQL database driver](https://www.jetbrains.com/datagrip/features/postgresql/). See [SQL Clients](/self-managed/v2025.01/integrations/sql-clients/#datagrip) for more details.
 | pgAdmin      | {{< supportLevel in-progress >}} | Not supported yet. Subscribe via "Notify Me" to register interest. | [](#notify) |
-| TablePlus    | {{< supportLevel alpha >}}       | Connect using the [PostgreSQL database driver](https://tableplus.com/blog/2019/09/jdbc-connection-strings.html). See [SQL Clients](/integrations/sql-clients/#tableplus) for more details.
+| TablePlus    | {{< supportLevel alpha >}}       | Connect using the [PostgreSQL database driver](https://tableplus.com/blog/2019/09/jdbc-connection-strings.html). See [SQL Clients](/self-managed/v2025.01/integrations/sql-clients/#tableplus) for more details.
 | VSCode       | {{< supportLevel production >}}  | Connect using the [Materialize extension for VS Code](https://github.com/MaterializeInc/vscode-extension).
 
 👋 _Is there another SQL client you'd like to use with Materialize? Submit a [feature request](https://github.com/MaterializeInc/materialize/discussions/new?category=feature-requests&labels=A-integration)._
@@ -196,8 +196,8 @@ support for these modules.
 
 | Service      | Support level                    | Notes                                                                                                                                                                                                                                                                             |             |
 | ------------ | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| Datadog      | {{< supportLevel production >}}  | See the [Datadog guide](/manage/monitor/datadog/) for a step-by-step breakdown of the integration.
-| Grafana      | {{< supportLevel production >}}  | See the [Grafana guide](/manage/monitor/grafana/) for a step-by-step breakdown of the integration.                                                                                                                                                                                              |             |
+| Datadog      | {{< supportLevel production >}}  | See the [Datadog guide](/self-managed/v2025.01/manage/monitor/datadog/) for a step-by-step breakdown of the integration.
+| Grafana      | {{< supportLevel production >}}  | See the [Grafana guide](/self-managed/v2025.01/manage/monitor/grafana/) for a step-by-step breakdown of the integration.                                                                                                                                                                                              |             |
 
 👋 _Is there another SQL client you'd like to use with Materialize? Submit a [feature request](https://github.com/MaterializeInc/materialize/discussions/new?category=feature-requests&labels=A-integration)._
 
@@ -213,13 +213,13 @@ Client libraries and ORM frameworks tend to run complex introspection queries th
 
 | Language | Support level                   | Tested drivers                                                  | Notes                                                 |
 | -------- | ------------------------------- | --------------------------------------------------------------- | ----------------------------------------------------- |
-| Go       | {{< supportLevel production >}} | [`pgx`](https://github.com/jackc/pgx)                           | See the [Go cheatsheet](/integrations/golang/).       |
-| Java     | {{< supportLevel production >}} | [PostgreSQL JDBC driver](https://jdbc.postgresql.org/)          | See the [Java cheatsheet](/integrations/java-jdbc/).  |
-| Node.js  | {{< supportLevel production >}} | [`node-postgres`](https://node-postgres.com/)                   | See the [Node.js cheatsheet](/integrations/node-js/). |
-| PHP      | {{< supportLevel production >}} | [`pdo_pgsql`](https://www.php.net/manual/en/ref.pgsql.php)      | See the [PHP cheatsheet](/integrations/php/).         |
-| Python   | {{< supportLevel production >}} | [`psycopg2`](https://pypi.org/project/psycopg2/)                | See the [Python cheatsheet](/integrations/python/).   |
-| Ruby     | {{< supportLevel production >}} | [`pg` gem](https://rubygems.org/gems/pg/)                       | See the [Ruby cheatsheet](/integrations/ruby/).       |
-| Rust     | {{< supportLevel production >}} | [`postgres-openssl`](https://crates.io/crates/postgres-openssl) | See the [Rust cheatsheet](/integrations/rust/).       |
+| Go       | {{< supportLevel production >}} | [`pgx`](https://github.com/jackc/pgx)                           | See the [Go cheatsheet](/self-managed/v2025.01/integrations/golang/).       |
+| Java     | {{< supportLevel production >}} | [PostgreSQL JDBC driver](https://jdbc.postgresql.org/)          | See the [Java cheatsheet](/self-managed/v2025.01/integrations/java-jdbc/).  |
+| Node.js  | {{< supportLevel production >}} | [`node-postgres`](https://node-postgres.com/)                   | See the [Node.js cheatsheet](/self-managed/v2025.01/integrations/node-js/). |
+| PHP      | {{< supportLevel production >}} | [`pdo_pgsql`](https://www.php.net/manual/en/ref.pgsql.php)      | See the [PHP cheatsheet](/self-managed/v2025.01/integrations/php/).         |
+| Python   | {{< supportLevel production >}} | [`psycopg2`](https://pypi.org/project/psycopg2/)                | See the [Python cheatsheet](/self-managed/v2025.01/integrations/python/).   |
+| Ruby     | {{< supportLevel production >}} | [`pg` gem](https://rubygems.org/gems/pg/)                       | See the [Ruby cheatsheet](/self-managed/v2025.01/integrations/ruby/).       |
+| Rust     | {{< supportLevel production >}} | [`postgres-openssl`](https://crates.io/crates/postgres-openssl) | See the [Rust cheatsheet](/self-managed/v2025.01/integrations/rust/).       |
 
 ### ORM frameworks
 
@@ -240,35 +240,35 @@ The level of support for these tools will improve as we extend the coverage of `
 
 | Service       | Support level                    | Notes                                                                              |             |
 | ------------- | -------------------------------- | ---------------------------------------------------------------------------------- | ----------- |
-| Fivetran      | {{< supportLevel beta >}} | See the [Fivetran guide](/integrations/fivetran/) for a step-by-step breakdown of the integration |             |
+| Fivetran      | {{< supportLevel beta >}} | See the [Fivetran guide](/self-managed/v2025.01/integrations/fivetran/) for a step-by-step breakdown of the integration |             |
 | Stitch        | {{< supportLevel researching >}} | Not supported yet. Subscribe via "Notify Me" to register interest.                 | [](#notify) |
 | Meltano       | {{< supportLevel researching >}} | Not supported yet. Subscribe via "Notify Me" to register interest.                 | [](#notify) |
 | Airbyte       | {{< supportLevel researching >}} | Not supported yet. Subscribe via "Notify Me" to register interest.                 | [](#notify) |
-| Striim Cloud  | {{< supportLevel beta >}}        | See the [Striim Cloud guide](/integrations/striim/) for a step-by-step breakdown of the integration         |             |
+| Striim Cloud  | {{< supportLevel beta >}}        | See the [Striim Cloud guide](/self-managed/v2025.01/integrations/striim/) for a step-by-step breakdown of the integration         |             |
 
 ### Business Intelligence (BI)
 
 | Service            | Support level              | Notes                                                                                                                                                                                                                                                                                               |             |
 | ------------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| Metabase           | {{< supportLevel beta >}}  | Connect using the [PostgreSQL database driver](https://www.metabase.com/docs/latest/administration-guide/databases/postgresql.html). See the [Metabase integration page](/integrations/metabase/) for more details.                                                                                 | [](#notify) |
+| Metabase           | {{< supportLevel beta >}}  | Connect using the [PostgreSQL database driver](https://www.metabase.com/docs/latest/administration-guide/databases/postgresql.html). See the [Metabase integration page](/self-managed/v2025.01/integrations/metabase/) for more details.                                                                                 | [](#notify) |
 | Superset           | {{< supportLevel alpha >}} | Connect using the [PostgreSQL database driver](https://superset.apache.org/docs/databases/postgres/).                                                                                                                                                                                               | [](#notify) |
 | Preset             | {{< supportLevel alpha >}} | Connect using the [PostgreSQL database driver](https://superset.apache.org/docs/databases/postgres/).                                                                                                                                                                                               | [](#notify) |
-| Looker             | {{< supportLevel alpha >}} | Connect using the [PostgreSQL database driver](https://cloud.google.com/looker/docs/db-config-postgresql). See the [Looker integration page](/integrations/looker/) for more details.                                                                                                               | [](#notify) |
+| Looker             | {{< supportLevel alpha >}} | Connect using the [PostgreSQL database driver](https://cloud.google.com/looker/docs/db-config-postgresql). See the [Looker integration page](/self-managed/v2025.01/integrations/looker/) for more details.                                                                                                               | [](#notify) |
 | Google Data Studio | {{< supportLevel alpha >}} | Connect using the [PostgreSQL database driver](https://support.google.com/datastudio/answer/7288010?hl#how-to-connect-to-postgresql&zippy=%2Cin-this-article).                                                                                                                                      | [](#notify) |
-| Tableau            | {{< supportLevel alpha >}} | Connect using the [JDBC driver for PostgreSQL](https://help.tableau.com/current/pro/desktop/en-us/examples_postgresql.htm). See the [Tableau integration page](/integrations/tableau/) for more details.                                                                                            | [](#notify) |
-| Microsoft Power BI | {{< supportLevel alpha >}} | Connect using the [PostgreSQL database driver](https://learn.microsoft.com/en-us/power-query/connectors/postgresql). See the [Power BI integration page](/integrations/power-bi/) for more details.                                                                                                 | [](#notify) |
+| Tableau            | {{< supportLevel alpha >}} | Connect using the [JDBC driver for PostgreSQL](https://help.tableau.com/current/pro/desktop/en-us/examples_postgresql.htm). See the [Tableau integration page](/self-managed/v2025.01/integrations/tableau/) for more details.                                                                                            | [](#notify) |
+| Microsoft Power BI | {{< supportLevel alpha >}} | Connect using the [PostgreSQL database driver](https://learn.microsoft.com/en-us/power-query/connectors/postgresql). See the [Power BI integration page](/self-managed/v2025.01/integrations/power-bi/) for more details.                                                                                                 | [](#notify) |
 
 ### Headless BI
 
 | Service | Support level              | Notes                                                                           |             |
 | ------- | -------------------------- | ------------------------------------------------------------------------------- | ----------- |
-| Cube.js | {{< supportLevel alpha >}} | Connect using the [Materialize driver](https://cube.dev/docs/config/databases). See the [Cube guide](/integrations/cube) for a step-by-step breakdown of the integration. | [](#notify) |
+| Cube.js | {{< supportLevel alpha >}} | Connect using the [Materialize driver](https://cube.dev/docs/config/databases). See the [Cube guide](/self-managed/v2025.01/integrations/cube) for a step-by-step breakdown of the integration. | [](#notify) |
 
 ### Reverse ETL
 
 | Service   | Support level                    | Notes                                                                               |             |
 | --------- | -------------------------------- | ----------------------------------------------------------------------------------- | ----------- |
-| Census    | {{< supportLevel alpha >}}       | Connect using the [Materialize source](https://docs.getcensus.com/sources/materialize). See the [Census integration page](/manage/reverse-etl/census/) for more details.                 | |
+| Census    | {{< supportLevel alpha >}}       | Connect using the [Materialize source](https://docs.getcensus.com/sources/materialize). See the [Census integration page](/self-managed/v2025.01/manage/reverse-etl/census/) for more details.                 | |
 | Hightouch | {{< supportLevel in-progress >}} | Connect using the [Materialize source](https://hightouch.com/integrations/sources/materialize). | [](#notify) |
 
 ### Data collaboration

@@ -9,7 +9,7 @@ menu:
     name: PostgreSQL
     weight: 20
 aliases:
-  - /sql/create-source/postgresql
+  - /self-managed/v2025.01/sql/create-source/postgresql
 ---
 
 {{% create-source/intro %}}
@@ -23,12 +23,12 @@ statements.
 {{< warning >}}
 Before creating a PostgreSQL source, you must set up logical replication in the
 upstream database. For step-by-step instructions, see the integration guide for
-your PostgreSQL service: [AlloyDB](/ingest-data/postgres-alloydb/),
-[Amazon RDS](/ingest-data/postgres-amazon-rds/),
-[Amazon Aurora](/ingest-data/postgres-amazon-aurora/),
-[Azure DB](/ingest-data/postgres-azure-db/),
-[Google Cloud SQL](/ingest-data/postgres-google-cloud-sql/),
-[Self-hosted](/ingest-data/postgres-self-hosted/).
+your PostgreSQL service: [AlloyDB](/self-managed/v2025.01/ingest-data/postgres-alloydb/),
+[Amazon RDS](/self-managed/v2025.01/ingest-data/postgres-amazon-rds/),
+[Amazon Aurora](/self-managed/v2025.01/ingest-data/postgres-amazon-aurora/),
+[Azure DB](/self-managed/v2025.01/ingest-data/postgres-azure-db/),
+[Google Cloud SQL](/self-managed/v2025.01/ingest-data/postgres-google-cloud-sql/),
+[Self-hosted](/self-managed/v2025.01/ingest-data/postgres-self-hosted/).
 {{< /warning >}}
 
 ## Syntax
@@ -43,13 +43,13 @@ Field | Use
 ------|-----
 _src_name_  | The name for the source.
 **IF NOT EXISTS**  | Do nothing (except issuing a notice) if a source with the same name already exists. _Default._
-**IN CLUSTER** _cluster_name_ | The [cluster](/sql/create-cluster) to maintain this source.
-**CONNECTION** _connection_name_ | The name of the PostgreSQL connection to use in the source. For details on creating connections, check the [`CREATE CONNECTION`](/sql/create-connection/#postgresql) documentation page.
+**IN CLUSTER** _cluster_name_ | The [cluster](/self-managed/v2025.01/sql/create-cluster) to maintain this source.
+**CONNECTION** _connection_name_ | The name of the PostgreSQL connection to use in the source. For details on creating connections, check the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#postgresql) documentation page.
 **FOR ALL TABLES** | Create subsources for all tables in the publication.
 **FOR SCHEMAS (** _schema_list_ **)** | Create subsources for specific schemas in the publication.
 **FOR TABLES (** _table_list_ **)** | Create subsources for specific tables in the publication.
 **EXPOSE PROGRESS AS** _progress_subsource_name_ | The name of the progress collection for the source. If this is not specified, the progress collection will be named `<src_name>_progress`. For more information, see [Monitoring source progress](#monitoring-source-progress).
-**RETAIN HISTORY FOR** <br>_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
+**RETAIN HISTORY FOR** <br>_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
 
 ### `CONNECTION` options
 
@@ -69,12 +69,12 @@ upstream database — a process also known as _change data capture_.
 For this reason, you must configure the upstream PostgreSQL database to support
 logical replication before creating a source in Materialize. For step-by-step
 instructions, see the integration guide for your PostgreSQL service:
-[AlloyDB](/ingest-data/postgres-alloydb/),
-[Amazon RDS](/ingest-data/postgres-amazon-rds/),
-[Amazon Aurora](/ingest-data/postgres-amazon-aurora/),
-[Azure DB](/ingest-data/postgres-azure-db/),
-[Google Cloud SQL](/ingest-data/postgres-google-cloud-sql/),
-[Self-hosted](/ingest-data/postgres-self-hosted/).
+[AlloyDB](/self-managed/v2025.01/ingest-data/postgres-alloydb/),
+[Amazon RDS](/self-managed/v2025.01/ingest-data/postgres-amazon-rds/),
+[Amazon Aurora](/self-managed/v2025.01/ingest-data/postgres-amazon-aurora/),
+[Azure DB](/self-managed/v2025.01/ingest-data/postgres-azure-db/),
+[Google Cloud SQL](/self-managed/v2025.01/ingest-data/postgres-google-cloud-sql/),
+[Self-hosted](/self-managed/v2025.01/ingest-data/postgres-self-hosted/).
 
 #### Creating a source
 
@@ -149,7 +149,7 @@ the replication slot created for each source, use `mz_internal.mz_postgres_sourc
 If you delete all objects that depend on a source without also dropping the
 source, the upstream replication slot will linger and continue to accumulate
 data so that the source can resume in the future. To avoid unbounded disk space
-usage, make sure to use [`DROP SOURCE`](/sql/drop-source/) or manually delete
+usage, make sure to use [`DROP SOURCE`](/self-managed/v2025.01/sql/drop-source/) or manually delete
 the replication slot.
 
 For PostgreSQL 13+, it is recommended that you set a reasonable value for
@@ -181,7 +181,7 @@ The following metadata is available for each source as a progress subsource:
 
 Field          | Type                                     | Meaning
 ---------------|------------------------------------------|--------
-`lsn`          | [`uint8`](/sql/types/uint/#uint8-info)   | The last Log Sequence Number (LSN) consumed from the upstream PostgreSQL replication stream.
+`lsn`          | [`uint8`](/self-managed/v2025.01/sql/types/uint/#uint8-info)   | The last Log Sequence Number (LSN) consumed from the upstream PostgreSQL replication stream.
 
 And can be queried using:
 
@@ -192,7 +192,7 @@ FROM <src_name>_progress;
 
 The reported LSN should increase as Materialize consumes **new** WAL records
 from the upstream PostgreSQL database. For more details on monitoring source
-ingestion progress and debugging related issues, see [Troubleshooting](/ops/troubleshooting/).
+ingestion progress and debugging related issues, see [Troubleshooting](/self-managed/v2025.01/ops/troubleshooting/).
 
 ## Known limitations
 
@@ -215,7 +215,7 @@ the table and, unfortunately, is wholly unaware that this occurred.
 
 To mitigate this issue, if you need to drop and re-add a table to a publication,
 ensure that you remove the table/subsource from the source _before_ re-adding it
-using the [`DROP SOURCE`](/sql/drop-source/) command.
+using the [`DROP SOURCE`](/self-managed/v2025.01/sql/drop-source/) command.
 
 ##### Supported types
 
@@ -253,7 +253,7 @@ array type for each of the types):
 <li><code>varchar</code></li>
 </ul>
 
-Replicating tables that contain **unsupported [data types](/sql/types/)** is
+Replicating tables that contain **unsupported [data types](/self-managed/v2025.01/sql/types/)** is
 possible via the `TEXT COLUMNS` option. The specified columns will be treated
 as `text`, and will thus not offer the expected PostgreSQL type features. For
 example:
@@ -300,12 +300,12 @@ non-) that unions the new table.
 {{< warning >}}
 Before creating a PostgreSQL source, you must set up logical replication in the
 upstream database. For step-by-step instructions, see the integration guide for
-your PostgreSQL service: [AlloyDB](/ingest-data/postgres-alloydb/),
-[Amazon RDS](/ingest-data/postgres-amazon-rds/),
-[Amazon Aurora](/ingest-data/postgres-amazon-aurora/),
-[Azure DB](/ingest-data/postgres-azure-db/),
-[Google Cloud SQL](/ingest-data/postgres-google-cloud-sql/),
-[Self-hosted](/ingest-data/postgres-self-hosted/).
+your PostgreSQL service: [AlloyDB](/self-managed/v2025.01/ingest-data/postgres-alloydb/),
+[Amazon RDS](/self-managed/v2025.01/ingest-data/postgres-amazon-rds/),
+[Amazon Aurora](/self-managed/v2025.01/ingest-data/postgres-amazon-aurora/),
+[Azure DB](/self-managed/v2025.01/ingest-data/postgres-azure-db/),
+[Google Cloud SQL](/self-managed/v2025.01/ingest-data/postgres-google-cloud-sql/),
+[Self-hosted](/self-managed/v2025.01/ingest-data/postgres-self-hosted/).
 {{< /warning >}}
 
 ### Creating a connection
@@ -315,7 +315,7 @@ want Materialize to read data from.
 
 Once created, a connection is **reusable** across multiple `CREATE SOURCE`
 statements. For more details on creating connections, check the
-[`CREATE CONNECTION`](/sql/create-connection/#postgresql) documentation page.
+[`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#postgresql) documentation page.
 
 ```mzsql
 CREATE SECRET pgpass AS '<POSTGRES_PASSWORD>';
@@ -331,7 +331,7 @@ CREATE CONNECTION pg_connection TO POSTGRES (
 ```
 
 If your PostgreSQL server is not exposed to the public internet, you can
-[tunnel the connection](/sql/create-connection/#network-security-connections)
+[tunnel the connection](/self-managed/v2025.01/sql/create-connection/#network-security-connections)
 through an AWS PrivateLink service or an SSH bastion host.
 
 {{< tabs tabID="1" >}}
@@ -359,7 +359,7 @@ CREATE CONNECTION pg_connection TO POSTGRES (
 
 For step-by-step instructions on creating AWS PrivateLink connections and
 configuring an AWS PrivateLink service to accept connections from Materialize,
-check [this guide](/ops/network-security/privatelink/).
+check [this guide](/self-managed/v2025.01/ops/network-security/privatelink/).
 
 {{< /tab >}}
 {{< tab "SSH tunnel">}}
@@ -382,7 +382,7 @@ CREATE CONNECTION pg_connection TO POSTGRES (
 
 For step-by-step instructions on creating SSH tunnel connections and configuring
 an SSH bastion server to accept connections from Materialize, check
-[this guide](/ops/network-security/ssh-tunnel/).
+[this guide](/self-managed/v2025.01/ops/network-security/ssh-tunnel/).
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -416,7 +416,7 @@ CREATE SOURCE mz_source
 
 #### Handling unsupported types
 
-If the publication contains tables that use [data types](/sql/types/)
+If the publication contains tables that use [data types](/self-managed/v2025.01/sql/types/)
 unsupported by Materialize, use the `TEXT COLUMNS` option to decode data as
 `text` for the affected columns. This option expects the upstream names of the
 replicated table and column (i.e. as defined in your PostgreSQL database).
@@ -432,8 +432,8 @@ CREATE SOURCE mz_source
 ### Handling errors and schema changes
 
 To handle upstream [schema changes](#schema-changes) or errored subsources, use
-the [`DROP SOURCE`](/sql/alter-source/#context) syntax to drop the affected
-subsource, and then [`ALTER SOURCE...ADD SUBSOURCE`](/sql/alter-source/) to add
+the [`DROP SOURCE`](/self-managed/v2025.01/sql/alter-source/#context) syntax to drop the affected
+subsource, and then [`ALTER SOURCE...ADD SUBSOURCE`](/self-managed/v2025.01/sql/alter-source/) to add
 the subsource back to the source.
 
 ```mzsql
@@ -460,16 +460,16 @@ addition to dropping any state that Materialize previously had for the table.
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE CONNECTION`](/sql/create-connection)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection)
 - [`CREATE SOURCE`](../)
 - PostgreSQL integration guides:
-  - [AlloyDB](/ingest-data/postgres-alloydb/)
-  - [Amazon RDS](/ingest-data/postgres-amazon-rds/)
-  - [Amazon Aurora](/ingest-data/postgres-amazon-aurora/)
-  - [Azure DB](/ingest-data/postgres-azure-db/)
-  - [Google Cloud SQL](/ingest-data/postgres-google-cloud-sql/)
-  - [Self-hosted](/ingest-data/postgres-self-hosted/)
+  - [AlloyDB](/self-managed/v2025.01/ingest-data/postgres-alloydb/)
+  - [Amazon RDS](/self-managed/v2025.01/ingest-data/postgres-amazon-rds/)
+  - [Amazon Aurora](/self-managed/v2025.01/ingest-data/postgres-amazon-aurora/)
+  - [Azure DB](/self-managed/v2025.01/ingest-data/postgres-azure-db/)
+  - [Google Cloud SQL](/self-managed/v2025.01/ingest-data/postgres-google-cloud-sql/)
+  - [Self-hosted](/self-managed/v2025.01/ingest-data/postgres-self-hosted/)
 
 [`enum`]: https://www.postgresql.org/docs/current/datatype-enum.html
 [`money`]: https://www.postgresql.org/docs/current/datatype-money.html

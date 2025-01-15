@@ -2,9 +2,9 @@
 title: "Use dbt to manage Materialize"
 description: "How to use dbt and Materialize to transform streaming data in real time."
 aliases:
-  - /guides/dbt/
-  - /third-party/dbt/
-  - /integrations/dbt/
+  - /self-managed/v2025.01/guides/dbt/
+  - /self-managed/v2025.01/third-party/dbt/
+  - /self-managed/v2025.01/integrations/dbt/
 menu:
   main:
     parent: manage
@@ -70,12 +70,12 @@ dbt init <project_name>
 
 This command will bootstrap a starter project with default configurations and
 create a `profiles.yml` file, if it doesn't exist. To help you get started, the
-`dbt init` project includes sample models to run the [Materialize quickstart](/get-started/quickstart/).
+`dbt init` project includes sample models to run the [Materialize quickstart](/self-managed/v2025.01/get-started/quickstart/).
 
 ### Connect to Materialize
 
 {{< note >}}
-As a best practice, we strongly recommend using [service accounts](/manage/access-control/create-service-accounts)
+As a best practice, we strongly recommend using [service accounts](/self-managed/v2025.01/manage/access-control/create-service-accounts)
 to connect external applications, like dbt, to Materialize.
 {{</ note >}}
 
@@ -164,7 +164,7 @@ directory defined by `model-paths` in `dbt_project.yml`.
 
 ### Sources
 
-In Materialize, a [source](/sql/create-source) describes an **external** system
+In Materialize, a [source](/self-managed/v2025.01/sql/create-source) describes an **external** system
 you want to read data from, and provides details about how to decode and
 interpret that data. You can instruct dbt to create a source using the custom
 `source` materialization. Once a source has been defined, it can be referenced
@@ -172,14 +172,14 @@ from another model using the dbt [`ref()`](https://docs.getdbt.com/reference/dbt
 or [`source()`](https://docs.getdbt.com/reference/dbt-jinja-functions/source) functions.
 
 {{< note >}}
-To create a source, you first need to [create a connection](/sql/create-connection)
+To create a source, you first need to [create a connection](/self-managed/v2025.01/sql/create-connection)
 that specifies access and authentication parameters. Connections are **not
 exposed** in dbt, and need to exist before you run any `source` models.
 {{</ note >}}
 
 {{< tabs tabID="1" >}}
 {{< tab "Kafka">}}
-Create a [Kafka source](/sql/create-source/kafka/).
+Create a [Kafka source](/self-managed/v2025.01/sql/create-source/kafka/).
 
 **Filename:** sources/kafka_topic_a.sql
 ```mzsql
@@ -197,7 +197,7 @@ database.schema.kafka_topic_a
 
 {{< /tab >}}
 {{< tab "PostgreSQL">}}
-Create a [PostgreSQL source](/sql/create-source/postgres/).
+Create a [PostgreSQL source](/self-managed/v2025.01/sql/create-source/postgres/).
 
 **Filename:** sources/pg.sql
 ```mzsql
@@ -255,7 +255,7 @@ database.schema.table_b
 
 {{< /tab >}}
 {{< tab "MySQL">}}
-Create a [MySQL source](/sql/create-source/mysql/).
+Create a [MySQL source](/self-managed/v2025.01/sql/create-source/mysql/).
 
 **Filename:** sources/mysql.sql
 ```mzsql
@@ -313,7 +313,7 @@ database.schema.table_b
 
 {{< /tab >}}
 {{< tab "Webhooks">}}
-Create a [webhook source](/sql/create-source/webhook/).
+Create a [webhook source](/self-managed/v2025.01/sql/create-source/webhook/).
 
 **Filename:** sources/webhook.sql
 ```mzsql
@@ -353,11 +353,11 @@ for batch transformations against any other database.
 Depending on your usage patterns, you can transform data using [`view`](#views)
 or [`materialized_view`](#materialized-views) models. For guidance and best
 practices on when to use views and materialized views in Materialize, see
-[Indexed views vs. materialized views](/concepts/views/#indexed-views-vs-materialized-views).
+[Indexed views vs. materialized views](/self-managed/v2025.01/concepts/views/#indexed-views-vs-materialized-views).
 
 #### Views
 
-dbt models are materialized as [views](/sql/create-view) by default. Although
+dbt models are materialized as [views](/self-managed/v2025.01/serve-results/s3) by default. Although
 this means you can skip the `materialized` configuration in the model
 definition to create views in Materialize, we recommend explicitly setting the
 materialization type for maintainability.
@@ -391,10 +391,10 @@ function.
 
 {{< tip >}}
 For guidance and best practices on how to use indexes in Materialize, see
-[Indexes on views](/concepts/indexes/#indexes-on-views).
+[Indexes on views](/self-managed/v2025.01/concepts/indexes/#indexes-on-views).
 {{</ tip >}}
 
-To keep results **up-to-date** in Materialize, you can create [indexes](/concepts/indexes/)
+To keep results **up-to-date** in Materialize, you can create [indexes](/self-managed/v2025.01/concepts/indexes/)
 on view models using the [`index` configuration](#indexes). This
 allows you to bypass the need for maintaining complex incremental logic or
 re-running dbt to refresh your models.
@@ -421,12 +421,12 @@ CREATE INDEX database.schema.view_a_idx IN CLUSTER cluster_a ON view_a (col_a);
 ```
 
 As new data arrives, indexes keep view results **incrementally updated** in
-memory within a [cluster](/concepts/clusters/). Indexes help optimize query
+memory within a [cluster](/self-managed/v2025.01/concepts/clusters/). Indexes help optimize query
 performance and make queries against views fast and computationally free.
 
 #### Materialized views
 
-To materialize a model as a [materialized view](/concepts/views/#materialized-views),
+To materialize a model as a [materialized view](/self-managed/v2025.01/concepts/views/#materialized-views),
 set the `materialized` configuration to `materialized_view`.
 
 **Filename:** models/materialized_view_a.sql
@@ -457,7 +457,7 @@ function.
 
 {{< tip >}}
 For guidance and best practices on how to use indexes in Materialize, see
-[Indexes on materialized views](/concepts/views/#indexes-on-materialized-views).
+[Indexes on materialized views](/self-managed/v2025.01/concepts/views/#indexes-on-materialized-views).
 {{</ tip >}}
 
 With a materialized view, your models are kept **up-to-date** in Materialize as
@@ -466,8 +466,8 @@ incremental logic or re-run dbt to refresh your models.
 
 These results are **incrementally updated** in durable storage — which makes
 them available across clusters — but aren't optimized for performance. To make
-results also available in memory within a [cluster](/concepts/clusters/), you
-can create [indexes](/concepts/indexes/) on materialized view models using the
+results also available in memory within a [cluster](/self-managed/v2025.01/concepts/clusters/), you
+can create [indexes](/self-managed/v2025.01/concepts/indexes/) on materialized view models using the
 [`index` configuration](#indexes).
 
 **Filename:** models/materialized_view_a.sql
@@ -492,7 +492,7 @@ CREATE INDEX database.schema.materialized_view_a_idx IN CLUSTER cluster_b ON mat
 ```
 
 As new data arrives, results are **incrementally updated** in durable storage
-and also accessible in memory within the [cluster](/concepts/clusters/) the
+and also accessible in memory within the [cluster](/self-managed/v2025.01/concepts/clusters/) the
 index is created in. Indexes help optimize query performance and make queries
 against materialized views faster.
 
@@ -500,7 +500,7 @@ against materialized views faster.
 
 {{< tip >}}
 For guidance and best practices on how to use refresh strategies in Materialize,
-see [Refresh strategies](/sql/create-materialized-view/#refresh-strategies).
+see [Refresh strategies](/self-managed/v2025.01/sql/create-materialized-view/#refresh-strategies).
 {{</ tip >}}
 
 {{< private-preview />}}
@@ -508,12 +508,12 @@ see [Refresh strategies](/sql/create-materialized-view/#refresh-strategies).
 For data that doesn't require up-to-the-second freshness, or that can be
 accessed using different patterns to optimize for performance and cost
 (e.g., hot vs. cold data), it might be appropriate to use a non-default
-[refresh strategy](/sql/create-materialized-view/#refresh-strategies).
+[refresh strategy](/self-managed/v2025.01/sql/create-materialized-view/#refresh-strategies).
 
 To configure a refresh strategy in a materialized view model, use the
 [`refresh_interval` configuration](#configuration-refresh-strategies).
 Materialized view models configured with a refresh strategy must be deployed in
-a [scheduled cluster](/sql/create-cluster/#scheduling) for cost savings to be
+a [scheduled cluster](/self-managed/v2025.01/sql/create-cluster/#scheduling) for cost savings to be
 significant — so you must also specify a valid scheduled `cluster` using the
 [`cluster` configuration](#configuration).
 
@@ -546,13 +546,13 @@ maintained** and must recompute their results from scratch on every refresh.
 
 ### Sinks
 
-In Materialize, a [sink](/sql/create-sink) describes an **external** system you
+In Materialize, a [sink](/self-managed/v2025.01/sql/create-sink) describes an **external** system you
 want to write data to, and provides details about how to encode that data. You
 can instruct dbt to create a sink using the custom `sink` materialization.
 
 {{< tabs tabID="1" >}}
 {{< tab "Kafka">}}
-Create a [Kafka sink](/sql/create-sink).
+Create a [Kafka sink](/self-managed/v2025.01/sql/create-sink).
 
 **Filename:** sinks/kafka_topic_c.sql
 ```mzsql
@@ -576,7 +576,7 @@ database.schema.kafka_topic_c
 
 #### Clusters
 
-Use the `cluster` option to specify the [cluster](/sql/create-cluster/ "pools of
+Use the `cluster` option to specify the [cluster](/self-managed/v2025.01/sql/create-cluster/ "pools of
 compute resources (CPU, memory, and scratch disk space)") in which a
 `materialized_view`, `source`, `sink` model, or `index` configuration is
 created. If unspecified, the default cluster for the connection is used.
@@ -603,7 +603,7 @@ in `dbt_project.yml`.
 
 #### Databases
 
-Use the `database` option to specify the [database](/sql/namespaces/#database-details)
+Use the `database` option to specify the [database](/self-managed/v2025.01/sql/namespaces/#database-details)
 in which a `source`, `view`, `materialized_view` or `sink` is created. If
 unspecified, the default database for the connection is used.
 
@@ -613,10 +613,10 @@ unspecified, the default database for the connection is used.
 
 #### Indexes
 
-Use the `indexes` configuration to define a list of [indexes](/concepts/indexes/) on
+Use the `indexes` configuration to define a list of [indexes](/self-managed/v2025.01/concepts/indexes/) on
 `source`, `view`, `table` or `materialized view` materializations. In
-Materialize, [indexes](/concepts/indexes/) on a view maintain view results in
-memory within a [cluster](/concepts/clusters/ "pools of compute resources (CPU,
+Materialize, [indexes](/self-managed/v2025.01/concepts/indexes/) on a view maintain view results in
+memory within a [cluster](/self-managed/v2025.01/concepts/clusters/ "pools of compute resources (CPU,
 memory, and scratch disk space)"). As the underlying data changes, indexes
 **incrementally update** the view results in memory.
 
@@ -627,7 +627,7 @@ Component                            | Value     | Description
 `columns`                            | `list`    | One or more columns on which the index is defined. To create an index that uses _all_ columns, use the `default` component instead.
 `name`                               | `string`  | The name for the index. If unspecified, Materialize will use the materialization name and column names provided.
 `cluster`                            | `string`  | The cluster to use to create the index. If unspecified, indexes will be created in the cluster used to create the materialization.
-`default`                            | `bool`    | Default: `False`. If set to `True`, creates a [default index](/sql/create-index/#syntax).
+`default`                            | `bool`    | Default: `False`. If set to `True`, creates a [default index](/self-managed/v2025.01/sql/create-index/#syntax).
 
 ##### Creating a multi-column index
 
@@ -656,11 +656,11 @@ The `refresh_interval` configuration can have the following components:
 
 Component       | Value    | Description
 ----------------|----------|--------------------------------------------------
-`at`            | `string` | The specific time to refresh the materialized view at, using the [refresh at](/sql/create-materialized-view/#refresh-at) strategy.
+`at`            | `string` | The specific time to refresh the materialized view at, using the [refresh at](/self-managed/v2025.01/sql/create-materialized-view/#refresh-at) strategy.
 `at_creation`   | `bool`   | Default: `false`. Whether to trigger a first refresh when the materialized view is created.
-`every`         | `string` | The regular interval to refresh the materialized view at, using the [refresh every](/sql/create-materialized-view/#refresh-every) strategy.
-`aligned_to`    | `string` | The _phase_ of the regular interval to refresh the materialized view at, using the [refresh every](/sql/create-materialized-view/#refresh-every) strategy. If unspecified, defaults to the time when the materialized view is created.
-`on_commit`     | `bool`   | Default: `false`. Whether to use the default [refresh on commit](/sql/create-materialized-view/#refresh-on-commit) strategy. Setting this component to `true` is equivalent to **not specifying** `refresh_interval` in the configuration block, so we recommend only using it for the special case of parametrizing the configuration option (e.g., in macros).
+`every`         | `string` | The regular interval to refresh the materialized view at, using the [refresh every](/self-managed/v2025.01/sql/create-materialized-view/#refresh-every) strategy.
+`aligned_to`    | `string` | The _phase_ of the regular interval to refresh the materialized view at, using the [refresh every](/self-managed/v2025.01/sql/create-materialized-view/#refresh-every) strategy. If unspecified, defaults to the time when the materialized view is created.
+`on_commit`     | `bool`   | Default: `false`. Whether to use the default [refresh on commit](/self-managed/v2025.01/sql/create-materialized-view/#refresh-on-commit) strategy. Setting this component to `true` is equivalent to **not specifying** `refresh_interval` in the configuration block, so we recommend only using it for the special case of parametrizing the configuration option (e.g., in macros).
 
 ### Configuration: model contracts and constraints {#configuration-contracts}
 
@@ -713,7 +713,7 @@ types are supported.
         data_type: int
 ```
 
-A `not_null` constraint will be compiled to an [`ASSERT NOT NULL`](/sql/create-materialized-view/#non-null-assertions)
+A `not_null` constraint will be compiled to an [`ASSERT NOT NULL`](/self-managed/v2025.01/sql/create-materialized-view/#non-null-assertions)
 option for the specified columns of the materialize view.
 
 ```mzsql
@@ -887,8 +887,8 @@ trigger **real-time alerts** downstream.
     ```
 
 With continuous testing in place, you can then build alerts off of the test
-materialized views using any common PostgreSQL-compatible [client library](/integrations/#client-libraries-and-orms)
-and [`SUBSCRIBE`](/sql/subscribe/)(see the [Python cheatsheet](/integrations/python/#stream)
+materialized views using any common PostgreSQL-compatible [client library](/self-managed/v2025.01/integrations/#client-libraries-and-orms)
+and [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/)(see the [Python cheatsheet](/self-managed/v2025.01/integrations/python/#stream)
 for a reference implementation).
 
 ### Generate documentation
@@ -937,7 +937,7 @@ are all set.
 
 **Minimum requirements:** `dbt-materialize` v1.6.1+
 
-To persist model- and column-level descriptions as [comments](/sql/comment-on/)
+To persist model- and column-level descriptions as [comments](/self-managed/v2025.01/sql/comment-on/)
 in Materialize, use the [`persist_docs`](https://docs.getdbt.com/reference/resource-configs/persist_docs)
 configuration.
 
@@ -966,7 +966,7 @@ For "use-at-your-own-risk" workarounds, see [`dbt-core` #4226](https://github.co
     ```
 
 1. Once `persist-docs` is configured, any `description` defined in your `.yml`
-  files is persisted to Materialize in the [mz_internal.mz_comments](/sql/system-catalog/mz_internal/#mz_comments)
+  files is persisted to Materialize in the [mz_internal.mz_comments](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_comments)
   system catalog table on every `dbt run`:
 
     ```mzsql

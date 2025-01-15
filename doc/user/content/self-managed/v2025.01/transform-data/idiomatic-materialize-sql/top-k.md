@@ -7,10 +7,10 @@ menu:
     identifier: idiomatic-materialize-top-k
     weight: 50
 aliases:
-  - /sql/patterns/patterns/top-k/
-  - /transform-data/patterns/top-k/
-  - /guides/top-k/
-  - /docs/sql/patterns/top-k/
+  - /self-managed/v2025.01/sql/patterns/patterns/top-k/
+  - /self-managed/v2025.01/transform-data/patterns/top-k/
+  - /self-managed/v2025.01/guides/top-k/
+  - /self-managed/v2025.01/docs/sql/patterns/top-k/
 ---
 
 ## Overview
@@ -31,8 +31,8 @@ elements within each group according to some ordering.
 ### For K >= 1
 
 **Idiomatic Materialize SQL**: For Top-K queries where K >= 1, use a subquery to
-[SELECT DISTINCT](/sql/select/#select-distinct) on the grouping key and perform
-a [LATERAL](/sql/select/join/#lateral-subqueries) join (by the grouping key)
+[SELECT DISTINCT](/self-managed/v2025.01/sql/select/#select-distinct) on the grouping key and perform
+a [LATERAL](/self-managed/v2025.01/sql/select/join/#lateral-subqueries) join (by the grouping key)
 with another subquery that specifies the ordering and the limit K.
 
 <table>
@@ -48,8 +48,8 @@ with another subquery that specifies the ordering and the limit K.
 <td class="copyableCode">
 
 Use a subquery to
-[SELECT DISTINCT](/sql/select/#select-distinct) on the grouping key (e.g.,
-`fieldA`), and perform a [LATERAL](/sql/select/join/#lateral-subqueries) join
+[SELECT DISTINCT](/self-managed/v2025.01/sql/select/#select-distinct) on the grouping key (e.g.,
+`fieldA`), and perform a [LATERAL](/self-managed/v2025.01/sql/select/join/#lateral-subqueries) join
 (by the grouping key `fieldA`) with another subquery that specifies the ordering
 (e.g., `fieldZ [ASC|DESC]`) and the limit K.
 
@@ -94,7 +94,7 @@ ORDER BY fieldA, fieldZ ...;
 #### Query hints
 
 To further improve the memory usage of the idiomatic Materialize SQL, you can
-specify a [`LIMIT INPUT GROUP SIZE` query hint](/sql/select/#query-hints) in the
+specify a [`LIMIT INPUT GROUP SIZE` query hint](/self-managed/v2025.01/sql/select/#query-hints) in the
 idiomatic Materialize SQL.
 
 ```mzsql
@@ -108,12 +108,12 @@ ORDER BY fieldA, fieldZ ... ;
 ```
 
 For more information on setting `LIMIT INPUT GROUP SIZE`, see
-[Optimization](/transform-data/optimization/#query-hints).
+[Optimization](/self-managed/v2025.01/transform-data/optimization/#query-hints).
 
 ### For K = 1
 
 **Idiomatic Materialize SQL**: For K = 1, use a [SELECT DISTINCT
-ON()](/sql/select/#select-distinct-on) on the grouping key (e.g., `fieldA`) and
+ON()](/self-managed/v2025.01/sql/select/#select-distinct-on) on the grouping key (e.g., `fieldA`) and
 order the results first by the `DISTINCT ON` key and then the Top-K ordering
 key (e.g., `fieldA, fieldZ [ASC|DESC]`).
 
@@ -172,7 +172,7 @@ ORDER BY fieldA, fieldZ ...;
 ### Query hints
 
 To further improve the memory usage of the idiomatic Materialize SQL, you can
-specify a [`DISTINCT ON INPUT GROUP SIZE` query hint](/sql/select/#query-hints)
+specify a [`DISTINCT ON INPUT GROUP SIZE` query hint](/self-managed/v2025.01/sql/select/#query-hints)
 in the idiomatic Materialize SQL.
 
 ```mzsql
@@ -183,14 +183,14 @@ ORDER BY fieldA, fieldZ ... ;
 ```
 
 For more information on setting `DISTINCT ON INPUT GROUP SIZE`, see
-[Optimization](/transform-data/optimization/#query-hints).
+[Optimization](/self-managed/v2025.01/transform-data/optimization/#query-hints).
 
 ## Examples
 
 {{< note >}}
 
 The example data can be found in the
-[Appendix](/transform-data/idiomatic-materialize-sql/appendix/example-orders).
+[Appendix](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/appendix/example-orders).
 
 {{</ note >}}
 
@@ -198,8 +198,8 @@ The example data can be found in the
 
 Using idiomatic Materialize SQL, the following example finds the top 3 items (by
 descending subtotal) in each order. The example uses a subquery to [SELECT
-DISTINCT](/sql/select/#select-distinct) on the grouping key (`order_id`), and
-performs a [LATERAL](/sql/select/join/#lateral-subqueries) join (by the grouping
+DISTINCT](/self-managed/v2025.01/sql/select/#select-distinct) on the grouping key (`order_id`), and
+performs a [LATERAL](/self-managed/v2025.01/sql/select/join/#lateral-subqueries) join (by the grouping
 key) with another subquery that specifies the ordering (`ORDER BY subtotal
 DESC`) and limits its results to 3 (`LIMIT 3`).
 
@@ -258,7 +258,7 @@ ORDER BY order_id, subtotal DESC;
 
 Using idiomatic Materialize SQL, the following example finds the top 1 item (by
 descending subtotal) in each order. The example uses a query to [SELECT DISTINCT
-ON()](/sql/select/#select-distinct-on) on the grouping key (`order_id`) with an
+ON()](/self-managed/v2025.01/sql/select/#select-distinct-on) on the grouping key (`order_id`) with an
 `ORDER BY order_id, subtotal DESC` (i.e., ordering first by the `DISTINCT
 ON`/grouping key, then the descending subtotal). [^1]
 
@@ -313,7 +313,7 @@ ORDER BY order_id, subtotal DESC;
 
 ## See also
 
-- [SELECT DISTINCT](/sql/select/#select-distinct)
-- [LATERAL subqueries](/sql/select/join/#lateral-subqueries)
-- [Query hints for Top K](/transform-data/optimization/#query-hints)
-- [Window functions](/sql/functions/#window-functions)
+- [SELECT DISTINCT](/self-managed/v2025.01/sql/select/#select-distinct)
+- [LATERAL subqueries](/self-managed/v2025.01/sql/select/join/#lateral-subqueries)
+- [Query hints for Top K](/self-managed/v2025.01/transform-data/optimization/#query-hints)
+- [Window functions](/self-managed/v2025.01/sql/functions/#window-functions)

@@ -30,10 +30,10 @@ _select&lowbar;with&lowbar;ctes_, _select&lowbar;with&lowbar;recursive&lowbar;ct
 **(** _col&lowbar;ident_... **)** | Rename the CTE's columns to the list of identifiers, both of which must be the same length.
 **ALL** | Return all rows from query _(Default)_.
 **DISTINCT** | <a name="select-distinct"></a>Return only distinct values.
-**DISTINCT ON (** _col&lowbar;ref_... **)**  | <a name="select-distinct-on"></a>Return only the first row with a distinct value for _col&lowbar;ref_. If an `ORDER BY` clause is also present, then `DISTINCT ON` will respect that ordering when choosing which row to return for each distinct value of `col_ref...`. Please note that in this case, you should start the `ORDER BY` clause with the same `col_ref...` as the `DISTINCT ON` clause. For an example, see [Top K](/transform-data/idiomatic-materialize-sql/top-k/#select-top-1-item).
+**DISTINCT ON (** _col&lowbar;ref_... **)**  | <a name="select-distinct-on"></a>Return only the first row with a distinct value for _col&lowbar;ref_. If an `ORDER BY` clause is also present, then `DISTINCT ON` will respect that ordering when choosing which row to return for each distinct value of `col_ref...`. Please note that in this case, you should start the `ORDER BY` clause with the same `col_ref...` as the `DISTINCT ON` clause. For an example, see [Top K](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/#select-top-1-item).
 _target&lowbar;elem_ | Return identified columns or functions.
 **FROM** _table&lowbar;ref_ | The tables you want to read from; note that these can also be other `SELECT` statements or [Common Table Expressions](#common-table-expressions-ctes) (CTEs).
-_join&lowbar;expr_ | A join expression; for more details, see the [`JOIN` documentation](/sql/select/join/).
+_join&lowbar;expr_ | A join expression; for more details, see the [`JOIN` documentation](/self-managed/v2025.01/sql/select/join/).
 **WHERE** _expression_ | Filter tuples by _expression_.
 **GROUP BY** _col&lowbar;ref_ | Group aggregations by _col&lowbar;ref_.
 **OPTIONS (** _hint&lowbar;list_ **)** | Specify one or more [query hints](#query-hints).
@@ -53,7 +53,7 @@ have on Materialize.
 
 ### Creating materialized views
 
-Creating a [materialized view](/sql/create-materialized-view) generates a persistent dataflow, which has a
+Creating a [materialized view](/self-managed/v2025.01/sql/create-materialized-view) generates a persistent dataflow, which has a
 different performance profile from performing a `SELECT` in an RDBMS.
 
 A materialized view has resource and latency costs that should
@@ -63,7 +63,7 @@ additional intermediate state.
 
 ### Creating indexes
 
-Creating an [index](/sql/create-index) also generates a persistent dataflow. The difference from a materialized view is that the results are maintained in memory rather than on persistent storage. This allows ad hoc queries to perform efficient point-lookups in indexes.
+Creating an [index](/self-managed/v2025.01/sql/create-index) also generates a persistent dataflow. The difference from a materialized view is that the results are maintained in memory rather than on persistent storage. This allows ad hoc queries to perform efficient point-lookups in indexes.
 
 ### Ad hoc queries
 
@@ -76,7 +76,7 @@ Materialize also quickly returns results for queries that only filter, project, 
 and re-order data that is maintained by an index.
 
 Queries that can't simply read out from an index will create an ephemeral dataflow to compute
-the results. These dataflows are bound to the active [cluster](/concepts/clusters/),
+the results. These dataflows are bound to the active [cluster](/self-managed/v2025.01/concepts/clusters/),
  which you can change using:
 
 ```mzsql
@@ -106,7 +106,7 @@ For an example, see [Using regular CTEs](#using-regular-ctes).
 
 In addition, Materialize also provides support for _recursive CTEs_ that can mutually reference each other.
 Recursive CTEs can be used to define computations on recursively defined structures (such as trees or graphs) implied by your data.
-For details and examples, see the [Recursive CTEs](/sql/select/recursive-ctes)
+For details and examples, see the [Recursive CTEs](/self-managed/v2025.01/sql/select/recursive-ctes)
 page.
 
 #### Known limitations
@@ -114,7 +114,7 @@ page.
 CTEs have the following limitations, which we are working to improve:
 
 - `INSERT`/`UPDATE`/`DELETE` (with `RETURNING`) is not supported inside a CTE.
-- SQL99-compliant `WITH RECURSIVE` CTEs are not supported (use the [non-standard flavor](/sql/select/recursive-ctes) instead).
+- SQL99-compliant `WITH RECURSIVE` CTEs are not supported (use the [non-standard flavor](/self-managed/v2025.01/sql/select/recursive-ctes) instead).
 
 ### Query hints
 
@@ -125,10 +125,10 @@ The following query hints are valid within the `OPTION` clause.
 Hint | Value type | Description
 ------|------------|------------
 `AGGREGATE INPUT GROUP SIZE` | `uint8` | How many rows will have the same group key in an aggregation. Materialize can render `min` and `max` expressions more efficiently with this information.
-`DISTINCT ON INPUT GROUP SIZE` | `uint8` | How many rows will have the same group key in a `DISTINCT ON` expression. Materialize can render [Top K patterns](/transform-data/idiomatic-materialize-sql/top-k/) based on `DISTINCT ON` more efficiently with this information.
-`LIMIT INPUT GROUP SIZE` | `uint8` | How many rows will be given as a group to a `LIMIT` restriction. Materialize can render [Top K patterns](/transform-data/idiomatic-materialize-sql/top-k/) based on `LIMIT` more efficiently with this information.
+`DISTINCT ON INPUT GROUP SIZE` | `uint8` | How many rows will have the same group key in a `DISTINCT ON` expression. Materialize can render [Top K patterns](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/) based on `DISTINCT ON` more efficiently with this information.
+`LIMIT INPUT GROUP SIZE` | `uint8` | How many rows will be given as a group to a `LIMIT` restriction. Materialize can render [Top K patterns](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/) based on `LIMIT` more efficiently with this information.
 
-For examples, see the [Optimization](/transform-data/optimization/#query-hints) page.
+For examples, see the [Optimization](/self-managed/v2025.01/transform-data/optimization/#query-hints) page.
 
 ### Column references
 
@@ -196,7 +196,7 @@ GROUP BY region.id;
 In this case, Materialize will spin up a similar dataflow as it did for creating
 the above indexed view, but it will tear down the dataflow once it's returned its
 results to the client. If you regularly want to view the results of this query,
-you may want to create an [index](/sql/create-index) (in memory) and/or a [materialized view](/sql/create-materialized-view) (on persistent storage) for it.
+you may want to create an [index](/self-managed/v2025.01/sql/create-index) (in memory) and/or a [materialized view](/self-managed/v2025.01/sql/create-materialized-view) (on persistent storage) for it.
 
 ### Using regular CTEs
 

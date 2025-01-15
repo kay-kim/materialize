@@ -125,8 +125,8 @@ toCSS | fingerprint }}
             title = $(this).attr("title"),
             id = title
               .toLowerCase()
-              .replace(/ /g, "-")
-              .replace(/[^\w-]+/g, "");
+              .replace(/self-managed/v2025.01/ /g, "-")
+              .replace(/self-managed/v2025.01/[^\w-]+/g, "");
           navTabs.append(`<li><a href="#${id}-t${idx}">${title}</a></li>`);
         });
     });

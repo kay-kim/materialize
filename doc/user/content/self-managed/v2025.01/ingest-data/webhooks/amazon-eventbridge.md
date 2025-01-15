@@ -6,12 +6,12 @@ menu:
     parent: "webhooks"
     name: "Amazon EventBridge"
 aliases:
-  - /sql/create-source/webhook/#connecting-with-amazon-eventbridge
-  - /ingest-data/amazon-eventbridge/
+  - /self-managed/v2025.01/sql/create-source/webhook/#connecting-with-amazon-eventbridge
+  - /self-managed/v2025.01/ingest-data/amazon-eventbridge/
 ---
 
 This guide walks through the steps to ingest data from [Amazon EventBridge](https://aws.amazon.com/eventbridge/)
-into Materialize using the [Webhook source](/sql/create-source/webhook/).
+into Materialize using the [Webhook source](/self-managed/v2025.01/sql/create-source/webhook/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}
@@ -32,7 +32,7 @@ scenarios, we recommend separating your workloads into multiple clusters for
 [resource isolation](https://materialize.com/docs/sql/create-cluster/#resource-isolation).
 {{< /note >}}
 
-To create a cluster in Materialize, use the [`CREATE CLUSTER` command](/sql/create-cluster):
+To create a cluster in Materialize, use the [`CREATE CLUSTER` command](/self-managed/v2025.01/sql/create-cluster):
 
 ```mzsql
 CREATE CLUSTER webhooks_cluster (SIZE = '25cc');
@@ -43,7 +43,7 @@ SET CLUSTER = webhooks_cluster;
 ## Step 2. Create a secret
 
 To validate requests between Amazon EventBridge and Materialize, you must create
-a [secret](/sql/create-secret/):
+a [secret](/self-managed/v2025.01/sql/create-secret/):
 
 ```mzsql
 CREATE SECRET eventbridge_webhook_secret AS '<secret_value>';
@@ -54,7 +54,7 @@ a secure location.
 
 ## Step 3. Set up a webhook source
 
-Using the secret from the previous step, create a [webhook source](/sql/create-source/webhook/)
+Using the secret from the previous step, create a [webhook source](/self-managed/v2025.01/sql/create-source/webhook/)
 in Materialize to ingest data from Amazon EventBridge. By default, the source
 will be created in the active cluster; to use a different cluster, use the `IN
 CLUSTER` clause.
@@ -102,8 +102,8 @@ This enables a simple and rudimentary way to grant authorization to your webhook
 
 ### Throughput
 
-If your throughput exceeds the [maximum request rate](/sql/create-source/webhook/#request-limits),
-we recommend [batching multiple events](/sql/create-source/webhook/#handling-batch-events)
+If your throughput exceeds the [maximum request rate](/self-managed/v2025.01/sql/create-source/webhook/#request-limits),
+we recommend [batching multiple events](/self-managed/v2025.01/sql/create-source/webhook/#handling-batch-events)
 into a single request, for example using [EventBridge Pipes](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes-batching-concurrency.html).
 
 ## Step 4. Create an API destination in Amazon EventBridge
@@ -142,7 +142,7 @@ to map the individual fields to columns with the required data types.
 
 ### Timestamp handling
 
-We highly recommend using the [`try_parse_monotonic_iso8601_timestamp`](/transform-data/patterns/temporal-filters/#temporal-filter-pushdown)
+We highly recommend using the [`try_parse_monotonic_iso8601_timestamp`](/self-managed/v2025.01/transform-data/patterns/temporal-filters/#temporal-filter-pushdown)
 function when casting from `text` to `timestamp`, which enables [temporal filter
 pushdown](https://materialize.com/docs/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
 
@@ -151,7 +151,7 @@ pushdown](https://materialize.com/docs/transform-data/patterns/temporal-filters/
 With the vast amount of data processed and potential network issues, it's not
 uncommon to receive duplicate records. You can use the `DISTINCT ON` clause to
 efficiently remove duplicates. For more details, refer to the webhook source
-[reference documentation](/sql/create-source/webhook/#handling-duplicated-and-partial-events).
+[reference documentation](/self-managed/v2025.01/sql/create-source/webhook/#handling-duplicated-and-partial-events).
 
 ## Next steps
 
@@ -159,4 +159,4 @@ With Materialize ingesting your Amazon EventBridge data, you can start exploring
 computing real-time results that stay up-to-date as new data arrives, and
 serving results efficiently. For more details, check out the
 [Amazon EventBridge documentation](https://docs.aws.amazon.com/eventbridge/) and the
-[webhook source reference documentation](/sql/create-source/webhook/).
+[webhook source reference documentation](/self-managed/v2025.01/sql/create-source/webhook/).

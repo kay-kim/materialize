@@ -2,9 +2,9 @@
 title: "SQL clients"
 description: "How to connect to Materialize using common SQL clients"
 aliases:
-  - /connect/
-  - /connect/cli/
-  - /integrations/psql/
+  - /self-managed/v2025.01/connect/
+  - /self-managed/v2025.01/connect/cli/
+  - /self-managed/v2025.01/integrations/psql/
 menu:
   main:
     parent: "integrations"
@@ -13,7 +13,7 @@ menu:
 ---
 
 Materialize is **wire-compatible** with PostgreSQL, which means it integrates
-with many SQL clients that support PostgreSQL (see [Tools and Integrations](/integrations/#sql-clients)).
+with many SQL clients that support PostgreSQL (see [Tools and Integrations](/self-managed/v2025.01/integrations/#sql-clients)).
 In this guide, we’ll cover how to connect to your Materialize region using
 common SQL clients.
 
@@ -41,7 +41,7 @@ user. This password is auto-generated, and prefixed with `mzp_`.
 Parameters set in the connection string work for the **lifetime of the
 session**, but do not affect other sessions. To permanently change the default
 value of a configuration parameter for a specific user (i.e. role), use the
-[`ALTER ROLE...SET`](/sql/alter-role) command.
+[`ALTER ROLE...SET`](/self-managed/v2025.01/sql/alter-role) command.
 {{< /warning >}}
 
 You can pass runtime connection parameters (like `cluster`, `isolation_level`,
@@ -100,8 +100,8 @@ automatically download and install the most recent version.
 
 #### Connect to a specific cluster
 
-By default, Materialize connects to the [pre-installed `default` cluster](/sql/show-clusters/#pre-installed-clusters).
-To connect to a specific [cluster](/concepts/clusters), you must
+By default, Materialize connects to the [pre-installed `default` cluster](/self-managed/v2025.01/sql/show-clusters/#pre-installed-clusters).
+To connect to a specific [cluster](/self-managed/v2025.01/concepts/clusters), you must
 define a bootstrap query in the connection initialization settings.
 
 <br>
@@ -119,7 +119,7 @@ sets the active cluster for the connection:
 
 Alternatively, you can change the default value of the `cluster` configuration
 parameter for a specific user (i.e. role) using the [`ALTER
-ROLE...SET`](/sql/alter-role) command.
+ROLE...SET`](/self-managed/v2025.01/sql/alter-role) command.
 
 #### Show system objects
 

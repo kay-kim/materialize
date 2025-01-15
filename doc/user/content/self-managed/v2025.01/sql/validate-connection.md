@@ -36,5 +36,5 @@ The privileges required to execute this statement are:
 
 ## Related pages
 
-- [`CREATE CONNECTION`](/sql/create-connection/)
-- [`SHOW CONNECTIONS`](/sql/show-connections)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/)
+- [`SHOW CONNECTIONS`](/self-managed/v2025.01/sql/show-connections)

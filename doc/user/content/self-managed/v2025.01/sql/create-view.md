@@ -12,7 +12,7 @@ menu:
 for the embedded `SELECT` statement.
 
 The results of a view can be incrementally maintained **in memory** within a
-[cluster](/concepts/clusters/) by creating an [index](../create-index).
+[cluster](/self-managed/v2025.01/concepts/clusters/) by creating an [index](../create-index).
 This allows you to serve queries without the overhead of
 materializing the view.
 

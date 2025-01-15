@@ -1,8 +1,6 @@
 ---
 title: "Self-managed Materialize"
 description: ""
-aliases:
-  - /self-hosted/
 robots: "noindex, nofollow"
 ---
 
@@ -21,7 +19,7 @@ The self-managed Materialize requires the following:
 
 {{% self-managed/requirements-list %}}
 
-See the [Installation guide](/self-managed/installation/) for more information.
+See the [Installation guide](/self-managed/v2025.01/installation/) for more information.
 
 ## Recommended instance types
 
@@ -32,23 +30,17 @@ Materialize has been tested to work on instances with the following properties:
 - 1:16 ratio of vCPU to GiB local instance storage (if enabling spill-to-disk)
 
 For specific cloud provider recommendations, see the [Installation guide for the
-cloud provider](/self-managed/installation/) as well as the [operational guidelines](/self-managed/operational-guidelines/).
+cloud provider](/self-managed/v2025.01/installation/) as well as the [operational guidelines](/self-managed/v2025.01/installation/operational-guidelines/).
 
 ## Installation
 
 For instructions on installing Materialize on your Kubernetes cluster, see:
 
-- [Install locally on kind](/self-managed/installation/install-on-local-kind/)
+- [Install locally on
+  kind](/self-managed/v2025.01/installation/install-on-local-kind/)
 
 - [Install locally on
-  minikube](/self-managed/installation/install-on-local-minikube/)
+  minikube](/self-managed/v2025.01/installation/install-on-local-minikube/)
 
-- [Install on AWS](/self-managed/installation/install-on-aws/)
-- [Install on GCP](/self-managed/installation/install-on-gcp/)
-
-## Related pages
-
-<!-- Temporary:
-Hugo will add links to the pages in the same folder.
-Since we're hiding this section from the left-hand nav, adding the links here.
--->
+- [Install on AWS](/self-managed/v2025.01/installation/install-on-aws/)
+- [Install on GCP](/self-managed/v2025.01/installation/install-on-gcp/)

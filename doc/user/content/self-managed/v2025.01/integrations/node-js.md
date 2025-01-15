@@ -2,7 +2,7 @@
 title: "Node.js cheatsheet"
 description: "Use Node.js to connect, insert, manage, query and stream from Materialize."
 aliases:
-  - /guides/node-js/
+  - /self-managed/v2025.01/guides/node-js/
 menu:
   main:
     parent: 'client-libraries'
@@ -36,7 +36,7 @@ main();
 
 ## Create tables
 
-Most data in Materialize will stream in via an external system, but a [table](/sql/create-table/) can be helpful for supplementary data. For example, you can use a table to join slower-moving reference or lookup data with a stream.
+Most data in Materialize will stream in via an external system, but a [table](/self-managed/v2025.01/sql/create-table/) can be helpful for supplementary data. For example, you can use a table to join slower-moving reference or lookup data with a stream.
 
 To create a table named `countries` in Materialize:
 
@@ -70,7 +70,7 @@ main();
 
 ## Insert data into tables
 
-**Basic Example:** [Insert a row](/sql/insert/) of data into a table named `countries` in Materialize:
+**Basic Example:** [Insert a row](/self-managed/v2025.01/sql/insert/) of data into a table named `countries` in Materialize:
 
 ```js
 const { Client } = require('pg');
@@ -156,7 +156,7 @@ async function main() {
 main();
 ```
 
-For more information, see [`CREATE SOURCE`](/sql/create-source/).
+For more information, see [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/).
 
 ### Create a view from Node.js
 
@@ -185,13 +185,13 @@ async function main() {
 main();
 ```
 
-For more information, see [`CREATE MATERIALIZED VIEW`](/sql/create-materialized-view/).
+For more information, see [`CREATE MATERIALIZED VIEW`](/self-managed/v2025.01/sql/create-materialized-view/).
 
 ## Stream
 
-To take full advantage of incrementally updated materialized views from a Node.js application, instead of [querying](#query) Materialize for the state of a view at a point in time, you can use a [`SUBSCRIBE` statement](/sql/subscribe/) to request a stream of updates as the view changes.
+To take full advantage of incrementally updated materialized views from a Node.js application, instead of [querying](#query) Materialize for the state of a view at a point in time, you can use a [`SUBSCRIBE` statement](/self-managed/v2025.01/sql/subscribe/) to request a stream of updates as the view changes.
 
-To read a stream of updates from an existing materialized view, open a long-lived transaction with `BEGIN` and use [`SUBSCRIBE` with `FETCH`](/sql/subscribe/#subscribing-with-fetch) to repeatedly fetch all changes to the view since the last query:
+To read a stream of updates from an existing materialized view, open a long-lived transaction with `BEGIN` and use [`SUBSCRIBE` with `FETCH`](/self-managed/v2025.01/sql/subscribe/#subscribing-with-fetch) to repeatedly fetch all changes to the view since the last query:
 
 ```js
 const { Client } = require('pg');
@@ -219,7 +219,7 @@ async function main() {
 main();
 ```
 
-The [`SUBSCRIBE` output format](/sql/subscribe/#output) of `res.rows` is an array of view update objects. When a row of a subscribed view is **updated,** two objects will show up in the `rows` array:
+The [`SUBSCRIBE` output format](/self-managed/v2025.01/sql/subscribe/#output) of `res.rows` is an array of view update objects. When a row of a subscribed view is **updated,** two objects will show up in the `rows` array:
 
 ```js
 [
@@ -261,7 +261,7 @@ client.connect((err, client) => {
 
 ## Clean up
 
-To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/integrations/sql-clients/) and then, run the following commands:
+To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/self-managed/v2025.01/integrations/sql-clients/) and then, run the following commands:
 
 ```mzsql
 DROP MATERIALIZED VIEW IF EXISTS counter_sum;

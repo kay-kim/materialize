@@ -9,7 +9,7 @@ menu:
 ---
 
 This page shows you how to stream data from [Amazon RDS for MySQL](https://aws.amazon.com/rds/mysql/)
-to Materialize using the [MySQL source](/sql/create-source/mysql).
+to Materialize using the [MySQL source](/self-managed/v2025.01/sql/create-source/mysql).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}
@@ -60,7 +60,7 @@ binary logging.
     is **Available** in the RDS Console.
 
 1. In addition to the step above, you **must** also ensure that
-   [binlog retention](/sql/create-source/mysql/#binlog-retention) is set to a
+   [binlog retention](/self-managed/v2025.01/sql/create-source/mysql/#binlog-retention) is set to a
    reasonable value. To check the current value of the [`binlog retention hours`](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-stored-proc-configuring.html#mysql_rds_set_configuration-usage-notes.binlog-retention-hours)
    configuration parameter, connect to your RDS instance and run:
 
@@ -122,9 +122,9 @@ to connect:
     can use an SSH tunnel to connect Materialize to the database.
 
 - **Use AWS PrivateLink**: If your database is running in a private network, you
-    can use [AWS PrivateLink](/ingest-data/network-security/privatelink/) to
+    can use [AWS PrivateLink](/self-managed/v2025.01/ingest-data/network-security/privatelink/) to
     connect Materialize to the database. For details, see [AWS
-    PrivateLink](/ingest-data/network-security/privatelink/).
+    PrivateLink](/self-managed/v2025.01/ingest-data/network-security/privatelink/).
 
 {{< tabs >}}
 

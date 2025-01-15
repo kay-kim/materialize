@@ -7,15 +7,15 @@ menu:
     weight: 20
     identifier: 'concepts-indexes'
 aliases:
-  - /get-started/key-concepts/#indexes
+  - /self-managed/v2025.01/get-started/key-concepts/#indexes
 ---
 
 ## Overview
 
 In Materialize, indexes represent query results stored in memory **within a
-[cluster](/concepts/clusters/)**. You can create indexes on
-[sources](/concepts/sources/), [views](/concepts/views/#views), or [materialized
-views](/concepts/views/#materialized-views).
+[cluster](/self-managed/v2025.01/concepts/clusters/)**. You can create indexes on
+[sources](/self-managed/v2025.01/concepts/sources/), [views](/self-managed/v2025.01/concepts/views/#views), or [materialized
+views](/self-managed/v2025.01/concepts/views/#materialized-views).
 
 ## Indexes on sources
 
@@ -24,11 +24,11 @@ In practice, you may find that you rarely need to index a source
 without performing some transformation using a view, etc.
 {{</ note >}}
 
-In Materialize, you can create indexes on a [source](/concepts/sources/) to
+In Materialize, you can create indexes on a [source](/self-managed/v2025.01/concepts/sources/) to
 maintain in-memory up-to-date source data within the cluster you create the
 index. This can help improve [query
 performance](#indexes-and-query-optimizations) when serving results directly
-from the source or when [using joins](/transform-data/optimization/#join).
+from the source or when [using joins](/self-managed/v2025.01/transform-data/optimization/#join).
 However, in practice, you may find that you rarely need to index a source
 directly.
 
@@ -38,15 +38,15 @@ CREATE INDEX idx_on_my_source ON my_source (...);
 
 ## Indexes on views
 
-In Materialize, you can create indexes on a [view](/concepts/views/#views "query
+In Materialize, you can create indexes on a [view](/self-managed/v2025.01/concepts/views/#views "query
 saved under a name") to maintain **up-to-date view results in memory** within
-the [cluster](/concepts/clusters/) you create the index.
+the [cluster](/self-managed/v2025.01/concepts/clusters/) you create the index.
 
 ```mzsql
 CREATE INDEX idx_on_my_view ON my_view_name(...) ;
 ```
 
-During the index creation on a [view](/concepts/views/#views "query saved under
+During the index creation on a [view](/self-managed/v2025.01/concepts/views/#views "query saved under
 a name"), the view is executed and the view results are stored in memory within
 the cluster. **As new data arrives**, the index **incrementally updates** the
 view results in memory.
@@ -65,7 +65,7 @@ vs. materialized views, see [Usage patterns](#usage-patterns).
 In Materialize, materialized view results are stored in durable storage and
 **incrementally updated** as new data arrives. Indexing a materialized view
 makes the already up-to-date view results available **in memory** within the
-[cluster](/concepts/clusters/) you create the index. That is, indexes on
+[cluster](/self-managed/v2025.01/concepts/clusters/) you create the index. That is, indexes on
 materialized views require no additional computation to keep results up-to-date.
 
 {{< note >}}
@@ -220,7 +220,7 @@ CREATE INDEX idx_orders_view_qty_price on orders_view (quantity, price);
 ### Indexes and query optimizations
 
 By making up-to-date results available in memory, indexes can help [optimize
-query performance](/transform-data/optimization/), such as:
+query performance](/self-managed/v2025.01/transform-data/optimization/), such as:
 
 - Provide faster sequential access than unindexed data.
 
@@ -235,9 +235,9 @@ query performance](/transform-data/optimization/), such as:
 
 ## Related pages
 
-- [Optimization](/transform-data/optimization)
-- [Views](/concepts/views)
-- [`CREATE INDEX`](/sql/create-index)
+- [Optimization](/self-managed/v2025.01/transform-data/optimization)
+- [Views](/self-managed/v2025.01/concepts/views)
+- [`CREATE INDEX`](/self-managed/v2025.01/sql/create-index)
 
 <style>
 red { color: Red; font-weight: 500; }

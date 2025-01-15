@@ -8,7 +8,7 @@ menu:
 
 `ALTER SINK` allows cutting a sink over to a new upstream relation without
 causing disruption to downstream consumers. This is useful in the context
-of [blue/green deployments](/manage/dbt/development-workflows/#bluegreen-deployments).
+of [blue/green deployments](/self-managed/v2025.01/manage/dbt/development-workflows/#bluegreen-deployments).
 
 ## Syntax
 
@@ -48,7 +48,7 @@ make progress.
 
 To monitor the status of a sink after an `ALTER SINK` command, navigate to the
 respective object page in the [Materialize console](https://console.materialize.com/),
-or query the [`mz_internal.mz_sink_statuses`](/sql/system-catalog/mz_internal/#mz_sink_statuses)
+or query the [`mz_internal.mz_sink_statuses`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_sink_statuses)
 system catalog view.
 
 ### Cutover scenarios
@@ -123,5 +123,5 @@ The privileges required to execute this statement are:
 
 ## See also
 
-- [`CREATE SINK`](/sql/create-sink/)
-- [`SHOW SINKS`](/sql/show-sinks)
+- [`CREATE SINK`](/self-managed/v2025.01/sql/create-sink/)
+- [`SHOW SINKS`](/self-managed/v2025.01/sql/show-sinks)

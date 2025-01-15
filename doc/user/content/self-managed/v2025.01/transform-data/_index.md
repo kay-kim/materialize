@@ -16,9 +16,9 @@ fast-changing data.
 
 ### SELECT statement
 
-To build your transformations, you can [`SELECT`](/sql/select/) from
-[sources](/concepts/sources/), tables, [views](/concepts/views/#views), and
-[materialized views](/concepts/views/#materialized-views).
+To build your transformations, you can [`SELECT`](/self-managed/v2025.01/sql/select/) from
+[sources](/self-managed/v2025.01/concepts/sources/), tables, [views](/self-managed/v2025.01/concepts/views/#views), and
+[materialized views](/self-managed/v2025.01/concepts/views/#materialized-views).
 
 ```mzsql
 SELECT [ ALL | DISTINCT [ ON ( col_ref [, ...] ) ] ]
@@ -33,25 +33,25 @@ SELECT [ ALL | DISTINCT [ ON ( col_ref [, ...] ) ] ]
     [ { UNION | INTERSECT | EXCEPT } [ ALL | DISTINCT ] { SELECT ...} ]
 ```
 
-In Materialize, the [`SELECT`](/sql/select/) statement supports (among others):
+In Materialize, the [`SELECT`](/self-managed/v2025.01/sql/select/) statement supports (among others):
 
 - [JOINS (inner, left outer, right outer, full outer,
-  cross)](/sql/select/join/) and [lateral
-  subqueries](/sql/select/join/#lateral-subqueries)
+  cross)](/self-managed/v2025.01/sql/select/join/) and [lateral
+  subqueries](/self-managed/v2025.01/sql/select/join/#lateral-subqueries)
 
-- [Common Table Expressions (CTEs)](/sql/select/#common-table-expressions-ctes)
-  and [Recursive CTEs](/sql/select/recursive-ctes/)
+- [Common Table Expressions (CTEs)](/self-managed/v2025.01/sql/select/#common-table-expressions-ctes)
+  and [Recursive CTEs](/self-managed/v2025.01/sql/select/recursive-ctes/)
 
 - [Query hints (`AGGREGATE INPUT GROUP SIZE`, `DISTINCT ON INPUT GROUP SIZE`,
-  `LIMIT INPUT GROUP SIZE`)](/sql/select/#query-hints)
+  `LIMIT INPUT GROUP SIZE`)](/self-managed/v2025.01/sql/select/#query-hints)
 
-- [SQL functions](/sql/functions/) and [operators](/sql/functions/#operators)
+- [SQL functions](/self-managed/v2025.01/sql/functions/) and [operators](/self-managed/v2025.01/sql/functions/#operators)
 
 For more information, see:
 
-- [`SELECT` reference page](/sql/select/)
+- [`SELECT` reference page](/self-managed/v2025.01/sql/select/)
 
-- [Query optimization](/transform-data/optimization/)
+- [Query optimization](/self-managed/v2025.01/transform-data/optimization/)
 
 ### Views and materialized views
 
@@ -62,9 +62,9 @@ CREATE VIEW my_view_name AS
 SELECT ...   ;
 ```
 
-In Materialize, you can create [indexes](/concepts/indexes/#indexes-on-views) on
+In Materialize, you can create [indexes](/self-managed/v2025.01/concepts/indexes/#indexes-on-views) on
 views. When you to create an index on a view, the underlying query is executed
-and the results are stored in memory within the [cluster](/concepts/clusters/)
+and the results are stored in memory within the [cluster](/self-managed/v2025.01/concepts/clusters/)
 you create the index. As new data arrives, Materialize incrementally updates the
 view results.
 
@@ -86,21 +86,21 @@ available in memory within the cluster you create the index.
 
 For more information, see:
 
-- [Views](/concepts/views/)
-- [Indexes](/concepts/indexes/)
+- [Views](/self-managed/v2025.01/concepts/views/)
+- [Indexes](/self-managed/v2025.01/concepts/indexes/)
 - [Indexed views vs materialized
-  views](/concepts/views/#indexed-views-vs-materialized-views)
+  views](/self-managed/v2025.01/concepts/views/#indexed-views-vs-materialized-views)
 
 ### Indexes
 
-In Materialize, [indexes](/concepts/indexes/) represent query results stored in
+In Materialize, [indexes](/self-managed/v2025.01/concepts/indexes/) represent query results stored in
 memory within a cluster. By making up-to-date view results available in memory,
 indexes can help improve performance within the cluster. Indexes can also help
-[optimize query performance](/transform-data/optimization/).
+[optimize query performance](/self-managed/v2025.01/transform-data/optimization/).
 
 For more information, see:
 
-- [Indexes](/concepts/indexes)
+- [Indexes](/self-managed/v2025.01/concepts/indexes)
 - [Indexed views vs materialized
-  views](/concepts/indexes/#indexes-on-views-vs-materialized-views)
-- [Indexes: Best practices](/concepts/indexes/#best-practices)
+  views](/self-managed/v2025.01/concepts/indexes/#indexes-on-views-vs-materialized-views)
+- [Indexes: Best practices](/self-managed/v2025.01/concepts/indexes/#best-practices)

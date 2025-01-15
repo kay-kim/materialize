@@ -24,7 +24,7 @@ to some ordering, in each group.
 ## Idiomatic Materialize SQL
 
 **Idiomatic Materialize SQL:** To find the last value in each group, use the
-[MIN()](/sql/functions/#min) or [MAX()](/sql/functions/#max) aggregate function
+[MIN()](/self-managed/v2025.01/sql/functions/#min) or [MAX()](/self-managed/v2025.01/sql/functions/#max) aggregate function
 in a subquery.
 
 <table>
@@ -39,8 +39,8 @@ in a subquery.
 <td><blue>Idiomatic Materialize SQL</blue></td>
 <td class="copyableCode">
 
-Use a subquery that uses the [MIN()](/sql/functions/#min) or
-[MAX()](/sql/functions/#max) aggregate function.
+Use a subquery that uses the [MIN()](/self-managed/v2025.01/sql/functions/#min) or
+[MAX()](/self-managed/v2025.01/sql/functions/#max) aggregate function.
 
 <br>
 <div style="background-color: var(--code-block)">
@@ -65,7 +65,7 @@ ORDER BY fieldA ... ;
 <td>
 
 <red>Do not use [`LAST_VALUE() OVER (PARTITION BY ... ORDER BY ... RANGE
-...)` window function](/sql/functions/#last_value) for last value in each group
+...)` window function](/self-managed/v2025.01/sql/functions/#last_value) for last value in each group
 queries.</red>
 
 {{< note >}}
@@ -105,7 +105,7 @@ ORDER BY fieldA, ...;
 ### Query hints
 
 To further improve the memory usage of the idiomatic Materialize SQL, you can
-specify a [`AGGREGATE INPUT GROUP SIZE` query hint](/sql/select/#query-hints) in
+specify a [`AGGREGATE INPUT GROUP SIZE` query hint](/self-managed/v2025.01/sql/select/#query-hints) in
 the idiomatic Materialize SQL.
 
 ```mzsql
@@ -122,14 +122,14 @@ ORDER BY fieldA ... ;
 ```
 
 For more information on setting `AGGREGATE INPUT GROUP SIZE`, see
-[Optimization](/transform-data/optimization/#query-hints).
+[Optimization](/self-managed/v2025.01/transform-data/optimization/#query-hints).
 
 ## Examples
 
 {{< note >}}
 
 The example data can be found in the
-[Appendix](/transform-data/idiomatic-materialize-sql/appendix/example-orders).
+[Appendix](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/appendix/example-orders).
 
 {{</ note >}}
 
@@ -138,7 +138,7 @@ The example data can be found in the
 Using idiomatic Materialize SQL, the following example finds the highest item
 price in each order and calculates the difference between the price of each item
 in the order and the highest price. The example uses a subquery that groups by
-the `order_id` and selects [`MAX(price)`](/sql/functions/#max)  to find the
+the `order_id` and selects [`MAX(price)`](/self-managed/v2025.01/sql/functions/#max)  to find the
 highest price (i.e., the last price if ordered by ascending price values):
 
 <table>
@@ -215,7 +215,7 @@ ORDER BY order_id, item;
 Using idiomatic Materialize SQL, the following example finds the lowest item
 price in each order and calculates the difference between the price of each item
 in the order and the lowest price.  That is, use a subquery that groups by the
-`order_id` and selects [`MIN(price)`](/sql/functions/#min)  as the lowest price
+`order_id` and selects [`MIN(price)`](/self-managed/v2025.01/sql/functions/#min)  as the lowest price
 (i.e.,  last price if ordered by descending price value)
 
 <table>
@@ -292,9 +292,9 @@ ORDER BY order_id, item;
 Using idiomatic Materialize SQL, the following example finds the lowest and
 highest item price in each order and calculate the difference for each item in
 the order from these prices. That is, use a subquery that groups by the
-`order_id` and selects [`MIN(price)`](/sql/functions/#min) as the lowest price
+`order_id` and selects [`MIN(price)`](/self-managed/v2025.01/sql/functions/#min) as the lowest price
 (i.e., last value if ordered by descending price values) and
-[`MAX(price)`](/sql/functions/#max) as the highest price (i.e., last value if
+[`MAX(price)`](/self-managed/v2025.01/sql/functions/#max) as the highest price (i.e., last value if
 ordered by ascending price values).
 
 <table>
@@ -379,8 +379,8 @@ ORDER BY order_id, item;
 ## See also
 
 - [First value in a
-  group](/transform-data/idiomatic-materialize-sql/first-value)
-- [`MIN()`](/sql/functions/#min)
-- [`MAX()`](/sql/functions/#max)
-- [Query hints for MIN/MAX](/transform-data/optimization/#query-hints)
-- [Window functions](/sql/functions/#window-functions)
+  group](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/first-value)
+- [`MIN()`](/self-managed/v2025.01/sql/functions/#min)
+- [`MAX()`](/self-managed/v2025.01/sql/functions/#max)
+- [Query hints for MIN/MAX](/self-managed/v2025.01/transform-data/optimization/#query-hints)
+- [Window functions](/self-managed/v2025.01/sql/functions/#window-functions)

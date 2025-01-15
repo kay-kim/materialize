@@ -37,15 +37,15 @@ view with the individual fields mapped to columns.
 /* Helper Methods */
 
 function escapeString(s) {
-    return s.replace(/'/g, `''`);
+    return s.replace(/self-managed/v2025.01/'/g, `''`);
 }
 
 function escapeIdent(s) {
-    return `"${s.replace(/"/g, `""`)}"`;
+    return `"${s.replace(/self-managed/v2025.01/"/g, `""`)}"`;
 }
 
 function replaceSpecialChar(s) {
-    return s.replace(/[^a-zA-Z0-9 _]/g, "_")
+    return s.replace(/self-managed/v2025.01/[^a-zA-Z0-9 _]/g, "_")
 }
 
 function isDate(value) {

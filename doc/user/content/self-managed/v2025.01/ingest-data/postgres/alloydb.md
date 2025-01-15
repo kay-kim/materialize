@@ -2,7 +2,7 @@
 title: "Ingest data from AlloyDB"
 description: "How to stream data from AlloyDB to Materialize"
 aliases:
-  - /ingest-data/postgres-alloydb/
+  - /self-managed/v2025.01/ingest-data/postgres-alloydb/
 menu:
   main:
     parent: "postgresql"
@@ -11,7 +11,7 @@ menu:
 ---
 
 This page shows you how to stream data from [AlloyDB for PostgreSQL](https://cloud.google.com/alloydb)
-to Materialize using the [PostgreSQL source](/sql/create-source/postgres/).
+to Materialize using the [PostgreSQL source](/self-managed/v2025.01/sql/create-source/postgres/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}

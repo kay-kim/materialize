@@ -14,7 +14,7 @@ menu:
 SHOW CREATE MATERIALIZED VIEW <view_name>
 ```
 
-For available materialized view names, see [`SHOW MATERIALIZED VIEWS`](/sql/show-materialized-views).
+For available materialized view names, see [`SHOW MATERIALIZED VIEWS`](/self-managed/v2025.01/sql/show-materialized-views).
 
 ## Examples
 

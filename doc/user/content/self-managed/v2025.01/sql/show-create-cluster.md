@@ -14,7 +14,7 @@ menu:
 SHOW CREATE CLUSTER <cluster_name>
 ```
 
-For available cluster names, see [`SHOW CLUSTERS`](/sql/show-clusters).
+For available cluster names, see [`SHOW CLUSTERS`](/self-managed/v2025.01/sql/show-clusters).
 
 ## Examples
 

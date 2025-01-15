@@ -2,8 +2,8 @@
 title: "Looker"
 description: "How to create dashboards with Looker"
 aliases:
-  - /third-party/looker/
-  - /integrations/looker/
+  - /self-managed/v2025.01/third-party/looker/
+  - /self-managed/v2025.01/integrations/looker/
 menu:
   main:
     parent: "bi-tools"
@@ -34,7 +34,7 @@ Database password      | App-specific password.
 
 ## Configure a custom cluster
 
-To configure a custom Materialize [cluster](/sql/create-cluster), follow these steps:
+To configure a custom Materialize [cluster](/self-managed/v2025.01/sql/create-cluster), follow these steps:
 
 * Edit the Materialize connection.
 

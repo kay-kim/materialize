@@ -28,7 +28,7 @@ support role- and object-level network policies, as well as egress network
 policies.
 {{< /note >}}
 
-To create a new network policy, use the [`CREATE NETWORK POLICY`](/sql/create-network-policy)
+To create a new network policy, use the [`CREATE NETWORK POLICY`](/self-managed/v2025.01/sql/create-network-policy)
 statement to provide a list of rules for allowed ingress traffic.
 
 ```sql
@@ -42,7 +42,7 @@ CREATE NETWORK POLICY office_access_policy (
 
 ## Alter a network policy
 
-To alter an existing network policy, use the [`ALTER NETWORK POLICY`](/sql/alter-network-policy)
+To alter an existing network policy, use the [`ALTER NETWORK POLICY`](/self-managed/v2025.01/sql/alter-network-policy)
 statement. Changes to a network policy will only affect new connections
 and **will not** terminate active connections.
 
@@ -64,7 +64,7 @@ that could lock them out of the system.
 
 ## Drop a network policy
 
-To drop an existing network policy, use the [`DROP NETWORK POLICY`](/sql/drop-network-policy) statement.
+To drop an existing network policy, use the [`DROP NETWORK POLICY`](/self-managed/v2025.01/sql/drop-network-policy) statement.
 
 ```mzsql
 DROP NETWORK POLICY office_access_policy;
@@ -72,4 +72,4 @@ DROP NETWORK POLICY office_access_policy;
 
 To drop the pre-installed `default` network policy (or the network policy
 subsequently set as default), you must first set a new system default using
-the [`ALTER SYSTEM SET network_policy`](/sql/alter-system-set) statement.
+the [`ALTER SYSTEM SET network_policy`](/self-managed/v2025.01/sql/alter-system-set) statement.

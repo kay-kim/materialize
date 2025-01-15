@@ -2,7 +2,7 @@
 title: "Development workflows"
 description: "How to use dbt to deploy and test changes to your SQL code against Materialize."
 aliases:
-  - /manage/blue-green/
+  - /self-managed/v2025.01/manage/blue-green/
 menu:
   main:
     parent: manage-dbt
@@ -13,7 +13,7 @@ menu:
 As you progress from development to production, deploying changes to Materialize
 requires different workflows. This page provides an overview of best practices
 and deployment patterns across the different stages you will progress through
-using [dbt](/manage/dbt/) as your deployment tool.
+using [dbt](/self-managed/v2025.01/manage/dbt/) as your deployment tool.
 
 ## Development
 
@@ -139,7 +139,7 @@ database relation (see [`dbt-core` #7391](https://github.com/dbt-labs/dbt-core/i
 **Minimum requirements:** `dbt-materialize` v1.8.0+
 
 {{< note >}}
-Complex types like [`map`](/sql/types/map/) and [`list`](/sql/types/list/) are
+Complex types like [`map`](/self-managed/v2025.01/sql/types/map/) and [`list`](/self-managed/v2025.01/sql/types/list/) are
 not supported in unit tests yet (see [`dbt-adapters` #113](https://github.com/dbt-labs/dbt-adapters/issues/113)).
 For an overview of other known limitations, check the [dbt documentation](https://docs.getdbt.com/docs/build/unit-tests#before-you-begin).
 {{</ note >}}
@@ -298,7 +298,7 @@ iteration and reduced CI costs.
 #### Configuration and initialization
 
 {{< warning >}}
-If your dbt project includes [sinks](/manage/dbt/#sinks), you **must** ensure
+If your dbt project includes [sinks](/self-managed/v2025.01/manage/dbt/#sinks), you **must** ensure
 that these are created in a **dedicated schema and cluster**. Unlike other
 objects, sinks must not be recreated in the process of a blue/green deployment,
 and must instead cut over to the new definition of their upstream dependencies
@@ -531,7 +531,7 @@ end-to-end workflow using GitHub and GitHub Actions.
 As a tool primarily meant to manage your data model, the `dbt-materialize`
 adapter does not expose all Materialize objects types. If there is a **clear
 separation** between data modeling and **infrastructure management ownership**
-in your team, and you want to manage objects like [clusters](/concepts/clusters/),
-[connections](/sql/create-connection/), or [secrets](/sql/create-secret/) as code,
-we recommend using the [Materialize Terraform provider](/manage/terraform/) as a
+in your team, and you want to manage objects like [clusters](/self-managed/v2025.01/concepts/clusters/),
+[connections](/self-managed/v2025.01/sql/create-connection/), or [secrets](/self-managed/v2025.01/sql/create-secret/) as code,
+we recommend using the [Materialize Terraform provider](/self-managed/v2025.01/manage/terraform/) as a
 complementary deployment tool.

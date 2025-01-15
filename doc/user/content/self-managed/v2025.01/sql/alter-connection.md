@@ -29,7 +29,7 @@ to:
 
 | Field      | Value     | Description                                                                                                                                                       |
 | ---------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `VALIDATE` | `boolean` | Whether [connection validation](/sql/create-connection#connection-validation) should be performed. Not available with **ROTATE KEYS**.<br><br>Defaults to `true`. |
+| `VALIDATE` | `boolean` | Whether [connection validation](/self-managed/v2025.01/sql/create-connection#connection-validation) should be performed. Not available with **ROTATE KEYS**.<br><br>Defaults to `true`. |
 
 ## Description
 
@@ -44,7 +44,7 @@ These subcommands let you modify the parameters of a connection.
 * The same parameter cannot have multiple modifications.
 
 For the available parameters for each type of connection, see [`CREATE
-CONNECTION`](/sql/create-connection).
+CONNECTION`](/self-managed/v2025.01/sql/create-connection).
 
 ### `ROTATE KEYS`
 
@@ -85,8 +85,8 @@ The privileges required to execute this statement are:
 
 ## Related pages
 
--   [`CREATE CONNECTION`](/sql/create-connection/)
--   [`SHOW CONNECTIONS`](/sql/show-connections)
+-   [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/)
+-   [`SHOW CONNECTIONS`](/self-managed/v2025.01/sql/show-connections)
 
-[SSH tunnel connection]: /sql/create-connection/#ssh-tunnel
-[`mz_ssh_tunnel_connections`]: /sql/system-catalog/mz_catalog/#mz_ssh_tunnel_connections
+[SSH tunnel connection]: ]: /self-managed/v2025.01/sql/create-connection/#ssh-tunnel
+[`mz_ssh_tunnel_connections`]: ]: /self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_ssh_tunnel_connections

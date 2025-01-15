@@ -7,7 +7,7 @@ menu:
     weight: 5
     identifier: 'concepts-clusters'
 aliases:
-  - /get-started/key-concepts/#clusters
+  - /self-managed/v2025.01/get-started/key-concepts/#clusters
 ---
 
 ## Overview
@@ -18,10 +18,10 @@ for running your workloads.
 The following operations require compute resources in Materialize, and so need
 to be associated with a cluster:
 
-- Maintaining [sources](/concepts/sources/) and [sinks](/concepts/sinks/).
-- Maintaining [indexes](/concepts/indexes/) and [materialized
-  views](/concepts/views/#materialized-views).
-- Executing [`SELECT`](/sql/select/) and [`SUBSCRIBE`](/sql/subscribe/)
+- Maintaining [sources](/self-managed/v2025.01/concepts/sources/) and [sinks](/self-managed/v2025.01/concepts/sinks/).
+- Maintaining [indexes](/self-managed/v2025.01/concepts/indexes/) and [materialized
+  views](/self-managed/v2025.01/concepts/views/#materialized-views).
+- Executing [`SELECT`](/self-managed/v2025.01/sql/select/) and [`SUBSCRIBE`](/self-managed/v2025.01/sql/subscribe/)
   statements.
 
 
@@ -46,7 +46,7 @@ access to that cluster's compute resources.
 
 ## Fault tolerance
 
-The [replication factor](/sql/create-cluster/#replication-factor) of a cluster
+The [replication factor](/self-managed/v2025.01/sql/create-cluster/#replication-factor) of a cluster
 determines the number of replicas provisioned for the cluster. Each replica of
 the cluster provisions a new pool of compute resources to perform exactly the
 same work on exactly the same data.
@@ -61,7 +61,7 @@ and serve queries.
 
 - Each replica incurs cost, calculated as `cluster size *
   replication factor` per second. See [Usage &
-  billing](/administration/billing/) for more details.
+  billing](/self-managed/v2025.01/administration/billing/) for more details.
 
 - Increasing the replication factor does **not** increase the cluster's work
   capacity. Replicas are exact copies of one another: each replica must do
@@ -92,28 +92,28 @@ When provisioning replicas,
 
 ## Cluster sizing
 
-When creating a cluster, you must choose its [size](/sql/create-cluster/#size)
+When creating a cluster, you must choose its [size](/self-managed/v2025.01/sql/create-cluster/#size)
 (e.g., `25cc`, `50cc`, `100cc`), which determines its resource allocation
-(CPU, memory, and scratch disk space) and [cost](/administration/billing/#compute).
+(CPU, memory, and scratch disk space) and [cost](/self-managed/v2025.01/administration/billing/#compute).
 The appropriate size for a cluster depends on the resource requirements of your
 workload. Larger clusters have more compute
 resources available and can therefore process data faster and handle larger data
 volumes.
 
-As your workload changes, you can [resize a cluster](/sql/alter-cluster/).
+As your workload changes, you can [resize a cluster](/self-managed/v2025.01/sql/alter-cluster/).
 Depending on the type of objects in the cluster, this operation might incur
-downtime. See [Resizing downtime](/sql/alter-cluster/#downtime) for more details.
+downtime. See [Resizing downtime](/self-managed/v2025.01/sql/alter-cluster/#downtime) for more details.
 
 {{< tip >}}
 
 To gauge the performance and utilization of your clusters, use the
-[**Environment Overview** page in the Materialize Console](/console/monitoring/).
+[**Environment Overview** page in the Materialize Console](/self-managed/v2025.01/console/monitoring/).
 
 {{< /tip >}}
 
 ## Related pages
 
-- [`CREATE CLUSTER`](/sql/create-cluster)
-- [`ALTER CLUSTER`](/sql/alter-cluster)
-- [System clusters](/sql/system-clusters)
-- [Usage & billing](/administration/billing/)
+- [`CREATE CLUSTER`](/self-managed/v2025.01/sql/create-cluster)
+- [`ALTER CLUSTER`](/self-managed/v2025.01/sql/alter-cluster)
+- [System clusters](/self-managed/v2025.01/sql/system-clusters)
+- [Usage & billing](/self-managed/v2025.01/administration/billing/)

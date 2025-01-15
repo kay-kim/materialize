@@ -9,7 +9,7 @@ menu:
 ---
 
 This page shows you how to stream data from a self-hosted MySQL database to
-Materialize using the [MySQL source](/sql/create-source/mysql/).
+Materialize using the [MySQL source](/self-managed/v2025.01/sql/create-source/mysql/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}

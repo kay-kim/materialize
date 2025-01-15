@@ -68,12 +68,12 @@ provider "materialize" {
 
 **Minimum requirements:** `terraform-provider-materialize` v0.8.1+
 
-As a best practice, we strongly recommend using [service accounts](/manage/access-control/create-service-accounts)
+As a best practice, we strongly recommend using [service accounts](/self-managed/v2025.01/manage/access-control/create-service-accounts)
 to connect external applications to Materialize. To create a
 service account, create a new [`materialize_role`](https://registry.terraform.io/providers/MaterializeInc/materialize/latest/docs/resources/role)
 and associate it with a new [`materialize_app_password`](https://registry.terraform.io/providers/MaterializeInc/materialize/latest/docs/resources/app_password)
 of type `service`. More granular permissions for the service account can then
-be configured using [role-based access control (RBAC)](/manage/access-control/#role-based-access-control-rbac).
+be configured using [role-based access control (RBAC)](/self-managed/v2025.01/manage/access-control/#role-based-access-control-rbac).
 
 ```hcl
 # Create a service user in the aws/us-east-1 region.
@@ -310,7 +310,7 @@ resource "materialize_source_postgres" "example_source_postgres" {
 
 Materialize does not directly integrate with external secret stores, but it's possible to manage this integration via Terraform.
 
-The [secret stores demo](https://github.com/MaterializeInc/demos/tree/main/integrations/terraform/secret-stores) shows how to handle [secrets](/sql/create-secret) and sensitive data with some popular secret stores. By utilizing Terraform's infrastructure-as-code model, you can automate and simplify both the initial setup and ongoing management of secret stores with Materialize.
+The [secret stores demo](https://github.com/MaterializeInc/demos/tree/main/integrations/terraform/secret-stores) shows how to handle [secrets](/self-managed/v2025.01/sql/create-secret) and sensitive data with some popular secret stores. By utilizing Terraform's infrastructure-as-code model, you can automate and simplify both the initial setup and ongoing management of secret stores with Materialize.
 
 A popular secret store is [HashiCorp Vault](https://www.vaultproject.io/). To use Vault with Materialize, you'll need to install the Terraform Vault provider:
 

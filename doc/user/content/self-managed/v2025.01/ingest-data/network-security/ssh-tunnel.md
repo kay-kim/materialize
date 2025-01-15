@@ -6,9 +6,9 @@ menu:
     parent: "network-security"
     name: "SSH tunnel connections"
 aliases:
-  - /integrations/postgres-bastion/
-  - /ops/network-security/ssh-tunnel/
-  - /connect-sources/ssh-tunnel/
+  - /self-managed/v2025.01/integrations/postgres-bastion/
+  - /self-managed/v2025.01/ops/network-security/ssh-tunnel/
+  - /self-managed/v2025.01/connect-sources/ssh-tunnel/
 ---
 
 {{% network-security/ssh-tunnel %}}
@@ -26,7 +26,7 @@ CREATE CONNECTION kafka_connection TO KAFKA (
 );
 ```
 
-You can reuse this Kafka connection across multiple [`CREATE SOURCE`](/sql/create-source/kafka/)
+You can reuse this Kafka connection across multiple [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/kafka/)
 statements:
 
 ```mzsql
@@ -51,7 +51,7 @@ CREATE CONNECTION pg_connection TO POSTGRES (
 );
 ```
 
-You can reuse this PostgreSQL connection across multiple [`CREATE SOURCE`](/sql/create-source/postgres/)
+You can reuse this PostgreSQL connection across multiple [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/postgres/)
 statements:
 
 ```mzsql
@@ -71,7 +71,7 @@ CREATE SECRET mysqlpass AS '<POSTGRES_PASSWORD>';
     );
 ```
 
-You can reuse this MySQL connection across multiple [`CREATE SOURCE`](/sql/create-source/postgres/)
+You can reuse this MySQL connection across multiple [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/postgres/)
 statements:
 
 ```mzsql
@@ -85,8 +85,8 @@ statements:
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE CONNECTION`](/sql/create-connection)
-- [`CREATE SOURCE`: Kafka](/sql/create-source/kafka/)
-- [`CREATE SOURCE`: MySQL](/sql/create-source/mysql)
-- [`CREATE SOURCE`: PostgreSQL](/sql/create-source/postgres/)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection)
+- [`CREATE SOURCE`: Kafka](/self-managed/v2025.01/sql/create-source/kafka/)
+- [`CREATE SOURCE`: MySQL](/self-managed/v2025.01/sql/create-source/mysql)
+- [`CREATE SOURCE`: PostgreSQL](/self-managed/v2025.01/sql/create-source/postgres/)

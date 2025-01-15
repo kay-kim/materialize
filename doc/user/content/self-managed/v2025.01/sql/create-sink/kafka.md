@@ -9,7 +9,7 @@ menu:
     name: Kafka
     weight: 20
 aliases:
-    - /sql/create-sink/
+    - /self-managed/v2025.01/sql/create-sink/
 
 ---
 
@@ -18,14 +18,14 @@ To use a Kafka broker (and optionally a schema registry) as a sink, make sure th
 {{% /create-sink/intro %}}
 
 {{< note >}}
-The same syntax, supported formats and features can be used to connect to a [Redpanda](/integrations/redpanda/) broker.
+The same syntax, supported formats and features can be used to connect to a [Redpanda](/self-managed/v2025.01/integrations/redpanda/) broker.
 {{</ note >}}
 
 Sink source type      | Description
 ----------------------|------------
 **Source**            | Simply pass all data received from the source to the sink without modifying it.
 **Table**             | Stream all changes to the specified table out to the sink.
-**Materialized view** | Stream all changes to the view to the sink. This lets you use Materialize to process a stream, and then stream the processed values. Note that this feature only works with [materialized views](/sql/create-materialized-view), and _does not_ work with [non-materialized views](/sql/create-view).
+**Materialized view** | Stream all changes to the view to the sink. This lets you use Materialize to process a stream, and then stream the processed values. Note that this feature only works with [materialized views](/self-managed/v2025.01/sql/create-materialized-view), and _does not_ work with [non-materialized views](/self-managed/v2025.01/serve-results/s3).
 
 ## Syntax
 
@@ -55,9 +55,9 @@ Field | Use
 ------|-----
 **IF NOT EXISTS** | If specified, _do not_ generate an error if a sink of the same name already exists. <br/><br/>If _not_ specified, throw an error if a sink of the same name already exists. _(Default)_
 _sink&lowbar;name_ | A name for the sink. This name is only used within Materialize.
-**IN CLUSTER** _cluster_name_ | The [cluster](/sql/create-cluster) to maintain this sink.
+**IN CLUSTER** _cluster_name_ | The [cluster](/self-managed/v2025.01/sql/create-cluster) to maintain this sink.
 _item&lowbar;name_ | The name of the source, table or materialized view you want to send to the sink.
-**CONNECTION** _connection_name_ | The name of the connection to use in the sink. For details on creating connections, check the [`CREATE CONNECTION`](/sql/create-connection) documentation page.
+**CONNECTION** _connection_name_ | The name of the connection to use in the sink. For details on creating connections, check the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection) documentation page.
 **KEY (** _key&lowbar;column_ **)** | An optional list of columns to use as the Kafka message key. If unspecified, the Kafka key is left unset.
 **HEADERS** | An optional column containing headers to add to each Kafka message emitted by the sink. See [Headers](#headers) for details.
 **FORMAT** | Specifies the format to use for both keys and values: `AVRO USING csr_connection`, `JSON`, `TEXT`, or `BYTES`. See [Formats](#formats) for details.
@@ -247,7 +247,7 @@ Materialize searches for documentation in the following locations, in order:
    naming the sink's upstream relation. For the value schema, a
    [`VALUE DOC ON TYPE` option](#doc-on-option-syntax) naming the
    sink's upstream relation.
-2. A [comment](/sql/comment-on) on the sink's upstream relation.
+2. A [comment](/self-managed/v2025.01/sql/comment-on) on the sink's upstream relation.
 
 For record types within the container record type, Materialize searches for
 documentation in the following locations, in order:
@@ -258,7 +258,7 @@ documentation in the following locations, in order:
    corresponding to the record type.
 2. A [`DOC ON TYPE` option](#doc-on-option-syntax) naming the SQL type
    corresponding to the record type.
-3. A [comment](/sql/comment-on) on the SQL type corresponding to the record
+3. A [comment](/self-managed/v2025.01/sql/comment-on) on the SQL type corresponding to the record
    type.
 
 Similarly, for each field of each record type in the Avro schema, Materialize
@@ -270,7 +270,7 @@ documentation in the following locations, in order:
    corresponding to the field.
 2. A [`DOC ON COLUMN` option](#doc-on-option-syntax) naming the SQL column
    corresponding to the field.
-3. A [comment](/sql/comment-on) on the SQL column corresponding to the field.
+3. A [comment](/self-managed/v2025.01/sql/comment-on) on the SQL column corresponding to the field.
 
 For each field or type, Materialize uses the documentation from the first
 location that exists. If no documentation is found for a given field or type,
@@ -386,7 +386,7 @@ Materialize will attempt to create it with a single partition, the broker's
 default replication factor, compaction enabled, and both size- and time-based
 retention disabled. The replication factor can be overridden using the
 `PROGRESS TOPIC REPLICATION FACTOR` option when creating a connection
-[`CREATE CONNECTION`](/sql/create-connection).
+[`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection).
 
 To customize topic-level configuration, including compaction settings and other
 values, use the `TOPIC CONFIG` option in the [connection options](#connection-options)
@@ -416,9 +416,9 @@ By default, Kafka sinks provide [exactly-once processing guarantees](https://kaf
 
 To achieve this, Materialize stores some internal metadata in an additional
 *progress topic*. This topic is shared among all sinks that use a particular
-[Kafka connection](/sql/create-connection/#kafka). The name of the progress
+[Kafka connection](/self-managed/v2025.01/sql/create-connection/#kafka). The name of the progress
 topic can be specified when [creating a
-connection](/sql/create-connection/#kafka-options); otherwise, a default name of
+connection](/self-managed/v2025.01/sql/create-connection/#kafka-options); otherwise, a default name of
 `_materialize-progress-{REGION ID}-{CONNECTION ID}` is used. In either case,
 Materialize will attempt to create the topic if it does not exist. The contents
 of this topic are not user-specified.
@@ -484,7 +484,7 @@ as follows:
      the remainder as the message's partition (i.e., `partition_id = hash %
      partition_count`).
 
-Materialize provides several [hash functions](/sql/functions/#hash-functions)
+Materialize provides several [hash functions](/self-managed/v2025.01/sql/functions/#hash-functions)
 which are commonly used in Kafka partition assignment:
 
   * `crc32`
@@ -609,7 +609,7 @@ want Materialize to write data to.
 
 Once created, a connection is **reusable** across multiple `CREATE SINK`
 statements. For more details on creating connections, check the
-[`CREATE CONNECTION`](/sql/create-connection) documentation page.
+[`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection) documentation page.
 
 #### Broker
 
@@ -762,7 +762,7 @@ CREATE SINK compatibility_level_sink
 #### Documentation comments
 
 Consider the following sink, `docs_sink`, built on top of a relation `t` with
-several [SQL comments](/sql/comment-on) attached.
+several [SQL comments](/self-managed/v2025.01/sql/comment-on) attached.
 
 ```mzsql
 CREATE TABLE t (key int NOT NULL, value text NOT NULL);
@@ -854,8 +854,8 @@ CREATE SINK customer_orders
 
 ## Related pages
 
-- [`SHOW SINKS`](/sql/show-sinks)
-- [`DROP SINK`](/sql/drop-sink)
+- [`SHOW SINKS`](/self-managed/v2025.01/sql/show-sinks)
+- [`DROP SINK`](/self-managed/v2025.01/sql/drop-sink)
 
 [`bigint`]: ../../types/integer
 [`boolean`]: ../../types/boolean

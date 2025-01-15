@@ -6,7 +6,7 @@ In this step, you'll first verify that the source is running and then check the
 status of the snapshotting process.
 
 1. Back in the SQL client connected to Materialize, use the
-   [`mz_source_statuses`](/sql/system-catalog/mz_internal/#mz_source_statuses)
+   [`mz_source_statuses`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_source_statuses)
    table to check the overall status of your source:
 
     ```mzsql
@@ -32,9 +32,9 @@ status of the snapshotting process.
     `stalled` or `failed`, there's likely a configuration issue for you to fix.
     Check the `error` field for details and fix the issue before moving on.
     Also, if the `status` of any subsource is `starting` for more than a few
-    minutes, [contact our team](/support/).
+    minutes, [contact our team](/self-managed/v2025.01/support/).
 
-2. Once the source is running, use the [`mz_source_statistics`](/sql/system-catalog/mz_internal/#mz_source_statistics)
+2. Once the source is running, use the [`mz_source_statistics`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_source_statistics)
    table to check the status of the initial snapshot:
 
     ```mzsql

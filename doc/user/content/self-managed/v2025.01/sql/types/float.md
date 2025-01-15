@@ -5,11 +5,11 @@ menu:
   main:
     parent: 'sql-types'
 aliases:
-    - /sql/types/double
-    - /sql/types/double-precision
-    - /sql/types/float4
-    - /sql/types/float8
-    - /sql/types/real
+    - /self-managed/v2025.01/sql/types/double
+    - /self-managed/v2025.01/sql/types/double-precision
+    - /self-managed/v2025.01/sql/types/float4
+    - /self-managed/v2025.01/sql/types/float8
+    - /self-managed/v2025.01/sql/types/real
 ---
 
 ## `real` info

@@ -24,7 +24,7 @@ The **Admin** section contains the following screens:
 
 ![Image of the Client Passwords](/images/console/console-passwords.png "Client passwords")
 
-The [**Connect**](/console/connect/) button provides details needed to connect to Materialize.
+The [**Connect**](/self-managed/v2025.01/console/connect/) button provides details needed to connect to Materialize.
 
 ### Billing page
 

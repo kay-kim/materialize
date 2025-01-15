@@ -424,22 +424,22 @@ The `mz_scheduling_parks_histogram` view describes a histogram of [dataflow] wor
 <!-- RELATION_SPEC_UNDOCUMENTED mz_introspection.mz_scheduling_parks_histogram_per_worker -->
 <!-- RELATION_SPEC_UNDOCUMENTED mz_introspection.mz_scheduling_parks_histogram_raw -->
 
-[`bigint`]: /sql/types/bigint
-[`bigint list`]: /sql/types/list
-[`double precision`]: /sql/types/double-precision
-[`mz_timestamp`]: /sql/types/mz_timestamp
-[`numeric`]: /sql/types/numeric
-[`text`]: /sql/types/text
-[`uuid`]: /sql/types/uuid
-[`uint2`]: /sql/types/uint2
-[`uint8`]: /sql/types/uint8
-[`uint8 list`]: /sql/types/list
-[arrangement]: /get-started/arrangements/#arrangements
-[dataflow]: /get-started/arrangements/#dataflows
-[`MIN`]: /sql/functions/#min
-[`MAX`]: /sql/functions/#max
-[Top K]: /transform-data/patterns/top-k
-[query hints]: /sql/select/#query-hints
+[`bigint`]: ]: /self-managed/v2025.01/sql/types/bigint
+[`bigint list`]: ]: /self-managed/v2025.01/sql/types/list
+[`double precision`]: ]: /self-managed/v2025.01/sql/types/double-precision
+[`mz_timestamp`]: ]: /self-managed/v2025.01/sql/types/mz_timestamp
+[`numeric`]: ]: /self-managed/v2025.01/sql/types/numeric
+[`text`]: ]: /self-managed/v2025.01/sql/types/text
+[`uuid`]: ]: /self-managed/v2025.01/sql/types/uuid
+[`uint2`]: ]: /self-managed/v2025.01/sql/types/uint2
+[`uint8`]: ]: /self-managed/v2025.01/sql/types/uint8
+[`uint8 list`]: ]: /self-managed/v2025.01/sql/types/list
+[arrangement]: /self-managed/v2025.01/sqlget-started/arrangements/#arrangements
+[dataflow]: /self-managed/v2025.01/sqlget-started/arrangements/#dataflows
+[`MIN`]: ]: /self-managed/v2025.01/sql/functions/#min
+[`MAX`]: ]: /self-managed/v2025.01/sql/functions/#max
+[Top K]: /self-managed/v2025.01/transform-data//patterns/top-k
+[query hints]: ]: /self-managed/v2025.01/sql/select/#query-hints
 
 <!-- RELATION_SPEC_UNDOCUMENTED mz_introspection.mz_compute_hydration_times_per_worker -->
 <!-- RELATION_SPEC_UNDOCUMENTED mz_introspection.mz_dataflow_operator_reachability -->

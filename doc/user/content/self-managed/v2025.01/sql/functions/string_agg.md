@@ -7,7 +7,7 @@ menu:
 ---
 
 The `string_agg(value, delimiter)` aggregate function concatenates the non-null
-input values (i.e. `value`) into [`text`](/sql/types/text). Each value after the
+input values (i.e. `value`) into [`text`](/self-managed/v2025.01/sql/types/text). Each value after the
 first is preceded by its corresponding `delimiter`, where _null_ values are
 equivalent to an empty string.
 The input values to the aggregate can be [filtered](../filters).
@@ -25,7 +25,7 @@ _delimiter_  | `text`  | The value to precede each concatenated value.
 
 ### Return value
 
-`string_agg` returns a [`text`](/sql/types/text) value.
+`string_agg` returns a [`text`](/self-managed/v2025.01/sql/types/text) value.
 
 This function always executes on the data from `value` as if it were sorted in ascending order before the function call. Any specified ordering is
 ignored. If you need to perform aggregation in a specific order, you must specify `ORDER BY` within the aggregate function call itself. Otherwise incoming rows are not guaranteed any order.

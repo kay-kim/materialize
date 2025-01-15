@@ -34,7 +34,7 @@ The API:
     - `DECLARE`
     - `FETCH`
     - `SUBSCRIBE`
-- Supports specifying run-time [configuration parameters](/sql/set)
+- Supports specifying run-time [configuration parameters](/self-managed/v2025.01/sql/set)
   via URL query parameters.
 
 ### Transactional semantics

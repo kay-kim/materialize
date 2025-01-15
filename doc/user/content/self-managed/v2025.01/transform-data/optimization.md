@@ -7,8 +7,8 @@ menu:
     parent: transform-data
     weight: 30
 aliases:
-  - /ops/speed-up/
-  - /ops/optimization/
+  - /self-managed/v2025.01/ops/speed-up/
+  - /self-managed/v2025.01/ops/optimization/
 ---
 
 ## Indexes
@@ -19,7 +19,7 @@ databases, Materialize can use an index to serve query results even if the query
 does not specify a `WHERE` condition on the index keys. Serving queries from
 an index is fast since the results are already up-to-date and in memory.
 
-Materialize can use [indexes](/concepts/indexes/) to further optimize query
+Materialize can use [indexes](/self-managed/v2025.01/concepts/indexes/) to further optimize query
 performance in Materialize. Improvements can be significant, reducing some query
 times down to single-digit milliseconds.
 
@@ -35,7 +35,7 @@ as your expected access patterns. Use the following as a guide:
 Unlike some other databases, Materialize can use an index to serve query results
 even if the query does not specify a `WHERE` condition on the index keys. For
 some queries, Materialize can perform [**point
-lookups**](/concepts/indexes/#point-lookups) on the index (as opposed to an
+lookups**](/self-managed/v2025.01/concepts/indexes/#point-lookups) on the index (as opposed to an
 index scan) if the query's `WHERE` clause:
 
 - Specifies equality (`=` or `IN`) condition on **all** the indexed fields. The
@@ -49,8 +49,8 @@ lookups.
 
 #### Create an index to support point lookups
 
-To [create an index](/sql/create-index/) to support [**point
-lookups**](/concepts/indexes/#point-lookups):
+To [create an index](/self-managed/v2025.01/sql/create-index/) to support [**point
+lookups**](/self-managed/v2025.01/concepts/indexes/#point-lookups):
 
 ```mzsql
 CREATE INDEX ON obj_name (<keys>);
@@ -115,14 +115,14 @@ CREATE INDEX ON obj_name (<keys>);
 | `WHERE y * x = 64`                                | `CREATE INDEX ON obj_name (y * x);`    |
 | `WHERE upper(y) = 'HELLO'`                        | `CREATE INDEX ON obj_name (upper(y));` |
 
-You can verify that Materialize is accessing the input by an index lookup using [`EXPLAIN`](/sql/explain-plan/).
+You can verify that Materialize is accessing the input by an index lookup using [`EXPLAIN`](/self-managed/v2025.01/sql/explain-plan/).
 
 ```mzsql
 CREATE INDEX ON foo (x, y);
 EXPLAIN SELECT * FROM foo WHERE x = 42 AND y = 50;
 ```
 
-In the [`EXPLAIN`](/sql/explain-plan/) output, check for `lookup_value` after
+In the [`EXPLAIN`](/self-managed/v2025.01/sql/explain-plan/) output, check for `lookup_value` after
 the index name to confirm that Materialize will use a point lookup; i.e., that
 Materialize will only read the matching records from the index instead of
 scanning the entire index:
@@ -138,7 +138,7 @@ scanning the entire index:
 
 ### `JOIN`
 
-In general, you can [improve the performance of your joins](https://materialize.com/blog/maintaining-joins-using-few-resources)  by creating indexes on the columns occurring in join keys. This comes at the cost of additional memory usage. Materialize's in-memory [arrangements](/overview/arrangements) (the internal data structure of indexes) allow the system to share indexes across queries: **for multiple queries, an index is a fixed upfront cost with memory savings for each new query that uses it.**
+In general, you can [improve the performance of your joins](https://materialize.com/blog/maintaining-joins-using-few-resources)  by creating indexes on the columns occurring in join keys. This comes at the cost of additional memory usage. Materialize's in-memory [arrangements](/self-managed/v2025.01/overview/arrangements) (the internal data structure of indexes) allow the system to share indexes across queries: **for multiple queries, an index is a fixed upfront cost with memory savings for each new query that uses it.**
 
 Let's create a few tables to work through examples.
 
@@ -183,7 +183,7 @@ CREATE INDEX pk_teachers ON teachers (id);
 
 #### Joins with Filters
 
-If your query filters one or more of the join inputs by a literal equality (e.g., `WHERE t.name = 'Escalante'`), place one of those input collections first in the `FROM` clause. In particular, this can speed up [ad hoc `SELECT` queries](/sql/select/#ad-hoc-queries) by accessing collections using index lookups rather than full scans.
+If your query filters one or more of the join inputs by a literal equality (e.g., `WHERE t.name = 'Escalante'`), place one of those input collections first in the `FROM` clause. In particular, this can speed up [ad hoc `SELECT` queries](/self-managed/v2025.01/sql/select/#ad-hoc-queries) by accessing collections using index lookups rather than full scans.
 
 Note that when the same input is being used in a join as well as being constrained by equalities to literals, _either_ the join _or_ the literal equalities can be sped up by an index (possibly the same index, but usually different indexes). Which of these will perform better depends on the characteristics of your data. For example, the following query can make use of _either_ of the following two indexes, but not both at the same time:
 - on `teachers(name)` to perform the `t.name = 'Escalante'` point lookup before the join,
@@ -251,7 +251,7 @@ Used Indexes:
   - materialize.public.sections_fk_courses (delta join lookup)
 ```
 
-For [ad hoc `SELECT` queries](/sql/select/#ad-hoc-queries) with a delta join, place the smallest input (taking into account predicates that filter from it) first in the `FROM` clause.
+For [ad hoc `SELECT` queries](/self-managed/v2025.01/sql/select/#ad-hoc-queries) with a delta join, place the smallest input (taking into account predicates that filter from it) first in the `FROM` clause.
 
 #### Further Optimize with Late Materialization
 
@@ -367,7 +367,7 @@ The following are the possible index usage types:
 - `differential join`: Materialize will use the index to perform a _differential join_. For a differential join between two relations, the amount of memory required is proportional to the sum of the sizes of each of the input relations that are **not** indexed. In other words, if an input is already indexed, then the size of that input won't affect the memory usage of a differential join between two relations. For a join between more than two relations, we recommend aiming for a delta join instead of a differential join, as explained [above](#optimize-multi-way-joins-with-delta-joins). A differential join between more than two relations will perform a series of binary differential joins on top of each other, and each of these binary joins (except the first one) will use memory proportional to the size of the intermediate data that is fed into the join.
 - `delta join 1st input (full scan)`: Materialize will use the index for the first input of a [delta join](#optimize-multi-way-joins-with-delta-joins). Note that the first input of a delta join is always fully scanned. However, executing the join won't require additional memory if the input is indexed.
 - `delta join lookup`: Materialize will use the index for a non-first input of a [delta join](#optimize-multi-way-joins-with-delta-joins). This means that, in an ad hoc query, the join will perform only lookups into the index.
-- `fast path limit`: When a [fast path](/sql/explain-plan/#fast-path-queries) query has a `LIMIT` clause but no `ORDER BY` clause, then Materialize will read from the index only as many records as required to satisfy the `LIMIT` (plus `OFFSET`) clause.
+- `fast path limit`: When a [fast path](/self-managed/v2025.01/sql/explain-plan/#fast-path-queries) query has a `LIMIT` clause but no `ORDER BY` clause, then Materialize will read from the index only as many records as required to satisfy the `LIMIT` (plus `OFFSET`) clause.
 
 ### Limitations
 
@@ -449,11 +449,11 @@ The column `hint` provides the estimated value to be provided to the `AGGREGATE 
 
 Check out the blog post [Delta Joins and Late Materialization](https://materialize.com/blog/delta-joins/) to go deeper on join optimization in Materialize.
 
-[query hints]: /sql/select/#query-hints
-[arrangements]: /get-started/arrangements/#arrangements
-[`MIN`]: /sql/functions/#min
-[`MAX`]: /sql/functions/#max
-[Top K]: /transform-data/patterns/top-k
-[`mz_introspection.mz_expected_group_size_advice`]: /sql/system-catalog/mz_introspection/#mz_expected_group_size_advice
-[dataflows]: /get-started/arrangements/#dataflows
-[`SELECT` syntax]: /sql/select/#syntax
+[query hints]: ]: /self-managed/v2025.01/sql/select/#query-hints
+[arrangements]: /self-managed/v2025.01/sqlget-started/arrangements/#arrangements
+[`MIN`]: ]: /self-managed/v2025.01/sql/functions/#min
+[`MAX`]: ]: /self-managed/v2025.01/sql/functions/#max
+[Top K]: /self-managed/v2025.01/transform-data//patterns/top-k
+[`mz_introspection.mz_expected_group_size_advice`]: ]: /self-managed/v2025.01/sql/system-catalog/mz_introspection/#mz_expected_group_size_advice
+[dataflows]: /self-managed/v2025.01/sqlget-started/arrangements/#dataflows
+[`SELECT` syntax]: ]: /self-managed/v2025.01/sql/select/#syntax

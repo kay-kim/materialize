@@ -161,12 +161,5 @@ kubectl logs -l app.kubernetes.io/name=materialize-operator -n materialize
 - Both fields expect UUID values and each rollout requires a new, unique UUID value
 - `inPlaceRollout`:
   - When `false` (default): Performs a rolling upgrade by spawning new instances before terminating old ones. While this minimizes downtime, there may still be a brief interruption during the transition.
-  - When `true`: Directly replaces existing instances, which will cause downtime.
-
-## See also
-
-- [Materialize Kubernetes Operator Helm Chart](/self-managed/)
-- [Configuration](/self-managed/configuration/)
-- [Installation](/self-managed/installation/)
-- [Troubleshooting](/self-managed/troubleshooting/)
-- [Operational guidelines](/self-managed/operational-guidelines/)
+  - When `true`: Directly replaces existing instances, which will cause
+    downtime.

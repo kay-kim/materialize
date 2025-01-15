@@ -1,4 +1,4 @@
-1. In the SQL client connected to Materialize, use the [`CREATE CONNECTION`](/sql/create-connection/#ssh-tunnel) command to create an SSH tunnel connection:
+1. In the SQL client connected to Materialize, use the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/#ssh-tunnel) command to create an SSH tunnel connection:
 
     ```mzsql
     CREATE CONNECTION ssh_connection TO SSH TUNNEL (
@@ -25,7 +25,7 @@
     echo "ssh-ed25519 AAAA...hLYV materialize" >> ~/.ssh/authorized_keys
     ```
 
-1. Back in the SQL client connected to Materialize, validate the SSH tunnel connection you created using the [`VALIDATE CONNECTION`](/sql/validate-connection) command:
+1. Back in the SQL client connected to Materialize, validate the SSH tunnel connection you created using the [`VALIDATE CONNECTION`](/self-managed/v2025.01/sql/validate-connection) command:
 
     ```mzsql
     VALIDATE CONNECTION ssh_connection;
@@ -33,13 +33,13 @@
 
     If no validation error is returned, move to the next step.
 
-1. Use the [`CREATE SECRET`](/sql/create-secret/) command to securely store the password for the `materialize` PostgreSQL user you created [earlier](#2-create-a-publication-and-a-replication-user):
+1. Use the [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret/) command to securely store the password for the `materialize` PostgreSQL user you created [earlier](#2-create-a-publication-and-a-replication-user):
 
     ```mzsql
     CREATE SECRET pgpass AS '<PASSWORD>';
     ```
 
-1. Use the [`CREATE CONNECTION`](/sql/create-connection/) command to create another connection object, this time with database access and authentication details for Materialize to use:
+1. Use the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/) command to create another connection object, this time with database access and authentication details for Materialize to use:
 
     ```mzsql
     CREATE CONNECTION pg_connection TO POSTGRES (
@@ -56,7 +56,7 @@
 
     - Replace `<database>` with the name of the database containing the tables you want to replicate to Materialize.
 
-1. Use the [`CREATE SOURCE`](/sql/create-source/) command to connect Materialize to your Azure instance and start ingesting data from the publication you created [earlier](#2-create-a-publication-and-a-replication-user):
+1. Use the [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/) command to connect Materialize to your Azure instance and start ingesting data from the publication you created [earlier](#2-create-a-publication-and-a-replication-user):
 
     ```mzsql
     CREATE SOURCE mz_source

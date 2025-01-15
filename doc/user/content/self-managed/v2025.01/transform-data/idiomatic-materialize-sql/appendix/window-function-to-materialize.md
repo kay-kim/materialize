@@ -10,11 +10,11 @@ menu:
 ---
 
 Materialize offers a wide range of [window
-functions](/sql/functions/#window-functions). However, for some
-[`LAG()`](/sql/functions/#lag), [`LEAD()`](/sql/functions/#lead),
-[`ROW_NUMBER()`](/sql/functions/#row_number),
-[`FIRST_VALUE()`](/sql/functions/#first_value), and
-[`LAST_VALUE()`](/sql/functions/#last_value) use cases, Materialize provides its
+functions](/self-managed/v2025.01/sql/functions/#window-functions). However, for some
+[`LAG()`](/self-managed/v2025.01/sql/functions/#lag), [`LEAD()`](/self-managed/v2025.01/sql/functions/#lead),
+[`ROW_NUMBER()`](/self-managed/v2025.01/sql/functions/#row_number),
+[`FIRST_VALUE()`](/self-managed/v2025.01/sql/functions/#first_value), and
+[`LAST_VALUE()`](/self-managed/v2025.01/sql/functions/#last_value) use cases, Materialize provides its
 own idiomatic query patterns that do <red>not</red> use the window functions and
 can provide better performance.
 
@@ -43,7 +43,7 @@ Materialize idiomatic SQL
 <td colspan=2>
 
 **First value within groups.** For more information and examples, see [Idiomatic Materialize SQL: First
-value](/transform-data/idiomatic-materialize-sql/first-value/).
+value](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/first-value/).
 
 </td>
 </tr>
@@ -83,7 +83,7 @@ ORDER BY fieldA ... ;
 
 **Lag over whose order by field advances in a regular pattern.**
 For more information and examples, see [Idiomatic Materialize SQL: Lag
-over](/transform-data/idiomatic-materialize-sql/lag/).
+over](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/lag/).
 
 </td>
 </tr>
@@ -118,7 +118,7 @@ ORDER BY fieldA;
 <td colspan=2>
 
 **Last value within groups.** For more information and examples, see [Idiomatic Materialize SQL: Last value in
-group](/transform-data/idiomatic-materialize-sql/last-value/).
+group](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/last-value/).
 
 
 </td>
@@ -162,7 +162,7 @@ ORDER BY fieldA ... ;
 
 **Lead over whose order by field advances in a regular pattern.** For more
 information and examples, see [Idiomatic Materialize SQL: Lead
-over](/transform-data/idiomatic-materialize-sql/lead/).
+over](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/lead/).
 
 </td>
 </tr>
@@ -197,7 +197,7 @@ ORDER BY fieldA;
 <td colspan=2>
 
 **Top-K queries.** For more information and examples, see [Idiomatic Materialize SQL: Top-K in
-group](/transform-data/idiomatic-materialize-sql/top-k/).
+group](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/top-k/).
 
 </td>
 </tr>

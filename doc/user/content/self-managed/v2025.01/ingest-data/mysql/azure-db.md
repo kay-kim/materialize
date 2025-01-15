@@ -9,7 +9,7 @@ menu:
 ---
 
 This page shows you how to stream data from [Azure DB for MySQL](https://azure.microsoft.com/en-us/products/MySQL)
-to Materialize using the [MySQL source](/sql/create-source/mysql/).
+to Materialize using the [MySQL source](/self-managed/v2025.01/sql/create-source/mysql/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}

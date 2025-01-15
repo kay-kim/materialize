@@ -100,7 +100,7 @@ To swap the name of this cluster with another cluster:
 | Command options (optional) | Value | Description |
 |----------------------------|-------|-----------------|
 | `WAIT UNTIL READY(...)`    |  | ***Private preview.** This option has known performance or stability issues and is under active development.* {{< alter-cluster/alter-clusters-cmd-options >}} |
-| `WAIT FOR` | [`interval`](/sql/types/interval/) | ***Private preview.** This option has known performance or stability issues and is under active development.* A fixed duration to wait for the new replicas to be ready. This option can lead to downtime. As such, we recommend using the `WAIT UNTIL READY` option instead.|
+| `WAIT FOR` | [`interval`](/self-managed/v2025.01/sql/types/interval/) | ***Private preview.** This option has known performance or stability issues and is under active development.* A fixed duration to wait for the new replicas to be ready. This option can lead to downtime. As such, we recommend using the `WAIT UNTIL READY` option instead.|
 
 ## Considerations
 
@@ -109,7 +109,7 @@ To swap the name of this cluster with another cluster:
 {{< tip >}}
 
 For help sizing your clusters, navigate to **Materialize Console >**
-[**Monitoring**](/console/monitoring/)>**Environment Overview**. This page
+[**Monitoring**](/self-managed/v2025.01/console/monitoring/)>**Environment Overview**. This page
 displays cluster resource utilization and sizing advice.
 
 {{< /tip >}}
@@ -122,7 +122,7 @@ a cluster of size `300cc`, and 1.5x as much CPU, memory, and disk as a cluster
 of size `400cc`.
 
 To determine the specific resource allocation for a given cluster size, query
-the [`mz_cluster_replica_sizes`](/sql/system-catalog/mz_catalog/#mz_cluster_replica_sizes)
+the [`mz_cluster_replica_sizes`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_cluster_replica_sizes)
 system catalog table.
 
 {{< warning >}}
@@ -170,7 +170,7 @@ for the cluster. Each replica of the cluster provisions a new pool of compute
 resources to perform exactly the same computations on exactly the same data.
 Each replica incurs cost, calculated as `cluster
 [size](#resizing) * replication factor` per second. See [Usage &
-billing](/administration/billing/) for more details.
+billing](/self-managed/v2025.01/administration/billing/) for more details.
 
 #### Replication factor and fault tolerance
 
@@ -182,7 +182,7 @@ available, the cluster can continue to maintain dataflows and serve queries.
 {{< note >}}
 
 - Each replica incurs cost, calculated as `cluster [size](#resizing)
-  * replication factor` per second. See [Usage & billing](/administration/billing/)
+  * replication factor` per second. See [Usage & billing](/self-managed/v2025.01/administration/billing/)
   for more details.
 
 - Increasing the replication factor does **not** increase the cluster's work
@@ -230,8 +230,8 @@ In addition,
 
 See also:
 
-- [Access control](/manage/access-control)
-- [Manage privileges](/manage/access-control/manage-privileges/)
+- [Access control](/self-managed/v2025.01/manage/access-control)
+- [Manage privileges](/self-managed/v2025.01/manage/access-control/manage-privileges/)
 
 ## Examples
 
@@ -277,7 +277,7 @@ or `1`.
 
 {{< private-preview />}}
 
-For use cases that require using [scheduled clusters](/sql/create-cluster/#scheduling),
+For use cases that require using [scheduled clusters](/self-managed/v2025.01/sql/create-cluster/#scheduling),
 you can set or change the originally configured schedule and related options
 using the `ALTER CLUSTER` command.
 ```sql
@@ -292,7 +292,7 @@ scheduled clusters.
 ### Converting unmanaged to managed clusters
 
 {{< warning >}}
-[Unmanaged clusters](/sql/create-cluster-replica) are a deprecated feature of
+[Unmanaged clusters](/self-managed/v2025.01/sql/create-cluster-replica) are a deprecated feature of
 Materialize that required manual management of cluster replicas.
 
 We recommend converting any unmanaged clusters to managed clusters
@@ -318,7 +318,7 @@ compute-specific settings. If needed, these can be set explicitly.
 
 ## See also
 
-- [`ALTER ... RENAME`](/sql/alter-rename/)
-- [`CREATE CLUSTER`](/sql/create-cluster/)
-- [`CREATE SINK`](/sql/create-sink/)
-- [`SHOW SINKS`](/sql/show-sinks)
+- [`ALTER ... RENAME`](/self-managed/v2025.01/sql/alter-rename/)
+- [`CREATE CLUSTER`](/self-managed/v2025.01/sql/create-cluster/)
+- [`CREATE SINK`](/self-managed/v2025.01/sql/create-sink/)
+- [`SHOW SINKS`](/self-managed/v2025.01/sql/show-sinks)

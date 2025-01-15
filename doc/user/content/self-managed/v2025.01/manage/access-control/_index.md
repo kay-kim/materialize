@@ -45,7 +45,7 @@ More granular permissions within the database must be handled separately using
 [//]: # "TODO(morsapaes) Add a specific anotation for tutorial call-outs, to
 make these more noticeable."
 
-To invite users to your Materialize organization, follow [this step-by-step guide](/manage/access-control/invite-users).
+To invite users to your Materialize organization, follow [this step-by-step guide](/self-managed/v2025.01/manage/access-control/invite-users).
 
 ### Configuring single sign-on (SSO)
 
@@ -57,7 +57,7 @@ identity provider. This ensures that all users can securely log in to the
 Materialize Console using the same authentication scheme and credentials across
 all systems in your organization.
 
-To configure SSO for your Materialize organization, follow [this step-by-step guide](/manage/access-control/sso).
+To configure SSO for your Materialize organization, follow [this step-by-step guide](/self-managed/v2025.01/manage/access-control/sso).
 
 ### Configuring network policies
 
@@ -69,7 +69,7 @@ organization, you can configure network policies to restrict access to a
 Materialize region using IP-based rules.
 
 To configure network policies in your Materialize organization, follow
-[this step-by-step guide](/manage/access-control/manage-network-policies).
+[this step-by-step guide](/self-managed/v2025.01/manage/access-control/manage-network-policies).
 
 ### Creating service accounts
 
@@ -77,10 +77,10 @@ It's a best practice to use service accounts (i.e., non-human users) to connect
 external applications and services to Materialize. As an **administrator** of a
 Materialize organization, you can create service accounts manually via the
 [Materialize Console](https://console.materialize.com/), or programatically
-via [Terraform](/manage/terraform/).
+via [Terraform](/self-managed/v2025.01/manage/terraform/).
 
 To create a service account in your Materialize organization, follow
-[this step-by-step guide](/manage/access-control/create-service-accounts).
+[this step-by-step guide](/self-managed/v2025.01/manage/access-control/create-service-accounts).
 
 ### Using an external secret store
 
@@ -88,9 +88,9 @@ To create a service account in your Materialize organization, follow
 best place to plug it. Need to add some more meat if we keep it."
 
 Although Materialize does not integrate directly with external secret stores,
-it’s possible to manage this integration via [Terraform](/manage/terraform).
+it’s possible to manage this integration via [Terraform](/self-managed/v2025.01/manage/terraform).
 
-Check the [Terraform documentation](/manage/terraform/#external-secret-stores)
+Check the [Terraform documentation](/self-managed/v2025.01/manage/terraform/#external-secret-stores)
 for more details on how to integrate with common external secret stores, like
 HashiCorp Vault or AWS Secrets Manager.
 
@@ -113,8 +113,8 @@ Member` are restricted to a [default set of basic privileges](#modifying-default
 that need to be configured and modified via role-based access control (RBAC).
 
 RBAC allows you to configure granular access control to the resources in your
-Materialize region through a hierarchy of [roles](/sql/grant-role/) and
-[privileges](/sql/grant-privilege/). For a deep-dive into how RBAC works in
+Materialize region through a hierarchy of [roles](/self-managed/v2025.01/sql/grant-role/) and
+[privileges](/self-managed/v2025.01/sql/grant-privilege/). For a deep-dive into how RBAC works in
 Materialize, check [Role-based access control (RBAC)](./rbac).
 
 ### Configuring basic RBAC
@@ -134,7 +134,7 @@ Every Materialize region has a `PUBLIC` system role that determines the default
 privileges available to all other roles. On creation, users are automatically
 granted membership in `PUBLIC`, and inherit the privileges assigned to it. By
 default, members of this role (and therefore **all users**) have the following
-[privileges](/sql/grant-privilege/#privilege):
+[privileges](/self-managed/v2025.01/sql/grant-privilege/#privilege):
 
 Privilege                            | Scope     |
 -------------------------------------|-----------|
@@ -144,7 +144,7 @@ Privilege                            | Scope     |
 This means that new, non-administrator users have limited access to resources in
 a Materialize region, and don't have the ability to e.g., create new clusters,
 databases, or schemas. To modify the default privileges available to all other
-roles in a Materialize region, you can use the [`ALTER DEFAULT PRIVILEGES`](/sql/alter-default-privileges/)
+roles in a Materialize region, you can use the [`ALTER DEFAULT PRIVILEGES`](/self-managed/v2025.01/sql/alter-default-privileges/)
 command.
 
 ```mzsql
@@ -196,8 +196,8 @@ ALTER DEFAULT PRIVILEGES FOR ALL ROLES IN SCHEMA materialize.public GRANT ALL PR
 ALTER DEFAULT PRIVILEGES FOR ALL ROLES IN SCHEMA materialize.public GRANT ALL PRIVILEGES ON CONNECTIONS TO PUBLIC;
 ```
 
-It's important to note that, while [`GRANT ALL PRIVILEGES`](/sql/grant-privilege/)
-applies to all objects that exist when the grant is run, [`ALTER DEFAULT PRIVILEGES`](/sql/alter-default-privileges/)
+It's important to note that, while [`GRANT ALL PRIVILEGES`](/self-managed/v2025.01/sql/grant-privilege/)
+applies to all objects that exist when the grant is run, [`ALTER DEFAULT PRIVILEGES`](/self-managed/v2025.01/sql/alter-default-privileges/)
 applies to objects created in the future (aka future grants).
 
 ### Configuring advanced RBAC

@@ -41,8 +41,8 @@ To execute the `DROP INDEX` statement, you need:
 {{< tip >}}
 
 In the **Materialize Console**, you can view existing indexes in the [**Database
-object explorer**](/console/data/). Alternatively, you can use the
-[`SHOW INDEXES`](/sql/show-indexes) command.
+object explorer**](/self-managed/v2025.01/console/data/). Alternatively, you can use the
+[`SHOW INDEXES`](/self-managed/v2025.01/sql/show-indexes) command.
 
 {{< /tip >}}
 
@@ -65,7 +65,7 @@ DROP INDEX IF EXISTS q01_geo_idx;
 
 ## Related pages
 
-- [`CREATE INDEX`](/sql/create-index)
-- [`SHOW VIEWS`](/sql/show-views)
-- [`SHOW INDEXES`](/sql/show-indexes)
-- [`DROP OWNED`](/sql/drop-owned)
+- [`CREATE INDEX`](/self-managed/v2025.01/sql/create-index)
+- [`SHOW VIEWS`](/self-managed/v2025.01/sql/show-views)
+- [`SHOW INDEXES`](/self-managed/v2025.01/sql/show-indexes)
+- [`DROP OWNED`](/self-managed/v2025.01/sql/drop-owned)

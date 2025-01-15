@@ -9,7 +9,7 @@ menu:
 ---
 
 This page shows you how to stream data from [Amazon Aurora MySQL](https://aws.amazon.com/rds/aurora/)
-to Materialize using the [MySQL source](/sql/create-source/mysql/).
+to Materialize using the [MySQL source](/self-managed/v2025.01/sql/create-source/mysql/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}
@@ -68,9 +68,9 @@ to connect:
     can use an SSH tunnel to connect Materialize to the database.
 
 - **Use AWS PrivateLink**: If your database is running in a private network, you
-    can use [AWS PrivateLink](/ingest-data/network-security/privatelink/) to
+    can use [AWS PrivateLink](/self-managed/v2025.01/ingest-data/network-security/privatelink/) to
     connect Materialize to the database. For details, see [AWS
-    PrivateLink](/ingest-data/network-security/privatelink/).
+    PrivateLink](/self-managed/v2025.01/ingest-data/network-security/privatelink/).
 
 Select the option that works best for you.
 

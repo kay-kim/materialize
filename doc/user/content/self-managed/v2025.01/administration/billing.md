@@ -8,31 +8,31 @@ menu:
 ---
 
 Materialize determines billing based on your compute and storage usage.
-Materialize bills per second based on the [cluster(s)](/concepts/clusters/) you
+Materialize bills per second based on the [cluster(s)](/self-managed/v2025.01/concepts/clusters/) you
 provision for your workloads. Each cluster is a pool of resources (CPU, memory,
 and scratch disk space) that must stay up and running to continually provide you
 with always-fresh results.
 
 ## Compute
 
-In Materialize, [clusters](/concepts/clusters/) are pools of compute resources
+In Materialize, [clusters](/self-managed/v2025.01/concepts/clusters/) are pools of compute resources
 (CPU, memory, and scratch disk space) for running your workloads, such as
 maintaining up-to-date results while also providing strong [consistency
-guarantees](/get-started/isolation-level/). The credit usage for a cluster is
+guarantees](/self-managed/v2025.01/get-started/isolation-level/). The credit usage for a cluster is
 measured at a one second granularity.
 
 {{< note >}}
 
 When you enable a Materialize region, various [system
-clusters](/sql/system-clusters/) are pre-installed to improve the user
+clusters](/self-managed/v2025.01/sql/system-clusters/) are pre-installed to improve the user
 experience as well as support system administration tasks. Except for the
 default `quickstart` cluster, you are <red>not billed</red> for these system clusters.
 
 {{</ note >}}
 
 You must provision at least one cluster to power your workloads. You can then
-use the cluster to create the objects ([indexes](/concepts/indexes/) and
-[materialized views](/concepts/views/#materialized-views)) that provide
+use the cluster to create the objects ([indexes](/self-managed/v2025.01/concepts/indexes/) and
+[materialized views](/self-managed/v2025.01/concepts/views/#materialized-views)) that provide
 always-fresh results. In Materialize, both indexes and materialized views are
 incrementally maintained when Materialize ingests new data. That is, Materialize
 performs work on writes such that no work is performed when reading from these
@@ -49,7 +49,7 @@ can process data faster and handle larger data volumes.
 {{< note >}}
 
 You can resize a cluster to respond to changes in your workload. See [Sizing
-your clusters](/sql/alter-cluster/#resizing).
+your clusters](/self-managed/v2025.01/sql/alter-cluster/#resizing).
 
 {{</ note >}}
 
@@ -64,11 +64,11 @@ that contribute to compute usage include:
 
 | Cost factor | Details       |
 |-------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Replication factor for a cluster](/sql/create-cluster/#replication-factor). | Cost is calculated (at one second granularity) as cluster [`SIZE`](/sql/create-cluster/#size) * [`REPLICATION FACTOR`](/sql/create-cluster/#replication-factor). |
-| [Indexes](/concepts/indexes/) and [materialized views](/concepts/views) | As data changes (insert/update/delete), [indexes](/concepts/indexes/) and [materialized views](/concepts/views) perform incremental updates to provide up-to-date results. |
-| [Sources](/concepts/sources/) |• Sources that use upsert logic (i.e., [`ENVELOPE UPSERT`](/sql/create-sink/kafka/#upsert) or [`ENVELOPE DEBEZIUM` Kafka sources](/sql/create-sink/kafka/#debezium)) can lead to high memory and disk utilization.<br>• Other sources consume a negligible amount of resources in steady state. |
-| [`SELECT`s](/sql/select/) and [`SUBSCRIBE`s](/sql/subscribe/)  |• [`SELECT`s](/sql/select/) and [`SUBSCRIBE`s](/sql/subscribe/) that do not use indexes and materialized views perform work. <br>• [`SELECT`s](/sql/select/) and [`SUBSCRIBE`s](/sql/subscribe/) that use indexes and materialized views are **free**.|
-| [Sinks](/concepts/sinks/) | Only small CPU/memory costs.|
+| [Replication factor for a cluster](/self-managed/v2025.01/sql/create-cluster/#replication-factor). | Cost is calculated (at one second granularity) as cluster [`SIZE`](/self-managed/v2025.01/sql/create-cluster/#size) * [`REPLICATION FACTOR`](/self-managed/v2025.01/sql/create-cluster/#replication-factor). |
+| [Indexes](/self-managed/v2025.01/concepts/indexes/) and [materialized views](/self-managed/v2025.01/concepts/views) | As data changes (insert/update/delete), [indexes](/self-managed/v2025.01/concepts/indexes/) and [materialized views](/self-managed/v2025.01/concepts/views) perform incremental updates to provide up-to-date results. |
+| [Sources](/self-managed/v2025.01/concepts/sources/) |• Sources that use upsert logic (i.e., [`ENVELOPE UPSERT`](/self-managed/v2025.01/sql/create-sink/kafka/#upsert) or [`ENVELOPE DEBEZIUM` Kafka sources](/self-managed/v2025.01/sql/create-sink/kafka/#debezium)) can lead to high memory and disk utilization.<br>• Other sources consume a negligible amount of resources in steady state. |
+| [`SELECT`s](/self-managed/v2025.01/sql/select/) and [`SUBSCRIBE`s](/self-managed/v2025.01/sql/subscribe/)  |• [`SELECT`s](/self-managed/v2025.01/sql/select/) and [`SUBSCRIBE`s](/self-managed/v2025.01/sql/subscribe/) that do not use indexes and materialized views perform work. <br>• [`SELECT`s](/self-managed/v2025.01/sql/select/) and [`SUBSCRIBE`s](/self-managed/v2025.01/sql/subscribe/) that use indexes and materialized views are **free**.|
+| [Sinks](/self-managed/v2025.01/concepts/sinks/) | Only small CPU/memory costs.|
 
 ## Storage
 
@@ -82,7 +82,7 @@ of 0.0000411 USD per GB/hr, 1 TB stored for one month (730 hrs) equates to 30
 USD.
 
 Most data in Materialize is continually compacted, with the exception of
-[append-only sources](/sql/create-source/#append-only-envelope). As such, the
+[append-only sources](/self-managed/v2025.01/sql/create-source/#append-only-envelope). As such, the
 total state stored in Materialize tends to grow at a rate that is more similar
 to OLTP databases than cloud data warehouses.
 

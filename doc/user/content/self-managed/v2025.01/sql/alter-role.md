@@ -53,7 +53,7 @@ privileges. See [GRANT PRIVILEGE](../grant-privilege) for more details.
 
 Like PostgreSQL, altering the configuration parameter for a role only affects **new sessions**.
 Also like PostgreSQL, role configuration parameters are **not inherited**. To view the
-current configuration parameter defaults for a role, see [`mz_role_parameters`](/sql/system-catalog/mz_catalog#mz_role_parameters).
+current configuration parameter defaults for a role, see [`mz_role_parameters`](/self-managed/v2025.01/sql/system-catalog/mz_catalog#mz_role_parameters).
 
 ## Examples
 

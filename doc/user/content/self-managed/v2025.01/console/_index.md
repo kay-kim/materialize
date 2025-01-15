@@ -20,19 +20,19 @@ view billing information.
 - **Create New**: Shortcut menu to the **New Cluster**, **Create a
   Source**, and **New app password** screens.
 
-- [SQL Shell](/console/sql-shell/): Issue SQL queries.
+- [SQL Shell](/self-managed/v2025.01/console/sql-shell/): Issue SQL queries.
 
-- [Database object explorer](/console/data/): Explore your objects.
+- [Database object explorer](/self-managed/v2025.01/console/data/): Explore your objects.
 
-- [Clusters](/console/clusters/): Manage your Materialize clusters.
+- [Clusters](/self-managed/v2025.01/console/clusters/): Manage your Materialize clusters.
 
-- [Integrations](/console/integrations/): Learn about the supported integrations.
+- [Integrations](/self-managed/v2025.01/console/integrations/): Learn about the supported integrations.
 
-- [Monitoring](/console/monitoring/): Monitor your environment as well as access your query history.
+- [Monitoring](/self-managed/v2025.01/console/monitoring/): Monitor your environment as well as access your query history.
 
-- [Admin](/console/admin/): Manage client credentials and billing information.
+- [Admin](/self-managed/v2025.01/console/admin/): Manage client credentials and billing information.
 
-- [Connect](/console/connect/): View information needed to connect to
+- [Connect](/self-managed/v2025.01/console/connect/): View information needed to connect to
   Materialize.
 
-- [User Profile](/console/user-profile/): Manage your user profile.
+- [User Profile](/self-managed/v2025.01/console/user-profile/): Manage your user profile.

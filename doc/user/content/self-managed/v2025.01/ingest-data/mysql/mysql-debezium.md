@@ -2,16 +2,16 @@
 title: "MySQL CDC using Kafka and Debezium"
 description: "How to propagate Change Data Capture (CDC) data from a MySQL database to Materialize using Kafka and Debezium"
 aliases:
-  - /guides/cdc-mysql/
-  - /integrations/cdc-mysql/
-  - /connect-sources/cdc-mysql/
-  - /ingest-data/cdc-mysql/
+  - /self-managed/v2025.01/guides/cdc-mysql/
+  - /self-managed/v2025.01/integrations/cdc-mysql/
+  - /self-managed/v2025.01/connect-sources/cdc-mysql/
+  - /self-managed/v2025.01/ingest-data/cdc-mysql/
 ---
 
 {{< warning >}}
 You can use [Debezium](https://debezium.io/) to propagate Change
 Data Capture(CDC) data to Materialize from a MySQL database, but
-we **strongly recommend** using the native [MySQL](/sql/create-source/mysql/)
+we **strongly recommend** using the native [MySQL](/self-managed/v2025.01/sql/create-source/mysql/)
 source instead.
 {{</ warning >}}
 
@@ -24,9 +24,9 @@ real-time views with incrementally updated results on top of CDC data.
 
 ## Kafka + Debezium
 
-You can use [Debezium](https://debezium.io/) and the [Kafka source](/sql/create-source/kafka/#using-debezium)
+You can use [Debezium](https://debezium.io/) and the [Kafka source](/self-managed/v2025.01/sql/create-source/kafka/#using-debezium)
 to propagate CDC data from MySQL to Materialize in the unlikely event that using
-the [native MySQL source](/sql/create-source/mysql/) is not an option. Debezium
+the [native MySQL source](/self-managed/v2025.01/sql/create-source/mysql/) is not an option. Debezium
 captures row-level changes resulting from `INSERT`, `UPDATE` and `DELETE`
 operations in the upstream database and publishes them as events to Kafka using
 Kafka Connect-compatible connectors.
@@ -194,7 +194,7 @@ you **must** override the default value of `After-state only` to `false`.
 Debezium emits change events using an envelope that contains detailed
 information about upstream database operations, like the `before` and `after`
 values for each record. To create a source that interprets the
-[Debezium envelope](/sql/create-source/kafka/#using-debezium) in Materialize:
+[Debezium envelope](/self-managed/v2025.01/sql/create-source/kafka/#using-debezium) in Materialize:
 
 ```mzsql
 CREATE SOURCE kafka_repl

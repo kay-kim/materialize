@@ -2,7 +2,7 @@
 title: "Troubleshooting"
 description: ""
 aliases:
-  - /self-hosted/troubleshooting/
+  - /self-managed/troubleshooting/
 menu:
   main:
     parent: "installation"
@@ -20,12 +20,5 @@ To check the status of your Materialize deployment, run:
 kubectl get all -n materialize
 ```
 
-For additional `kubectl` commands, see [kubectl Quick reference](https://kubernetes.io/docs/reference/kubectl/quick-reference/).
-
-## See also
-
-- [Materialize Kubernetes Operator Helm Chart](/self-managed/)
-- [Configuration](/self-managed/configuration/)
-- [Operational guidelines](/self-managed/operational-guidelines/)
-- [Installation](/self-managed/installation/)
-- [Upgrading](/self-managed/upgrading/)
+For additional `kubectl` commands, see [kubectl Quick
+reference](https://kubernetes.io/docs/reference/kubectl/quick-reference/).

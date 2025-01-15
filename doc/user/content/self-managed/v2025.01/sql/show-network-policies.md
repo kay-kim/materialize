@@ -10,7 +10,7 @@ menu:
 
 `SHOW NETWORK POLICIES` returns a list of all network policies configured in
 Materialize. Network policies are part of Materialize's framework for
-[access control](/manage/access-control/).
+[access control](/self-managed/v2025.01/manage/access-control/).
 
 ## Syntax
 
@@ -31,7 +31,7 @@ will be pre-installed. This policy has a wide open ingress rule `allow
 {{< note >}}
 The default value for the `network_policy` session parameter is `default`.
 Before dropping the `default` network policy, a _superuser_ (i.e. `Organization
-Admin`) must run [`ALTER SYSTEM SET network_policy`](/sql/alter-system-set) to
+Admin`) must run [`ALTER SYSTEM SET network_policy`](/self-managed/v2025.01/sql/alter-system-set) to
 change the default value.
 {{< /note >}}
 

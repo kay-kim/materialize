@@ -2,7 +2,7 @@
 title: "Ruby cheatsheet"
 description: "Use Ruby to connect, insert, manage, query and stream from Materialize."
 aliases:
-  - /guides/ruby/
+  - /self-managed/v2025.01/guides/ruby/
 menu:
   main:
     parent: 'client-libraries'
@@ -29,7 +29,7 @@ gem install pg
 
 ## Create tables
 
-Most data in Materialize will stream in via an external system, but a [table](/sql/create-table/) can be helpful for supplementary data. For example, you can use a table to join slower-moving reference or lookup data with a stream.
+Most data in Materialize will stream in via an external system, but a [table](/self-managed/v2025.01/sql/create-table/) can be helpful for supplementary data. For example, you can use a table to join slower-moving reference or lookup data with a stream.
 
 To create a table named `countries` in Materialize:
 
@@ -113,7 +113,7 @@ res.each do |row|
 end
 ```
 
-For more information, see [`CREATE SOURCE`](/sql/create-source/).
+For more information, see [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/).
 
 ### Create a view from Ruby
 
@@ -137,14 +137,14 @@ res.each do |row|
 end
 ```
 
-For more information, see [`CREATE MATERIALIZED VIEW`](/sql/create-materialized-view/).
+For more information, see [`CREATE MATERIALIZED VIEW`](/self-managed/v2025.01/sql/create-materialized-view/).
 
 
 ## Stream
 
-To take full advantage of incrementally updated materialized views from a Ruby application, instead of [querying](#query) Materialize for the state of a view at a point in time, use a [`SUBSCRIBE` statement](/sql/subscribe/) to request a stream of updates as the view changes.
+To take full advantage of incrementally updated materialized views from a Ruby application, instead of [querying](#query) Materialize for the state of a view at a point in time, use a [`SUBSCRIBE` statement](/self-managed/v2025.01/sql/subscribe/) to request a stream of updates as the view changes.
 
-To read a stream of updates from an existing materialized view, open a long-lived transaction with `BEGIN` and use [`SUBSCRIBE` with `FETCH`](/sql/subscribe/#subscribing-with-fetch) to repeatedly fetch all changes to the view since the last query:
+To read a stream of updates from an existing materialized view, open a long-lived transaction with `BEGIN` and use [`SUBSCRIBE` with `FETCH`](/self-managed/v2025.01/sql/subscribe/#subscribing-with-fetch) to repeatedly fetch all changes to the view since the last query:
 
 ```ruby
 require 'pg'
@@ -163,7 +163,7 @@ while true
 end
 ```
 
-Each `result` of the [SUBSCRIBE output format](/sql/subscribe/#output) has exactly object. When a row of a subscribed view is **updated,** two objects will show up:
+Each `result` of the [SUBSCRIBE output format](/self-managed/v2025.01/sql/subscribe/#output) has exactly object. When a row of a subscribed view is **updated,** two objects will show up:
 
 ```json
 ...
@@ -178,7 +178,7 @@ An `mz_diff` value of `-1` indicates Materialize is deleting one row with the in
 
 ## Clean up
 
-To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/integrations/sql-clients/) and then, run the following commands:
+To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/self-managed/v2025.01/integrations/sql-clients/) and then, run the following commands:
 
 ```mzsql
 DROP MATERIALIZED VIEW IF EXISTS counter_sum;

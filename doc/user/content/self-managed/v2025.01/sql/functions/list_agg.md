@@ -7,7 +7,7 @@ menu:
 ---
 
 The `list_agg(value)` aggregate function concatenates
-input values (including nulls) into a [`list`](/sql/types/list).
+input values (including nulls) into a [`list`](/self-managed/v2025.01/sql/types/list).
 The input values to the aggregate can be [filtered](../filters).
 
 ## Syntax
@@ -22,7 +22,7 @@ _value_    | `text`  | The values to concatenate.
 
 ### Return value
 
-`list_agg` returns a [`list`](/sql/types/list) value.
+`list_agg` returns a [`list`](/self-managed/v2025.01/sql/types/list) value.
 
 This function always executes on the data from `value` as if it were sorted in ascending order before the function call. Any specified ordering is
 ignored. If you need to perform aggregation in a specific order, you must specify `ORDER BY` within the aggregate function call itself. Otherwise incoming rows are not guaranteed any order.

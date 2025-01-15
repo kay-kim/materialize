@@ -25,7 +25,7 @@ Webhook sources expose a [public URL](#webhook-url) that allows your application
 Field                            | Use
 ---------------------------------|--------------------------
   _src_name_                     | The name for the source.
- **IN CLUSTER** _cluster_name_   | The [cluster](/sql/create-cluster) to maintain this source.
+ **IN CLUSTER** _cluster_name_   | The [cluster](/self-managed/v2025.01/sql/create-cluster) to maintain this source.
  **INCLUDE HEADER**              | Map a header value from a request into a column.
  **INCLUDE HEADERS**             | Include a column named `'headers'` of type `map[text => text]` containing the headers of the request.
  **CHECK**                       | Specify a boolean expression that is used to validate each request received by the source.
@@ -36,7 +36,7 @@ Field                  | Type                | Description
 -----------------------|---------------------|--------------
 `BODY`                 | `text` or `bytea`   | Provide a `body` column to the check expression. The column can be renamed with the optional **AS** _alias_ statement, and the data type can be changed to `bytea` with the optional **BYTES** keyword.
 `HEADERS`              | `map[text=>text]` or `map[text=>bytea]` | Provide a column `'headers'` to the check expression. The column can be renamed with the optional **AS** _alias_ statement, and the data type can be changed to `map[text => bytea]` with the optional **BYTES** keyword.
-`SECRET` _secret_name_ | `text` or `bytea`    | Securely provide a [`SECRET`](/sql/create-secret) to the check expression. The `constant_time_eq` validation function **does not support** fully qualified secret names: if the secret is in a different namespace to the source, the column can be renamed with the optional **AS** _alias_ statement. The data type can also be changed to `bytea` using the optional **BYTES** keyword.
+`SECRET` _secret_name_ | `text` or `bytea`    | Securely provide a [`SECRET`](/self-managed/v2025.01/sql/create-secret) to the check expression. The `constant_time_eq` validation function **does not support** fully qualified secret names: if the secret is in a different namespace to the source, the column can be renamed with the optional **AS** _alias_ statement. The data type can also be changed to `bytea` using the optional **BYTES** keyword.
 
 ## Supported formats
 
@@ -61,7 +61,7 @@ Column     | Type                        | Optional?                            
 ### Webhook URL
 
 After source creation, the unique URL that allows you to **POST** events to the
-source can be looked up in the [`mz_internal.mz_webhook_sources`](/sql/system-catalog/mz_internal/#mz_webhook_sources)
+source can be looked up in the [`mz_internal.mz_webhook_sources`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_webhook_sources)
 system catalog table. The URL will have the following format:
 
 ```
@@ -211,7 +211,7 @@ provide these values as raw text for debugging.
 
 Given any number of conditions, e.g. a network hiccup, it's possible for your application to send
 an event more than once. If your event contains a unique identifier, you can de-duplicate these events
-using a [`MATERIALIZED VIEW`](/sql/create-materialized-view/) and the `DISTINCT ON` clause.
+using a [`MATERIALIZED VIEW`](/self-managed/v2025.01/sql/create-materialized-view/) and the `DISTINCT ON` clause.
 
 ```mzsql
 CREATE MATERIALIZED VIEW my_webhook_idempotent AS (
@@ -249,8 +249,8 @@ CREATE MATERIALIZED VIEW my_build_jobs_merged AS (
 ```
 
 {{< note >}}
-When casting from `text` to `timestamp` you should prefer to use the [`try_parse_monotonic_iso8601_timestamp`](/sql/functions/pushdown/)
-function, which enables [temporal filter pushdown](/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
+When casting from `text` to `timestamp` you should prefer to use the [`try_parse_monotonic_iso8601_timestamp`](/self-managed/v2025.01/sql/functions/pushdown/)
+function, which enables [temporal filter pushdown](/self-managed/v2025.01/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
 {{< /note >}}
 
 ### Handling batch events
@@ -390,11 +390,11 @@ authentication.
 Webhook data is ingested as a JSON blob. We recommend creating a parsing view on
 top of your webhook source that maps the individual fields to columns with the
 required data types. To avoid doing this tedious task manually, you can use
-[this **JSON parsing widget**](/sql/types/jsonb/#parsing)!
+[this **JSON parsing widget**](/self-managed/v2025.01/sql/types/jsonb/#parsing)!
 
 ### Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
 - [`CREATE SOURCE`](../)
-- [`SHOW SOURCES`](/sql/show-sources)
-- [`DROP SOURCE`](/sql/drop-source)
+- [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources)
+- [`DROP SOURCE`](/self-managed/v2025.01/sql/drop-source)

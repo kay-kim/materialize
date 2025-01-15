@@ -2,7 +2,7 @@
 title: "Python cheatsheet"
 description: "Use Python to connect, insert, manage, query and stream from Materialize."
 aliases:
-  - /guides/python/
+  - /self-managed/v2025.01/guides/python/
 menu:
   main:
     parent: "client-libraries"
@@ -27,7 +27,7 @@ conn = psycopg2.connect(dsn)
 
 ## Create tables
 
-Most data in Materialize will stream in via an external system, but a [table](/sql/create-table/) can be helpful for supplementary data. For example, use a table to join slower-moving reference or lookup data with a stream.
+Most data in Materialize will stream in via an external system, but a [table](/self-managed/v2025.01/sql/create-table/) can be helpful for supplementary data. For example, use a table to join slower-moving reference or lookup data with a stream.
 
 To create a table named `countries` in Materialize:
 
@@ -50,7 +50,7 @@ with conn.cursor() as cur:
 
 ## Insert data into tables
 
-**Basic Example:** [Insert a row](/sql/insert/) of data into a table named `countries` in Materialize.
+**Basic Example:** [Insert a row](/self-managed/v2025.01/sql/insert/) of data into a table named `countries` in Materialize.
 
 ```python
 #!/usr/bin/env python3
@@ -125,7 +125,7 @@ with conn.cursor() as cur:
     print(cur.fetchone())
 ```
 
-For more information, see [`CREATE SOURCE`](/sql/create-source/).
+For more information, see [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/).
 
 ### Create a view from Python
 
@@ -149,13 +149,13 @@ with conn.cursor() as cur:
     print(cur.fetchone())
 ```
 
-For more information, see [`CREATE MATERIALIZED VIEW`](/sql/create-materialized-view/).
+For more information, see [`CREATE MATERIALIZED VIEW`](/self-managed/v2025.01/sql/create-materialized-view/).
 
 ## Stream
 
-To take full advantage of incrementally updated materialized views from a Python application, instead of [querying](#query) Materialize for the state of a view at a point in time, use a [`SUBSCRIBE` statement](/sql/subscribe/) to request a stream of updates as the view changes.
+To take full advantage of incrementally updated materialized views from a Python application, instead of [querying](#query) Materialize for the state of a view at a point in time, use a [`SUBSCRIBE` statement](/self-managed/v2025.01/sql/subscribe/) to request a stream of updates as the view changes.
 
-To read a stream of updates from an existing materialized view, open a long-lived transaction with `BEGIN` and use [`SUBSCRIBE` with `FETCH`](/sql/subscribe/#subscribing-with-fetch) to repeatedly fetch all changes to the view since the last query:
+To read a stream of updates from an existing materialized view, open a long-lived transaction with `BEGIN` and use [`SUBSCRIBE` with `FETCH`](/self-managed/v2025.01/sql/subscribe/#subscribing-with-fetch) to repeatedly fetch all changes to the view since the last query:
 
 ```python
 #!/usr/bin/env python3
@@ -174,7 +174,7 @@ with conn.cursor() as cur:
             print(row)
 ```
 
-The [SUBSCRIBE output format](/sql/subscribe/#output) of `cur` is a data access object that can be used to iterate over the set of rows. When a row of a subscribed view is **updated,** two objects will show up in the `rows` array:
+The [SUBSCRIBE output format](/self-managed/v2025.01/sql/subscribe/#output) of `cur` is a data access object that can be used to iterate over the set of rows. When a row of a subscribed view is **updated,** two objects will show up in the `rows` array:
 
 ```python
     ...
@@ -209,7 +209,7 @@ with conn.cursor() as cur:
 
 ## Clean up
 
-To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/integrations/sql-clients/) and then, run the following commands:
+To clean up the sources, views, and tables that we created, first connect to Materialize using a [PostgreSQL client](/self-managed/v2025.01/integrations/sql-clients/) and then, run the following commands:
 
 ```mzsql
 DROP MATERIALIZED VIEW IF EXISTS counter_sum;
@@ -223,5 +223,5 @@ ORM frameworks tend to run complex introspection queries that may use configurat
 
 The level of support for these tools will improve as we extend the coverage of `pg_catalog` in Materialize and join efforts with each community to make the integrations Just Work™️.
 
-Check out the [integrations page](/integrations/) for a list of ORM frameworks
+Check out the [integrations page](/self-managed/v2025.01/integrations/) for a list of ORM frameworks
 that are known to work well with Materialize.

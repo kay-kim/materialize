@@ -2,7 +2,7 @@
 title: "Invite users"
 description: "How to invite new users to a Materialize organization."
 aliases:
-  - /invite-users/
+  - /self-managed/v2025.01/invite-users/
 disable_toc: true
 menu:
   main:
@@ -19,7 +19,7 @@ These privileges primarily determine a user's access level to the console, but
 also have implications in the default access level to the database. More
 granular permissions within the database must be handled separately using
 [role-based access control
-(RBAC)](/manage/access-control/#role-based-access-control-rbac).
+(RBAC)](/self-managed/v2025.01/manage/access-control/#role-based-access-control-rbac).
 
 ## How to invite a new user
 
@@ -38,7 +38,7 @@ granular permissions within the database must be handled separately using
 
     - `Organization Member`: can login to the console and has restricted access
       to the database, depending  on the privileges defined via
-      [role-based access control (RBAC)](/manage/access-control/#role-based-access-control-rbac).
+      [role-based access control (RBAC)](/self-managed/v2025.01/manage/access-control/#role-based-access-control-rbac).
 
 2. Click the **Invite** button at the bottom right section of the screen.
 

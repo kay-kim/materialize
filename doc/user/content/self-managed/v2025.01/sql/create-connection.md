@@ -10,11 +10,11 @@ menu:
 
 A connection describes how to connect and authenticate to an external system you
 want Materialize to read from or write to. Once created, a connection
-is **reusable** across multiple [`CREATE SOURCE`](/sql/create-source) and
-[`CREATE SINK`](/sql/create-sink) statements.
+is **reusable** across multiple [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source) and
+[`CREATE SINK`](/self-managed/v2025.01/sql/create-sink) statements.
 
 To use credentials that contain sensitive information (like passwords and SSL
-keys) in a connection, you must first [create secrets](/sql/create-secret) to
+keys) in a connection, you must first [create secrets](/self-managed/v2025.01/sql/create-secret) to
 securely store each credential in Materialize's secret management system.
 Credentials that are generally not sensitive (like usernames and SSL
 certificates) can be specified as plain `text`, or also stored as secrets.
@@ -25,7 +25,7 @@ certificates) can be specified as plain `text`, or also stored as secrets.
 
 An Amazon Web Services (AWS) connection provides Materialize with access to an
 Identity and Access Management (IAM) user or role in your AWS account. You can
-use AWS connections to perform [bulk exports to Amazon S3](/serve-results/s3/),
+use AWS connections to perform [bulk exports to Amazon S3](/self-managed/v2025.01/serve-results/s3/),
 or perform [authentication with an Amazon MSK cluster](#kafka-aws-connection).
 
 {{< diagram "create-connection-aws.svg" >}}
@@ -93,7 +93,7 @@ connection:
 
 You can retrieve the external ID for the connection, as well as an example trust
 policy, by querying the
-[`mz_internal.mz_aws_connections`](/sql/system-catalog/mz_internal/#mz_aws_connections)
+[`mz_internal.mz_aws_connections`](/self-managed/v2025.01/sql/system-catalog/mz_internal/#mz_aws_connections)
 table:
 
 ```mzsql
@@ -173,7 +173,7 @@ CREATE CONNECTION aws_credentials TO AWS (
 ### Kafka
 
 A Kafka connection establishes a link to a [Kafka] cluster. You can use Kafka
-connections to create [sources](/sql/create-source/kafka) and [sinks](/sql/create-sink/kafka/).
+connections to create [sources](/self-managed/v2025.01/sql/create-source/kafka) and [sinks](/self-managed/v2025.01/sql/create-sink/kafka/).
 
 #### Syntax {#kafka-syntax}
 
@@ -399,7 +399,7 @@ CREATE CONNECTION kafka_connection TO KAFKA (
 
 ##### Default connections {#kafka-privatelink-default}
 
-[Redpanda Cloud](/ingest-data/redpanda/redpanda-cloud/)) does not require
+[Redpanda Cloud](/self-managed/v2025.01/ingest-data/redpanda/redpanda-cloud/)) does not require
 listing every broker individually. In this case, you should specify a
 PrivateLink connection and the port of the bootstrap server instead.
 
@@ -433,7 +433,7 @@ CREATE CONNECTION kafka_connection TO KAFKA (
 
 For step-by-step instructions on creating AWS PrivateLink connections and
 configuring an AWS PrivateLink service to accept connections from Materialize,
-check [this guide](/ops/network-security/privatelink/).
+check [this guide](/self-managed/v2025.01/ops/network-security/privatelink/).
 
 {{< /tab >}}
 {{< tab "SSH tunnel">}}
@@ -498,7 +498,7 @@ BROKERS (
 ```
 
 For step-by-step instructions on creating SSH tunnel connections and configuring
-an SSH bastion server to accept connections from Materialize, check [this guide](/ops/network-security/ssh-tunnel/).
+an SSH bastion server to accept connections from Materialize, check [this guide](/self-managed/v2025.01/ops/network-security/ssh-tunnel/).
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -624,7 +624,7 @@ CREATE CONNECTION csr_ssh TO CONFLUENT SCHEMA REGISTRY (
 ### MySQL
 
 A MySQL connection establishes a link to a [MySQL] server. You can use
-MySQL connections to create [sources](/sql/create-source/mysql).
+MySQL connections to create [sources](/self-managed/v2025.01/sql/create-source/mysql).
 
 #### Syntax {#mysql-syntax}
 
@@ -695,7 +695,7 @@ CREATE CONNECTION mysql_connection TO MYSQL (
 
 For step-by-step instructions on creating AWS PrivateLink connections and
 configuring an AWS PrivateLink service to accept connections from Materialize,
-check [this guide](/ops/network-security/privatelink/).
+check [this guide](/self-managed/v2025.01/ops/network-security/privatelink/).
 
 {{< /tab >}}
 {{< tab "SSH tunnel">}}
@@ -722,7 +722,7 @@ CREATE CONNECTION mysql_connection TO MYSQL (
 ```
 
 For step-by-step instructions on creating SSH tunnel connections and configuring
-an SSH bastion server to accept connections from Materialize, check [this guide](/ops/network-security/ssh-tunnel/).
+an SSH bastion server to accept connections from Materialize, check [this guide](/self-managed/v2025.01/ops/network-security/ssh-tunnel/).
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -730,7 +730,7 @@ an SSH bastion server to accept connections from Materialize, check [this guide]
 ### PostgreSQL
 
 A Postgres connection establishes a link to a single database of a
-[PostgreSQL] server. You can use Postgres connections to create [sources](/sql/create-source/postgres).
+[PostgreSQL] server. You can use Postgres connections to create [sources](/self-managed/v2025.01/sql/create-source/postgres).
 
 #### Syntax {#postgres-syntax}
 
@@ -805,7 +805,7 @@ CREATE CONNECTION pg_connection TO POSTGRES (
 
 For step-by-step instructions on creating AWS PrivateLink connections and
 configuring an AWS PrivateLink service to accept connections from Materialize,
-check [this guide](/ops/network-security/privatelink/).
+check [this guide](/self-managed/v2025.01/ops/network-security/privatelink/).
 
 {{< /tab >}}
 {{< tab "SSH tunnel">}}
@@ -834,7 +834,7 @@ CREATE CONNECTION pg_connection TO POSTGRES (
 ```
 
 For step-by-step instructions on creating SSH tunnel connections and configuring
-an SSH bastion server to accept connections from Materialize, check [this guide](/ops/network-security/ssh-tunnel/).
+an SSH bastion server to accept connections from Materialize, check [this guide](/self-managed/v2025.01/ops/network-security/ssh-tunnel/).
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -871,7 +871,7 @@ arn:aws:iam::664411391173:role/mz_<REGION-ID>_<CONNECTION-ID>
 After creating the connection, you must configure the AWS PrivateLink service
 to accept connections from the AWS principal Materialize will connect as. The
 principals for AWS PrivateLink connections in your region are stored in
-the [`mz_aws_privatelink_connections`](/sql/system-catalog/mz_catalog/#mz_aws_privatelink_connections)
+the [`mz_aws_privatelink_connections`](/self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_aws_privatelink_connections)
 system table.
 
 ```mzsql
@@ -1004,7 +1004,7 @@ to be correct but the external system is unavailable at the time of creation.
 
 Connection types that require additional setup steps after creation, like AWS
 and SSH tunnel connections, can be **manually validated** using the [`VALIDATE
-CONNECTION`](/sql/validate-connection) syntax once all setup steps are
+CONNECTION`](/self-managed/v2025.01/sql/validate-connection) syntax once all setup steps are
 completed.
 
 ## Privileges
@@ -1017,22 +1017,22 @@ The privileges required to execute this statement are:
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE SOURCE`](/sql/create-source)
-- [`CREATE SINK`](/sql/create-sink)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source)
+- [`CREATE SINK`](/self-managed/v2025.01/sql/create-sink)
 
 [AWS PrivateLink]: https://aws.amazon.com/privatelink/
 [Confluent Schema Registry]: https://docs.confluent.io/platform/current/schema-registry/index.html#sr-overview
 [Kafka]: https://kafka.apache.org
 [MySQL]: https://www.mysql.com/
 [PostgreSQL]: https://www.postgresql.org
-[`ALTER CONNECTION`]: /sql/alter-connection
-[`CREATE SOURCE`]: /sql/create-source
-[`CREATE SINK`]: /sql/create-sink
-[`FORMAT`]: /sql/create-source/#formats
-[`mz_aws_privatelink_connections`]: /sql/system-catalog/mz_catalog/#mz_aws_privatelink_connections
-[`mz_connections`]: /sql/system-catalog/mz_catalog/#mz_connections
-[`mz_ssh_tunnel_connections`]: /sql/system-catalog/mz_catalog/#mz_ssh_tunnel_connections
+[`ALTER CONNECTION`]: ]: /self-managed/v2025.01/sql/alter-connection
+[`CREATE SOURCE`]: ]: /self-managed/v2025.01/sql/create-source
+[`CREATE SINK`]: ]: /self-managed/v2025.01/sql/create-sink
+[`FORMAT`]: ]: /self-managed/v2025.01/sql/create-source/#formats
+[`mz_aws_privatelink_connections`]: ]: /self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_aws_privatelink_connections
+[`mz_connections`]: ]: /self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_connections
+[`mz_ssh_tunnel_connections`]: ]: /self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_ssh_tunnel_connections
 [Ed25519 algorithm]: https://ed25519.cr.yp.to
 [latacora-crypto]: https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html
 [trust policy]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#term_trust-policy

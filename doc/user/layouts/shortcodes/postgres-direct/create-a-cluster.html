@@ -1,4 +1,4 @@
-In Materialize, a [cluster](/concepts/clusters/) is an isolated
+In Materialize, a [cluster](/self-managed/v2025.01/concepts/clusters/) is an isolated
 environment, similar to a virtual warehouse in Snowflake. When you create a
 cluster, you choose the size of its compute resource allocation based on the
 work you need the cluster to do, whether ingesting data from a source,
@@ -9,7 +9,7 @@ In this case, you'll create a dedicated cluster for ingesting source data from
 your PostgreSQL database.
 
 1. In the [SQL Shell](https://console.materialize.com/), or your preferred SQL
-   client connected to Materialize, use the [`CREATE CLUSTER`](/sql/create-cluster/)
+   client connected to Materialize, use the [`CREATE CLUSTER`](/self-managed/v2025.01/sql/create-cluster/)
    command to create the new cluster:
 
     ```mzsql
@@ -18,7 +18,7 @@ your PostgreSQL database.
     SET CLUSTER = ingest_postgres;
     ```
 
-    A cluster of [size](/sql/create-cluster/#size) `200cc` should be enough to
+    A cluster of [size](/self-managed/v2025.01/sql/create-cluster/#size) `200cc` should be enough to
     process the initial snapshot of the tables in your publication. For very
     large snapshots, consider using a larger size to speed up processing. Once
     the snapshot is finished, you can readjust the size of the cluster to fit

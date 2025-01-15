@@ -5,7 +5,7 @@ menu:
   main:
     parent: 'sql-types'
 aliases:
-    - /sql/types/decimal
+    - /self-managed/v2025.01/sql/types/decimal
 ---
 
 `numeric` data expresses an exact number with user-defined precision and scale.

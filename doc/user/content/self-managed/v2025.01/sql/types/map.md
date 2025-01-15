@@ -5,7 +5,7 @@ menu:
   main:
     parent: 'sql-types'
 aliases:
-  - /sql/types/map
+  - /self-managed/v2025.01/sql/types/map
 ---
 
 `map` data expresses an unordered map with [`text`](../text) keys and an
@@ -114,7 +114,7 @@ cast](#text-to-map-casts).
 
 ### Custom types
 
-You can create [custom `map` types](/sql/types/#custom-types), which lets you
+You can create [custom `map` types](/self-managed/v2025.01/sql/types/#custom-types), which lets you
 create a named entry in the catalog for a specific type of `map`.
 
 Currently, custom types only provides a shorthand for referring to
@@ -150,8 +150,8 @@ SELECT '{a=>{b=>{c=>d}}}'::map[text=>map[text=>map[text=>text]]] as nested_map;
 
 Two `map` types can only be cast to and from one another if they are
 structurally equivalent, e.g. one is a [custom map
-type](/sql/types#custom-types) and the other is a [built-in
-map](/sql/types#built-in-types) and their key-value types are structurally
+type](/self-managed/v2025.01/sql/types#custom-types) and the other is a [built-in
+map](/self-managed/v2025.01/sql/types#built-in-types) and their key-value types are structurally
 equivalent.
 
 #### From `map`

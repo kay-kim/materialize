@@ -30,7 +30,7 @@ tests.
 Field | Use
 ------|-----
 _src_name_  | The name for the source.
-**IN CLUSTER** _cluster_name_ | The [cluster](/sql/create-cluster) to maintain this source.
+**IN CLUSTER** _cluster_name_ | The [cluster](/self-managed/v2025.01/sql/create-cluster) to maintain this source.
 **COUNTER**  | Use the [counter](#counter) load generator.
 **AUCTION**  | Use the [auction](#auction) load generator.
 **MARKETING**| Use the [marketing](#marketing) load generator.
@@ -50,7 +50,7 @@ _src_name_  | The name for the source.
 **BATCH SIZE**              | Valid for [`KEY VALUE` generator](#key-value).
 **FOR ALL TABLES** | Creates subsources for all tables in the load generator.
 **EXPOSE PROGRESS AS** _progress_subsource_name_ | The name of the progress subsource for the source. If this is not specified, the subsource will be named `<src_name>_progress`. For more information, see [Monitoring source progress](#monitoring-source-progress).
-**RETAIN HISTORY FOR** <br>_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
+**RETAIN HISTORY FOR** <br>_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
 
 ## Description
 
@@ -123,7 +123,7 @@ is placed in the currently ongoing auction.
 {{< private-preview />}}
 
 The clock load generator tracks the system clock time, and can be used in
-contexts where the [`now()` function cannot](/sql/functions/now_and_mz_now/#limitations).
+contexts where the [`now()` function cannot](/self-managed/v2025.01/sql/functions/now_and_mz_now/#limitations).
 On each tick interval, the source emits the system clock time. For example,
 configuring this load generator with `TICK INTERVAL '1 minute'` will cause the
 source to update every minute.
@@ -201,7 +201,7 @@ If not specified, the dataset will not change over time.
 
 {{< private-preview />}}
 
-The `KEY VALUE` load generator produces keyed data that is intended to be passed though the [`UPSERT` envelope](/sql/create-source/#upsert-envelope).
+The `KEY VALUE` load generator produces keyed data that is intended to be passed though the [`UPSERT` envelope](/self-managed/v2025.01/sql/create-source/#upsert-envelope).
 Its size and performance can be configured in detailed ways.
 
 The schema of the data is:
@@ -250,7 +250,7 @@ FROM <src_name>_progress;
 
 As long as the offset continues increasing, Materialize is generating data. For
 more details on monitoring source ingestion progress and debugging related
-issues, see [Troubleshooting](/ops/troubleshooting/).
+issues, see [Troubleshooting](/self-managed/v2025.01/ops/troubleshooting/).
 
 ## Examples
 
@@ -501,11 +501,11 @@ ORDER BY
 
 - [`CREATE SOURCE`](../)
 
-[`bigint`]: /sql/types/bigint
-[`numeric`]: /sql/types/numeric
-[`text`]: /sql/types/text
-[`bytea`]: /sql/types/bytea
-[`interval`]: /sql/types/interval
-[`uint8`]: /sql/types/uint/#uint8-info
-[`timestamp with time zone`]: /sql/types/timestamp
+[`bigint`]: ]: /self-managed/v2025.01/sql/types/bigint
+[`numeric`]: ]: /self-managed/v2025.01/sql/types/numeric
+[`text`]: ]: /self-managed/v2025.01/sql/types/text
+[`bytea`]: ]: /self-managed/v2025.01/sql/types/bytea
+[`interval`]: ]: /self-managed/v2025.01/sql/types/interval
+[`uint8`]: ]: /self-managed/v2025.01/sql/types/uint/#uint8-info
+[`timestamp with time zone`]: ]: /self-managed/v2025.01/sql/types/timestamp
 [feature request]: https://github.com/MaterializeInc/materialize/discussions/new?category=feature-requests

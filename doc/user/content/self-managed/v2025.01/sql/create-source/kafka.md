@@ -9,11 +9,11 @@ menu:
     name: Kafka
     weight: 20
 aliases:
-    - /sql/create-source/avro-kafka
-    - /sql/create-source/json-kafka
-    - /sql/create-source/protobuf-kafka
-    - /sql/create-source/text-kafka
-    - /sql/create-source/csv-kafka
+    - /self-managed/v2025.01/sql/create-source/avro-kafka
+    - /self-managed/v2025.01/sql/create-source/json-kafka
+    - /self-managed/v2025.01/sql/create-source/protobuf-kafka
+    - /self-managed/v2025.01/sql/create-source/text-kafka
+    - /self-managed/v2025.01/sql/create-source/csv-kafka
 ---
 
 {{% create-source/intro %}}
@@ -25,7 +25,7 @@ multiple `CREATE SOURCE` and `CREATE SINK` statements.
 
 {{< note >}}
 The same syntax, supported formats and features can be used to connect to a
-[Redpanda](/integrations/redpanda/) broker.
+[Redpanda](/self-managed/v2025.01/integrations/redpanda/) broker.
 {{</ note >}}
 
 ## Syntax
@@ -60,7 +60,7 @@ Field                                         | Value     | Description
 ----------------------------------------------|-----------|-------------------------------------
 **TOPIC**                                     | `text`    | The Kafka topic you want to subscribe to.
 **GROUP ID PREFIX**                           | `text`    | The prefix of the consumer group ID to use. See [Monitoring consumer lag](#monitoring-consumer-lag).<br>Default: `materialize-{REGION-ID}-{CONNECTION-ID}-{SOURCE_ID}`
-**RETAIN HISTORY FOR** <br>_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
+**RETAIN HISTORY FOR** <br>_retention_period_ | ***Private preview.** This option has known performance or stability issues and is under active development.* Duration for which Materialize retains historical data, which is useful to implement [durable subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period). Accepts positive [interval](/self-managed/v2025.01/sql/types/interval/) values (e.g. `'1hr'`). Default: `1s`.
 
 ## Supported formats
 
@@ -181,7 +181,7 @@ updated as new change events stream in through Kafka, as a result of `INSERT`,
 `UPDATE` and `DELETE` operations in the original database.
 
 For more details and a step-by-step guide on using Kafka+Debezium for Change
-Data Capture (CDC), check [Using Debezium](/integrations/debezium/).
+Data Capture (CDC), check [Using Debezium](/self-managed/v2025.01/integrations/debezium/).
 
 Note that:
 
@@ -193,11 +193,11 @@ Note that:
 
 Kafka sources that use `ENVELOPE UPSERT` or `ENVELOPE DEBEZIUM` require storing
 the current value for _each key_ in the source to produce retractions when keys
-are updated. When using [standard cluster sizes](/sql/create-cluster/#size),
+are updated. When using [standard cluster sizes](/self-managed/v2025.01/sql/create-cluster/#size),
 Materialize will automatically offload this state to disk, seamlessly handling
 key spaces that are larger than memory.
 
-Spilling to disk is not available with [legacy cluster sizes](/sql/create-cluster/#legacy-sizes).
+Spilling to disk is not available with [legacy cluster sizes](/self-managed/v2025.01/sql/create-cluster/#legacy-sizes).
 
 ### Exposing source metadata
 
@@ -251,7 +251,7 @@ CREATE SOURCE kafka_metadata
 ```
 
 To simplify turning the headers column into a `map` (so individual headers can
-be searched), you can use the [`map_build`](/sql/functions/#map_build) function:
+be searched), you can use the [`map_build`](/self-managed/v2025.01/sql/functions/#map_build) function:
 
 ```mzsql
 SELECT
@@ -381,7 +381,7 @@ This means that the computed start offsets will be the **same** for all views
 depending on the source and **stable** across restarts.
 
 If you need to limit the amount of data maintained as state after source
-creation, consider using [temporal filters](/sql/patterns/temporal-filters/)
+creation, consider using [temporal filters](/self-managed/v2025.01/sql/patterns/temporal-filters/)
 instead.
 
 #### `CONNECTION` options
@@ -413,7 +413,7 @@ The following metadata is available for each source as a progress subsource:
 Field          | Type                                     | Meaning
 ---------------|------------------------------------------|--------
 `partition`    | `numrange`                               | The upstream Kafka partition.
-`offset`       | [`uint8`](/sql/types/uint/#uint8-info)   | The greatest offset consumed from each upstream Kafka partition.
+`offset`       | [`uint8`](/self-managed/v2025.01/sql/types/uint/#uint8-info)   | The greatest offset consumed from each upstream Kafka partition.
 
 And can be queried using:
 
@@ -436,7 +436,7 @@ WHERE
 
 As long as any offset continues increasing, Materialize is consuming data from
 the upstream Kafka broker. For more details on monitoring source ingestion
-progress and debugging related issues, see [Troubleshooting](/ops/troubleshooting/).
+progress and debugging related issues, see [Troubleshooting](/self-managed/v2025.01/ops/troubleshooting/).
 
 ### Monitoring consumer lag
 
@@ -496,7 +496,7 @@ want Materialize to read data from.
 
 Once created, a connection is **reusable** across multiple `CREATE SOURCE`
 statements. For more details on creating connections, check the
-[`CREATE CONNECTION`](/sql/create-connection) documentation page.
+[`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection) documentation page.
 
 #### Broker
 
@@ -528,7 +528,7 @@ CREATE CONNECTION kafka_connection TO KAFKA (
 {{< /tab >}}
 {{< /tabs >}}
 
-If your Kafka broker is not exposed to the public internet, you can [tunnel the connection](/sql/create-connection/#network-security-connections)
+If your Kafka broker is not exposed to the public internet, you can [tunnel the connection](/self-managed/v2025.01/sql/create-connection/#network-security-connections)
 through an AWS PrivateLink service or an SSH bastion host:
 
 {{< tabs tabID="1" >}}
@@ -552,7 +552,7 @@ CREATE CONNECTION kafka_connection TO KAFKA (
 
 For step-by-step instructions on creating AWS PrivateLink connections and
 configuring an AWS PrivateLink service to accept connections from Materialize,
-check [this guide](/ops/network-security/privatelink/).
+check [this guide](/self-managed/v2025.01/ops/network-security/privatelink/).
 
 {{< /tab >}}
 {{< tab "SSH tunnel">}}
@@ -575,7 +575,7 @@ BROKERS (
 ```
 
 For step-by-step instructions on creating SSH tunnel connections and configuring
-an SSH bastion server to accept connections from Materialize, check [this guide](/ops/network-security/ssh-tunnel/).
+an SSH bastion server to accept connections from Materialize, check [this guide](/self-managed/v2025.01/ops/network-security/ssh-tunnel/).
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -612,7 +612,7 @@ CREATE CONNECTION csr_connection TO CONFLUENT SCHEMA REGISTRY (
 {{< /tabs >}}
 
 If your Confluent Schema Registry server is not exposed to the public internet,
-you can [tunnel the connection](/sql/create-connection/#network-security-connections)
+you can [tunnel the connection](/self-managed/v2025.01/sql/create-connection/#network-security-connections)
 through an AWS PrivateLink service or an SSH bastion host:
 
 {{< tabs tabID="1" >}}
@@ -634,7 +634,7 @@ CREATE CONNECTION csr_connection TO CONFLUENT SCHEMA REGISTRY (
 
 For step-by-step instructions on creating AWS PrivateLink connections and
 configuring an AWS PrivateLink service to accept connections from Materialize,
-check [this guide](/ops/network-security/privatelink/).
+check [this guide](/self-managed/v2025.01/ops/network-security/privatelink/).
 {{< /tab >}}
 {{< tab "SSH tunnel">}}
 ```mzsql
@@ -653,7 +653,7 @@ CREATE CONNECTION csr_connection TO CONFLUENT SCHEMA REGISTRY (
 ```
 
 For step-by-step instructions on creating SSH tunnel connections and configuring
-an SSH bastion server to accept connections from Materialize, check [this guide](/ops/network-security/ssh-tunnel/).
+an SSH bastion server to accept connections from Materialize, check [this guide](/self-managed/v2025.01/ops/network-security/ssh-tunnel/).
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -691,7 +691,7 @@ CREATE VIEW typed_kafka_source AS
 JSON-formatted messages are ingested as a JSON blob. We recommend creating a
 parsing view on top of your Kafka source that maps the individual fields to
 columns with the required data types. To avoid doing this tedious task
-manually, you can use [this **JSON parsing widget**](/sql/types/jsonb/#parsing)!
+manually, you can use [this **JSON parsing widget**](/self-managed/v2025.01/sql/types/jsonb/#parsing)!
 
 {{< /tab >}}
 {{< tab "Protobuf">}}
@@ -768,20 +768,20 @@ CREATE SOURCE csv_source (col_foo, col_bar, col_baz)
 
 ## Related pages
 
-- [`CREATE SECRET`](/sql/create-secret)
-- [`CREATE CONNECTION`](/sql/create-connection)
+- [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret)
+- [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection)
 - [`CREATE SOURCE`](../)
-- [`SHOW SOURCES`](/sql/show-sources)
-- [`DROP SOURCE`](/sql/drop-source)
-- [Using Debezium](/integrations/debezium/)
+- [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources)
+- [`DROP SOURCE`](/self-managed/v2025.01/sql/drop-source)
+- [Using Debezium](/self-managed/v2025.01/integrations/debezium/)
 
-[Avro]: /sql/create-source/#avro
-[JSON]: /sql/create-source/#json
-[Protobuf]: /sql/create-source/#protobuf
-[Text/bytes]: /sql/create-source/#textbytes
-[CSV]: /sql/create-source/#csv
+[Avro]: ]: /self-managed/v2025.01/sql/create-source/#avro
+[JSON]: ]: /self-managed/v2025.01/sql/create-source/#json
+[Protobuf]: ]: /self-managed/v2025.01/sql/create-source/#protobuf
+[Text/bytes]: ]: /self-managed/v2025.01/sql/create-source/#textbytes
+[CSV]: ]: /self-managed/v2025.01/sql/create-source/#csv
 
-[Append-only envelope]: /sql/create-source/#append-only-envelope
-[Upsert envelope]: /sql/create-source/#upsert-envelope
-[Debezium envelope]: /sql/create-source/#debezium-envelope
-[`mz_kafka_sources`]: /sql/system-catalog/mz_catalog/#mz_kafka_sources
+[Append-only envelope]: ]: /self-managed/v2025.01/sql/create-source/#append-only-envelope
+[Upsert envelope]: ]: /self-managed/v2025.01/sql/create-source/#upsert-envelope
+[Debezium envelope]: ]: /self-managed/v2025.01/sql/create-source/#debezium-envelope
+[`mz_kafka_sources`]: ]: /self-managed/v2025.01/sql/system-catalog/mz_catalog/#mz_kafka_sources

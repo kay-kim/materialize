@@ -2,7 +2,7 @@
 title: "Fivetran"
 description: "How to use Fivetran to sync data into Materialize"
 aliases:
-  - /integrations/fivetran/
+  - /self-managed/v2025.01/integrations/fivetran/
 ---
 
 {{< private-preview />}}
@@ -16,7 +16,7 @@ You can use Fivetran to sync data into Materialize for the following use cases:
 - To sync data from other data warehouses, such as Snowflake, Databricks, or Oracle.
 
 For relational databases like PostgreSQL or MySQL, and event streaming sources like Apache Kafka,
-you should prefer to use [Materialize native sources](/sql/create-source/).
+you should prefer to use [Materialize native sources](/self-managed/v2025.01/sql/create-source/).
 
 ## Before you begin
 ### Terminology

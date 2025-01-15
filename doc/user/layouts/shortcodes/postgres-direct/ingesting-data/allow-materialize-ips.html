@@ -1,5 +1,5 @@
 
-1. In a SQL client connected to Materialize, use the [`CREATE SECRET`](/sql/create-secret/)
+1. In a SQL client connected to Materialize, use the [`CREATE SECRET`](/self-managed/v2025.01/sql/create-secret/)
    command to securely store the password for the `materialize` PostgreSQL user you
    created [earlier](#2-create-a-publication-and-a-replication-user):
 
@@ -7,7 +7,7 @@
     CREATE SECRET pgpass AS '<PASSWORD>';
     ```
 
-1. Use the [`CREATE CONNECTION`](/sql/create-connection/) command to create a
+1. Use the [`CREATE CONNECTION`](/self-managed/v2025.01/sql/create-connection/) command to create a
    connection object with access and authentication details for Materialize to
    use:
 
@@ -27,7 +27,7 @@
     - Replace `<database>` with the name of the database containing the tables
       you want to replicate to Materialize.
 
-1. Use the [`CREATE SOURCE`](/sql/create-source/) command to connect Materialize
+1. Use the [`CREATE SOURCE`](/self-managed/v2025.01/sql/create-source/) command to connect Materialize
 to your PostgreSQL instance and start ingesting data from the publication you
 created [earlier](#2-create-a-publication-and-a-replication-user):
 
@@ -44,6 +44,6 @@ created [earlier](#2-create-a-publication-and-a-replication-user):
     (<schema1>,<schema2>)` or `FOR TABLES (<table1>, <table2>)` instead of `FOR
     ALL TABLES`.
 
-1. After source creation, you can handle upstream [schema changes](/sql/create-source/postgres/#schema-changes)
-   for specific replicated tables using the [`ALTER SOURCE...ADD SUBSOURCE`](/sql/alter-source/#context)
-   and [`DROP SOURCE`](/sql/drop-source) syntax.
+1. After source creation, you can handle upstream [schema changes](/self-managed/v2025.01/sql/create-source/postgres/#schema-changes)
+   for specific replicated tables using the [`ALTER SOURCE...ADD SUBSOURCE`](/self-managed/v2025.01/sql/alter-source/#context)
+   and [`DROP SOURCE`](/self-managed/v2025.01/sql/drop-source) syntax.

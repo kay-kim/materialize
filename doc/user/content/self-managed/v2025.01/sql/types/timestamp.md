@@ -5,7 +5,7 @@ menu:
   main:
     parent: 'sql-types'
 aliases:
-    - /sql/types/timestamptz
+    - /self-managed/v2025.01/sql/types/timestamptz
 ---
 
 `timestamp` and `timestamp with time zone` data expresses a date and time in

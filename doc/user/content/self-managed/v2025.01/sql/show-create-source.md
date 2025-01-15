@@ -14,7 +14,7 @@ menu:
 SHOW CREATE SOURCE <source_name>
 ```
 
-For available source names, see [`SHOW SOURCES`](/sql/show-sources).
+For available source names, see [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources).
 
 ## Examples
 

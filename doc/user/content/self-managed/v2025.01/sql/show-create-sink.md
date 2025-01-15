@@ -14,7 +14,7 @@ menu:
 SHOW CREATE SINK <sink_name>
 ```
 
-For available sink names, see [`SHOW SINKS`](/sql/show-sinks).
+For available sink names, see [`SHOW SINKS`](/self-managed/v2025.01/sql/show-sinks).
 
 ## Examples
 

@@ -3,8 +3,8 @@ title: "Dataflow troubleshooting"
 description: "How to troubleshoot common dataflow-level scenarios where Materialize is not working as expected."
 ---
 
-If you're unable to troubleshoot your issue using the [`Ingest data`](/ingest-data/troubleshooting/)
-and [`Transform data`](/transform-data/troubleshooting/) troubleshooting guides,
+If you're unable to troubleshoot your issue using the [`Ingest data`](/self-managed/v2025.01/ingest-data/troubleshooting/)
+and [`Transform data`](/self-managed/v2025.01/transform-data/troubleshooting/) troubleshooting guides,
 going a level deeper in the stack might be needed. This guide collects common
 questions around dataflows to help you troubleshoot your queries.
 
@@ -105,7 +105,7 @@ just important to know than that they define a hierarchy on the operators.
 ## The system catalog and introspection relations
 
 Materialize collects a lot of useful information about the dataflows and
-operators in the system catalog in [introspection relations](/sql/system-catalog/mz_introspection).
+operators in the system catalog in [introspection relations](/self-managed/v2025.01/sql/system-catalog/mz_introspection).
 The introspection relations are useful to troubleshoot and understand what is
 happening under the hood when Materialize is not behaving as expected. However,
 it is important to understand that most of the statistics we need for
@@ -117,7 +117,7 @@ Indexes and dataflows are local to a cluster, so their introspection information
 will vary across clusters depending on the active cluster and replica. As a
 consequence, you should expect the results of the queries below to vary
 depending on the values set for the `cluster` and `cluster_replica`
-[configuration parameters](/sql/set/#other-configuration-parameters).
+[configuration parameters](/self-managed/v2025.01/sql/set/#other-configuration-parameters).
 {{< /warning >}}
 
 <!--
@@ -330,7 +330,7 @@ materialized view `num_bids`.
 
 ## Why is Materialize using so much memory?
 
-[Arrangements](/overview/arrangements) take up most of Materialize's memory use.
+[Arrangements](/self-managed/v2025.01/overview/arrangements) take up most of Materialize's memory use.
 Arrangements maintain indexes for data as it changes. These queries extract the
 numbers of records and the size of the arrangements. The reported records may
 exceed the number of logical records; the report reflects the uncompacted
@@ -383,11 +383,11 @@ ORDER BY mas.size DESC;
 
 In the [Materialize Console](https://console.materialize.com),
 
-- The [**Cluster Overview**](/console/clusters/) page displays the cluster
+- The [**Cluster Overview**](/self-managed/v2025.01/console/clusters/) page displays the cluster
   resource utilization for a selected cluster as well as the resource intensive
   objects in the cluster.
 
-- The [**Environment Overview**](/console/monitoring/) page displays the
+- The [**Environment Overview**](/self-managed/v2025.01/console/monitoring/) page displays the
   resource utilization for all your clusters. You can select a specific cluster
   to view its **Overview** page.
 
@@ -530,6 +530,6 @@ index, you have to drop and recreate all downstream dependencies.
 {{< warning >}}
 Forcing a re-plan using the approach above **will trigger hydration**,
 which incurs downtime while the objects are recreated and backfilled with
-pre-existing data. We recommend doing a [blue/green deployment](/manage/dbt/development-workflows/#bluegreen-deployments)
+pre-existing data. We recommend doing a [blue/green deployment](/self-managed/v2025.01/manage/dbt/development-workflows/#bluegreen-deployments)
 to handle these changes in production environments.
 {{< /warning >}}

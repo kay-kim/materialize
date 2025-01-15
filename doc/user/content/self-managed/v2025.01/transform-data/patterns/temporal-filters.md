@@ -1,25 +1,24 @@
 ---
 title: "Temporal filters (time windows)"
 description: "Perform time-windowed computation over temporal data."
-aliases:
-  - /guides/temporal-filters/
-  - /sql/patterns/temporal-filters/
 menu:
   main:
     parent: 'sql-patterns'
+aliases:
+  - /self-managed/v2025.01/sql/patterns/temporal-filters/
 ---
 
 A **temporal filter** is a query condition/predicate that uses the
-[`mz_now()`](/sql/functions/now_and_mz_now) function to filter data based on a
+[`mz_now()`](/self-managed/v2025.01/sql/functions/now_and_mz_now) function to filter data based on a
 time-related condition. Using a temporal filter reduces the working dataset,
 saving memory resources and focusing on results that meet the condition.
 
 In Materialize, you implement temporal filters using the
-[`mz_now()`](/sql/functions/now_and_mz_now) function (which returns
+[`mz_now()`](/self-managed/v2025.01/sql/functions/now_and_mz_now) function (which returns
 Materialize's current virtual timestamp) in a `WHERE` or `HAVING` clause;
-specifically, you compare [`mz_now()`](/sql/functions/now_and_mz_now) to a
+specifically, you compare [`mz_now()`](/self-managed/v2025.01/sql/functions/now_and_mz_now) to a
 numeric or timestamp column expression. As
-[`mz_now()`](/sql/functions/now_and_mz_now) progresses (every millisecond),
+[`mz_now()`](/self-managed/v2025.01/sql/functions/now_and_mz_now) progresses (every millisecond),
 records for which the condition is no longer true are retracted from the working
 dataset while records for which the condition becomes true are included in the
 working dataset. When using temporal filters, Materialize must be prepared to
@@ -36,7 +35,7 @@ WHERE mz_now() <= event_ts + INTERVAL '5min'
 {{< note >}}
 It may feel more natural to write this filter as the equivalent `WHERE event_ts >= mz_now() - INTERVAL '5min'`.
 However, there are currently no valid operators for the [`mz_timestamp`
-type](/sql/types/mz_timestamp) that would allow this.  See [Requirements](#requirements).
+type](/self-managed/v2025.01/sql/types/mz_timestamp) that would allow this.  See [Requirements](#requirements).
 {{< /note >}}
 
 The following diagram shows record `B` falling out of the result set as time
@@ -55,11 +54,11 @@ moves forward:
 You can only use `mz_now()` to establish a temporal filter under the following conditions:
 
 - `mz_now()` appears in a `WHERE` or `HAVING` clause.
-- The clause must compare `mz_now()` to a [`numeric`](/sql/types/numeric) or [`timestamp`](/sql/types/timestamp) expression not containing `mz_now()`
+- The clause must compare `mz_now()` to a [`numeric`](/self-managed/v2025.01/sql/types/numeric) or [`timestamp`](/self-managed/v2025.01/sql/types/timestamp) expression not containing `mz_now()`
 - The comparison must be one of `=`, `<`, `<=`, `>`, or `>=`, or operators that desugar to them or a conjunction of them (for example, `BETWEEN...AND...`).
     At the moment, you can't use the `!=` operator with `mz_now()`.
 
-You cannot use temporal filters in the `WHERE` clause of an [aggregate `FILTER` expression](/sql/functions/filters).
+You cannot use temporal filters in the `WHERE` clause of an [aggregate `FILTER` expression](/self-managed/v2025.01/sql/functions/filters).
 
 ## Examples
 
@@ -107,7 +106,7 @@ In this case, we will filter a table to only include only records from the last 
     ```
     Press `Ctrl+C` to quit the `SUBSCRIBE` when you are ready.
 
-You can materialize the `last_30_sec` view by [creating an index](/sql/create-index/) on it (results stored in memory) or by [recreating it as a `MATERIALIZED VIEW`](/sql/create-materialized-view/) (results persisted to storage). When you do so, Materialize will keep the results up to date with records expiring automatically according to the temporal filter.
+You can materialize the `last_30_sec` view by [creating an index](/self-managed/v2025.01/sql/create-index/) on it (results stored in memory) or by [recreating it as a `MATERIALIZED VIEW`](/self-managed/v2025.01/sql/create-materialized-view/) (results persisted to storage). When you do so, Materialize will keep the results up to date with records expiring automatically according to the temporal filter.
 
 ### Time-to-Live (TTL)
 
@@ -170,9 +169,9 @@ You can now:
 
 Suppose you want to count the number of records in each 1 minute time window, grouped by an `id` column.
 You don't care to receive every update as it happens; instead, you would prefer Materialize to emit a single result at the end of each window.
-Materialize [date functions](/sql/functions/#date-and-time-functions) are helpful for use cases like this where you want to bucket records into time windows.
+Materialize [date functions](/self-managed/v2025.01/sql/functions/#date-and-time-functions) are helpful for use cases like this where you want to bucket records into time windows.
 
-The strategy for this example is to put an initial temporal filter on the input (say, 30 days) to bound it, use the [`date_bin` function](/sql/functions/date-bin) to bin records into 1 minute windows, use a second temporal filter to emit results at the end of the window, and finally apply a third temporal filter shorter than the first (say, 7 days) to set how long results should persist in Materialize.
+The strategy for this example is to put an initial temporal filter on the input (say, 30 days) to bound it, use the [`date_bin` function](/self-managed/v2025.01/sql/functions/date-bin) to bin records into 1 minute windows, use a second temporal filter to emit results at the end of the window, and finally apply a third temporal filter shorter than the first (say, 7 days) to set how long results should persist in Materialize.
 
 1. First, create a table for the input records.
     ```mzsql
@@ -235,7 +234,7 @@ The strategy for this example is to put an initial temporal filter on the input 
     If you are very patient, you will see these results retracted in 7 days.
     Press `Ctrl+C` to exit the `SUBSCRIBE` when you are finished playing.
 
-From here, you could create a [Kafka sink](/sql/create-sink/) and use Kafka Connect to archive the historical results to a data warehouse (ignoring Kafka tombstone records that represent retracted results).
+From here, you could create a [Kafka sink](/self-managed/v2025.01/sql/create-sink/) and use Kafka Connect to archive the historical results to a data warehouse (ignoring Kafka tombstone records that represent retracted results).
 
 ## Late arriving events
 
@@ -271,7 +270,7 @@ In the examples above, the `event_ts` value in each event correlates with the ti
 However, the values in the `content` column are not correlated with insertion time in any way, so filters against `content` will probably not be pushed down to the storage layer.
 
 Temporal filters that consist of arithmetic, date math, and comparisons are eligible for pushdown, including all the examples in this page.
-However, more complex filters might not be. You can check whether the filters in your query can be pushed down by using [the `filter_pushdown` option](/sql/explain-plan/#output-modifiers) in an `EXPLAIN` statement. For example:
+However, more complex filters might not be. You can check whether the filters in your query can be pushed down by using [the `filter_pushdown` option](/self-managed/v2025.01/sql/explain-plan/#output-modifiers) in an `EXPLAIN` statement. For example:
 
 ```mzsql
 EXPLAIN WITH(filter_pushdown)
@@ -288,4 +287,4 @@ Source materialize.public.events
 
 The filter in our query appears in the `pushdown=` list at the bottom of the output, so the filter pushdown optimization will be able to filter out irrelevant ranges of data in that source and make the overall query more efficient.
 
-Some common functions, such as casting from a string to a timestamp, can prevent filter pushdown for a query. For similar functions that _do_ allow pushdown, see [the pushdown functions documentation](/sql/functions/pushdown/).
+Some common functions, such as casting from a string to a timestamp, can prevent filter pushdown for a query. For similar functions that _do_ allow pushdown, see [the pushdown functions documentation](/self-managed/v2025.01/sql/functions/pushdown/).

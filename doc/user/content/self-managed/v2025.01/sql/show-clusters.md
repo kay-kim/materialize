@@ -7,7 +7,7 @@ menu:
 
 ---
 
-`SHOW CLUSTERS` lists the [clusters](/concepts/clusters/) configured in Materialize.
+`SHOW CLUSTERS` lists the [clusters](/self-managed/v2025.01/concepts/clusters/) configured in Materialize.
 
 ## Syntax
 
@@ -35,9 +35,9 @@ cluster at any time.
 
 {{< note >}}
 The default value for the `cluster` session parameter is `quickstart`.
-If the `quickstart` cluster is dropped, you must run [`SET cluster`](/sql/select/#ad-hoc-queries)
+If the `quickstart` cluster is dropped, you must run [`SET cluster`](/self-managed/v2025.01/sql/select/#ad-hoc-queries)
 to choose a valid cluster in order to run `SELECT` queries. A _superuser_ (i.e. `Organization Admin`)
-can also run [`ALTER SYSTEM SET cluster`](/sql/alter-system-set) to change the
+can also run [`ALTER SYSTEM SET cluster`](/self-managed/v2025.01/sql/alter-system-set) to change the
 default value.
 {{< /note >}}
 
@@ -51,7 +51,7 @@ To take advantage of these indexes, Materialize will automatically re-route
 `SHOW` commands and queries using system catalog objects to the
 `mz_catalog_server` system cluster. You can disable this behavior in
 your session via the `auto_route_catalog_queries`
-[configuration parameter](/sql/show/#other-configuration-parameters).
+[configuration parameter](/self-managed/v2025.01/sql/show/#other-configuration-parameters).
 
 The following characteristics apply to the `mz_catalog_server` cluster:
 
@@ -59,7 +59,7 @@ The following characteristics apply to the `mz_catalog_server` cluster:
   * You cannot create objects in this cluster.
   * You cannot drop this cluster.
   * You can run `SELECT` or `SUBSCRIBE` queries in this cluster as long
-    as you only reference objects in the [system catalog](/sql/system-catalog/).
+    as you only reference objects in the [system catalog](/self-managed/v2025.01/sql/system-catalog/).
 
 ### `mz_probe` system cluster
 

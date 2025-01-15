@@ -2,9 +2,9 @@
 title: "Consistency guarantees"
 description: "Materialize supports different isolation levels that determine how it isolates the execution of transactions."
 aliases:
-    - /sql/consistency
-    - /sql/isolation-level
-    - /overview/isolation-level/
+    - /self-managed/v2025.01/sql/consistency
+    - /self-managed/v2025.01/sql/isolation-level
+    - /self-managed/v2025.01/overview/isolation-level/
 ---
 
 The SQL standard defines four levels of transaction isolation. In order of least strict to most strict they are:
@@ -155,7 +155,7 @@ made available to us (e.g., querying PostgreSQL for the replication slot's LSN).
     systems (e.g., sources like Kafka, MySQL, and PostgreSQL). Real-time recency
     queries do not offer any form of guarantee when querying Materialize-local
     objects, such as [`LOAD
-    GENERATOR`sources](/sql/create-source/load-generator/) sources or system
+    GENERATOR`sources](/self-managed/v2025.01/sql/create-source/load-generator/) sources or system
     tables.
 -   Each real-time recency query connects to each external source transitively
     referenced in the query. The more external sources that are referenced, the
@@ -174,7 +174,7 @@ linearizable transactions, then you should downgrade to the Serializable isolati
 Strict Serializable provides stronger consistency guarantees but may have slower reads than Serializable. This is
 because Strict Serializable may need to wait for writes to propagate through materialized views and indexes, while
 Serializable does not. For details about this behavior, consult the documentation
-on [logical timestamp selection](/sql/functions/now_and_mz_now#logical-timestamp-selection).
+on [logical timestamp selection](/self-managed/v2025.01/sql/functions/now_and_mz_now#logical-timestamp-selection).
 
 In Serializable mode, a single auto-committed `SELECT` statement or a `SUBSCRIBE`
 statement that references a single object (which includes transactions against a single

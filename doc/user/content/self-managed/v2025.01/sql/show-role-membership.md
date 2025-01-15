@@ -9,7 +9,7 @@ menu:
 
 `SHOW ROLE MEMBERSHIP` lists the members of each role granted (directly or
 indirectly) via [role-based access
-control](/manage/access-control/#role-based-access-control-rbac) (RBAC).
+control](/self-managed/v2025.01/manage/access-control/#role-based-access-control-rbac) (RBAC).
 
 ## Syntax
 
@@ -53,4 +53,4 @@ SHOW ROLE MEMBERSHIP FOR r2;
 
 - [GRANT ROLE](../grant-role)
 - [REVOKE ROLE](../revoke-role)
-- [Access control](/manage/access-control/#role-based-access-control-rbac)
+- [Access control](/self-managed/v2025.01/manage/access-control/#role-based-access-control-rbac)

@@ -14,7 +14,7 @@ menu:
 SHOW CREATE VIEW <view_name>
 ```
 
-For available view names, see [`SHOW VIEWS`](/sql/show-views).
+For available view names, see [`SHOW VIEWS`](../show-views).
 
 ## Examples
 

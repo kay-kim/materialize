@@ -24,7 +24,7 @@ to some ordering, in each group.
 ## Idiomatic Materialize SQL
 
 **Idiomatic Materialize SQL:** To find the first value in each group, use
-[MIN()](/sql/functions/#min) or [MAX()](/sql/functions/#max) aggregate function
+[MIN()](/self-managed/v2025.01/sql/functions/#min) or [MAX()](/self-managed/v2025.01/sql/functions/#max) aggregate function
 in a subquery.
 
 <table>
@@ -39,8 +39,8 @@ in a subquery.
 <td><blue>Materialize SQL</blue></td>
 <td class="copyableCode">
 
-Use a subquery that uses the [MIN()](/sql/functions/#min) or
-[MAX()](/sql/functions/#max) aggregate function.
+Use a subquery that uses the [MIN()](/self-managed/v2025.01/sql/functions/#min) or
+[MAX()](/self-managed/v2025.01/sql/functions/#max) aggregate function.
 
 <br>
 <div style="background-color: var(--code-block)">
@@ -65,7 +65,7 @@ ORDER BY fieldA ... ;
 <td>
 
 <red>Avoid the use of [`FIRST_VALUE() OVER (PARTITION BY ... ORDER BY ...)`
-window function](/sql/functions/#first_value) for first value within groups
+window function](/self-managed/v2025.01/sql/functions/#first_value) for first value within groups
 queries.</red>
 
 <br>
@@ -90,7 +90,7 @@ ORDER BY fieldA, ...;
 ### Query hints
 
 To further improve the memory usage of the idiomatic Materialize SQL, you can
-specify a [`AGGREGATE INPUT GROUP SIZE` query hint](/sql/select/#query-hints) in
+specify a [`AGGREGATE INPUT GROUP SIZE` query hint](/self-managed/v2025.01/sql/select/#query-hints) in
 the idiomatic Materialize SQL.
 
 ```mzsql
@@ -107,14 +107,14 @@ ORDER BY fieldA ... ;
 ```
 
 For more information on setting `AGGREGATE INPUT GROUP SIZE`, see
-[Optimization](/transform-data/optimization/#query-hints).
+[Optimization](/self-managed/v2025.01/transform-data/optimization/#query-hints).
 
 ## Examples
 
 {{< note >}}
 
 The example data can be found in the
-[Appendix](/transform-data/idiomatic-materialize-sql/appendix/example-orders).
+[Appendix](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/appendix/example-orders).
 
 {{</ note >}}
 
@@ -157,7 +157,7 @@ ORDER BY o.order_id, o.item;
 <td>
 
 <red>Avoid the use of [`FIRST_VALUE() OVER (PARTITION BY ... ORDER BY ...)`
-window function](/sql/functions/#first_value) for first value within groups queries.</red>
+window function](/self-managed/v2025.01/sql/functions/#first_value) for first value within groups queries.</red>
 
 <br>
 <div style="background-color: var(--code-block)">
@@ -221,7 +221,7 @@ ORDER BY o.order_id, o.item;
 <td>
 
 <red>Avoid the use of [`FIRST_VALUE() OVER (PARTITION BY ... ORDER BY ...)`
-window function](/sql/functions/#first_value) for first value within groups
+window function](/self-managed/v2025.01/sql/functions/#first_value) for first value within groups
 queries.</red>
 
 <br>
@@ -292,7 +292,7 @@ ORDER BY o.order_id, o.item;
 <td>
 
 <red>Avoid the use of [`FIRST_VALUE() OVER (PARTITION BY ... ORDER BY ...)`
-window function](/sql/functions/#first_value) for first value within groups
+window function](/self-managed/v2025.01/sql/functions/#first_value) for first value within groups
 queries.</red>
 
 <br>
@@ -323,8 +323,8 @@ ORDER BY order_id, item;
 
 ## See also
 
-- [Last value in a group](/transform-data/idiomatic-materialize-sql/last-value)
-- [`MIN()`](/sql/functions/#min)
-- [`MAX()`](/sql/functions/#max)
-- [Query hints for MIN/MAX](/transform-data/optimization/#query-hints)
-- [Window functions](/sql/functions/#window-functions)
+- [Last value in a group](/self-managed/v2025.01/transform-data/idiomatic-materialize-sql/last-value)
+- [`MIN()`](/self-managed/v2025.01/sql/functions/#min)
+- [`MAX()`](/self-managed/v2025.01/sql/functions/#max)
+- [Query hints for MIN/MAX](/self-managed/v2025.01/transform-data/optimization/#query-hints)
+- [Window functions](/self-managed/v2025.01/sql/functions/#window-functions)

@@ -5,7 +5,7 @@ menu:
   main:
     parent: commands
 aliases:
-  - /sql/tail
+  - /self-managed/v2025.01/sql/tail
 ---
 
 `SUBSCRIBE` streams updates from a source, table, view, or materialized view as
@@ -13,7 +13,7 @@ they occur.
 
 ## Conceptual framework
 
-The `SUBSCRIBE` statement is a more general form of a [`SELECT`](/sql/select)
+The `SUBSCRIBE` statement is a more general form of a [`SELECT`](/self-managed/v2025.01/sql/select)
 statement. While a `SELECT` statement computes a relation at a moment in time, a
 subscribe operation computes how a relation *changes* over time.
 
@@ -42,7 +42,7 @@ where:
 
 - `<object_name>` is the name of the source, table, view, or materialized view
   that you want to subscribe to.
-- `<select_stmt>` is the [`SELECT` statement](/sql/select) whose output you want
+- `<select_stmt>` is the [`SELECT` statement](/self-managed/v2025.01/sql/select) whose output you want
   to subscribe to.
 
 The generated schemas have a Debezium-style diff envelope to capture changes in
@@ -138,7 +138,7 @@ with several additional columns that describe the nature of the update:
 ### `AS OF`
 
 When a [history rentention
-period](/transform-data/patterns/durable-subscriptions/#history-retention-period)
+period](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period)
 is configured for the object(s) powering the subscription, the `AS OF` clause
 allows specifying a timestamp at which the `SUBSCRIBE` command should begin
 returning results. If `AS OF` is specified, no rows whose timestamp is earlier
@@ -148,7 +148,7 @@ an error is thrown.
 
 To configure the history retention period for objects used in a subscription,
 see [Durable
-subscriptions](/transform-data/patterns/durable-subscriptions/#history-retention-period).
+subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period).
 If `AS OF` is unspecified, the system automatically chooses an `AS OF`
 timestamp.
 
@@ -176,7 +176,7 @@ results. Since `SUBSCRIBE` can run forever, naively executing a `SUBSCRIBE` usin
 driver's standard query API may never return.
 
 Either use an API in your driver that does not buffer rows or use the
-[`FETCH`](/sql/fetch) statement or `AS OF` and `UP TO` bounds
+[`FETCH`](/self-managed/v2025.01/sql/fetch) statement or `AS OF` and `UP TO` bounds
 to fetch rows from `SUBSCRIBE` in batches.
 See the [examples](#examples) for details.
 
@@ -246,8 +246,8 @@ CREATE SOURCE counter FROM LOAD GENERATOR COUNTER;
 
 ### Subscribing with `FETCH`
 
-The recommended way to use `SUBSCRIBE` is with [`DECLARE`](/sql/declare) and [`FETCH`](/sql/fetch).
-These must be used within a transaction, with [a single `DECLARE`](/sql/begin/#read-only-transactions) per transaction.
+The recommended way to use `SUBSCRIBE` is with [`DECLARE`](/self-managed/v2025.01/sql/declare) and [`FETCH`](/self-managed/v2025.01/sql/fetch).
+These must be used within a transaction, with [a single `DECLARE`](/self-managed/v2025.01/sql/begin/#read-only-transactions) per transaction.
 This allows you to limit the number of rows and the time window of your requests.
 Next, let's subscribe to the `counter` load generator source that we've created above.
 
@@ -258,7 +258,7 @@ BEGIN;
 DECLARE c CURSOR FOR SUBSCRIBE (SELECT * FROM counter);
 ```
 
-Then, use [`FETCH`](/sql/fetch) in a loop to retrieve each batch of results as soon as it's ready:
+Then, use [`FETCH`](/self-managed/v2025.01/sql/fetch) in a loop to retrieve each batch of results as soon as it's ready:
 
 ```mzsql
 FETCH ALL c;
@@ -294,13 +294,13 @@ COPY (SUBSCRIBE (SELECT * FROM counter)) TO STDOUT;
 
 | Additional guides |
 | ---------------------- |
-| [Go](/integrations/golang/#stream)|
-| [Java](/integrations/java-jdbc/#stream)|
-| [Node.js](/integrations/node-js/#stream)|
-| [PHP](/integrations/php/#stream)|
-| [Python](/integrations/python/#stream)|
-| [Ruby](/integrations/ruby/#stream)|
-| [Rust](/integrations/rust/#stream)|
+| [Go](/self-managed/v2025.01/integrations/golang/#stream)|
+| [Java](/self-managed/v2025.01/integrations/java-jdbc/#stream)|
+| [Node.js](/self-managed/v2025.01/integrations/node-js/#stream)|
+| [PHP](/self-managed/v2025.01/integrations/php/#stream)|
+| [Python](/self-managed/v2025.01/integrations/python/#stream)|
+| [Ruby](/self-managed/v2025.01/integrations/ruby/#stream)|
+| [Rust](/self-managed/v2025.01/integrations/rust/#stream)|
 
 ### Mapping rows to their updates
 
@@ -415,7 +415,7 @@ column. Each progress row will have a `NULL` key and a `NULL` value.
 {{< private-preview />}}
 
 To modify the output of `SUBSCRIBE` to support upserts using a
-[Debezium-style diff envelope](/sql/create-sink/kafka/#debezium-envelope),
+[Debezium-style diff envelope](/self-managed/v2025.01/sql/create-sink/kafka/#debezium-envelope),
 use `ENVELOPE DEBEZIUM`. This clause allows you to specify a `KEY` that
 Materialize uses to interpret the rows as a series of inserts, updates and
 deletes within each distinct timestamp. Unlike `ENVELOPE UPSERT`, the output
@@ -545,13 +545,13 @@ DROP SOURCE counter;
 Because `SUBSCRIBE` requests happen over the network, these connections might
 get disrupted for both expected and unexpected reasons. You can adjust the
 [history retention
-period](/transform-data/patterns/durable-subscriptions/#history-retention-period)
+period](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/#history-retention-period)
 for the objects a subscription depends on, and then use [`AS OF`](#as-of) to
 pick up where you left off on connection drops—this ensures that no data is lost
 in the subscription process, and avoids the need for re-snapshotting the data.
 
 For more information, see [durable
-subscriptions](/transform-data/patterns/durable-subscriptions/).
+subscriptions](/self-managed/v2025.01/transform-data/patterns/durable-subscriptions/).
 
 ## Privileges
 

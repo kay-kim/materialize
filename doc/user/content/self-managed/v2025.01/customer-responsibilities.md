@@ -95,4 +95,4 @@ privacy and governance requests. For details, see our [Privacy Policy](https://m
 
 Adhering to these responsibilities ensures that your data is protected, and
 Materialize is utilized effectively. If you have any questions or need further
-clarification on your responsibilities, please [contact support](/support).
+clarification on your responsibilities, please [contact support](/self-managed/v2025.01/support).

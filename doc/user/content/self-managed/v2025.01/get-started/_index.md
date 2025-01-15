@@ -3,7 +3,7 @@ title: "What is Materialize?"
 description: "Learn more about Materialize"
 disable_list: true
 aliases:
-  - /overview/what-is-materialize/
+  - /self-managed/v2025.01/overview/what-is-materialize/
 menu:
   main:
     parent: get-started
@@ -26,7 +26,7 @@ scratch.
 1. Sign up for a [free trial
    account](https://materialize.com/register/?utm_campaign=General&utm_source=documentation)
    or [download the Materialize Emulator Docker
-   image](/get-started/install-materialize-emulator/).
+   image](/self-managed/v2025.01/get-started/install-materialize-emulator/).
 2. Follow the quickstart guide to learn the basics.
 3. Connect your own data sources and start building.
 
@@ -48,9 +48,9 @@ In Materialize, you don't have to make such compromises. Materialize supports
 incrementally updated view results that are **always fresh** (even when using
 complex SQL statements, like multi-way joins with aggregations) for *both*:
 
-- [Indexed views](/concepts/views/#indexes-on-views) and
+- [Indexed views](/self-managed/v2025.01/concepts/views/#indexes-on-views) and
 
-- [Materialized views](/concepts/views/#materialized-views).
+- [Materialized views](/self-managed/v2025.01/concepts/views/#materialized-views).
 
 How?
 Its engine is built on [Timely](https://github.com/TimelyDataflow/timely-dataflow#timely-dataflow)
@@ -62,12 +62,12 @@ this exact purpose.
 
 Like most databases, you interact with Materialize using **SQL**. You can build
 complex analytical
-workloads using **[any type of join](/sql/select/join/)** (including
+workloads using **[any type of join](/self-managed/v2025.01/sql/select/join/)** (including
 non-windowed joins and joins on arbitrary conditions) as well as leverage new
 SQL patterns enabled by streaming like [**Change Data Capture
-(CDC)**](/integrations/#databases), [**temporal
-filters**](/sql/patterns/temporal-filters/), and
-[**subscriptions**](/sql/subscribe/).
+(CDC)**](/self-managed/v2025.01/integrations/#databases), [**temporal
+filters**](/self-managed/v2025.01/sql/patterns/temporal-filters/), and
+[**subscriptions**](/self-managed/v2025.01/sql/subscribe/).
 
 {{% materialize-postgres-compatibility %}}
 
@@ -77,34 +77,34 @@ Materialize provides **native connectors** that allow ingesting data from variou
 
 {{< multilinkbox >}}
 {{< linkbox title="Message Brokers" >}}
-- [Kafka](/sql/create-source/kafka)
-- [Redpanda](/sql/create-source/kafka)
-- [Other message brokers](/integrations/#message-brokers)
+- [Kafka](/self-managed/v2025.01/sql/create-source/kafka)
+- [Redpanda](/self-managed/v2025.01/sql/create-source/kafka)
+- [Other message brokers](/self-managed/v2025.01/integrations/#message-brokers)
 {{</ linkbox >}}
 {{< linkbox title="Databases (CDC)" >}}
-- [PostgreSQL](/sql/create-source/postgres)
-- [MySQL](/sql/create-source/mysql)
-- [Other databases](/integrations/#other-databases)
+- [PostgreSQL](/self-managed/v2025.01/sql/create-source/postgres)
+- [MySQL](/self-managed/v2025.01/sql/create-source/mysql)
+- [Other databases](/self-managed/v2025.01/integrations/#other-databases)
 {{</ linkbox >}}
 {{< linkbox title="Webhooks" >}}
-- [Amazon EventBridge](/ingest-data/webhooks/amazon-eventbridge/)
-- [Segment](/ingest-data/webhooks/segment/)
-- [Other webhooks](/sql/create-source/webhook)
+- [Amazon EventBridge](/self-managed/v2025.01/ingest-data/webhooks/amazon-eventbridge/)
+- [Segment](/self-managed/v2025.01/ingest-data/webhooks/segment/)
+- [Other webhooks](/self-managed/v2025.01/sql/create-source/webhook)
 {{</ linkbox >}}
 {{</ multilinkbox >}}
 
-For more information, see [Ingest Data](/ingest-data/) and
-[Integrations](/integrations/).
+For more information, see Ingest Data and
+[Integrations](/self-managed/v2025.01/integrations/).
 
 ### PostgreSQL wire-compatibility
 
 Every database needs a protocol to standardize communication with the outside
 world. Materialize uses the [PostgreSQL wire protocol](https://datastation.multiprocess.io/blog/2022-02-08-the-world-of-postgresql-wire-compatibility.html),
 which allows it to integrate out-of-the-box with many SQL clients and other
-tools in the data ecosystem that support PostgreSQL — like [dbt](/integrations/dbt/).
+tools in the data ecosystem that support PostgreSQL — like [dbt](/self-managed/v2025.01/integrations/dbt/).
 
 Don't see the a tool that you’d like to use with Materialize listed under
-[Tools and integrations](/integrations/)? Let us know by submitting a
+[Tools and integrations](/self-managed/v2025.01/integrations/)? Let us know by submitting a
 [feature request](https://github.com/MaterializeInc/materialize/discussions/new?category=feature-requests&labels=A-integration)!
 
 ### Strong consistency guarantees
@@ -114,10 +114,10 @@ By default, Materialize provides the highest level of transaction isolation:
 This means that it presents as if it were a single process, despite spanning a
 large number of threads, processes, and machines. Strict serializability avoids
 common pitfalls like eventual consistency and dual writes, which affect the
-correctness of your results. You can [adjust the transaction isolation level](/overview/isolation-level/)
+correctness of your results. You can [adjust the transaction isolation level](/self-managed/v2025.01/overview/isolation-level/)
 depending on your consistency and performance requirements.
 
 ## Learn more
 
-- [Key concepts](/concepts/)
-- [Get started with Materialize](/get-started/quickstart)
+- [Key concepts](/self-managed/v2025.01/concepts/)
+- [Get started with Materialize](/self-managed/v2025.01/get-started/quickstart)

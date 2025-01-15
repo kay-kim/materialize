@@ -7,7 +7,7 @@ menu:
     weight: 15
     identifier: 'concepts-views'
 aliases:
-  - /get-started/key-concepts/#views
+  - /self-managed/v2025.01/get-started/key-concepts/#views
 ---
 
 ## Overview
@@ -17,13 +17,13 @@ a shorthand for the underlying query.
 
 Type                   |
 -----------------------|-------------------
-[ **Views** ]( #views ) | Results are recomputed from scratch each time the view is accessed. You can create an **[index](/concepts/indexes/)** on a view to keep its results **incrementally updated** and available **in memory** within a cluster. |
-[**Materialized views**](#materialized-views) | Results are persisted in **durable storage** and **incrementally updated**. You can create an [**index**](/concepts/indexes/) on a materialized view to make the results available in memory within a cluster.
+[ **Views** ]( #views ) | Results are recomputed from scratch each time the view is accessed. You can create an **[index](/self-managed/v2025.01/concepts/indexes/)** on a view to keep its results **incrementally updated** and available **in memory** within a cluster. |
+[**Materialized views**](#materialized-views) | Results are persisted in **durable storage** and **incrementally updated**. You can create an [**index**](/self-managed/v2025.01/concepts/indexes/) on a materialized view to make the results available in memory within a cluster.
 
 ## Views
 
 A view saves a query under a name to provide a shorthand for referencing the
-query. Views are not associated with a [cluster](/concepts/clusters/) and can
+query. Views are not associated with a [cluster](/self-managed/v2025.01/concepts/clusters/) and can
 be referenced across clusters.
 
 During view creation, the underlying query is not executed. Each time the view
@@ -34,7 +34,7 @@ CREATE VIEW my_view_name AS
   SELECT ... FROM ...  ;
 ```
 
-**However**, in Materialize, you can create an [index](/concepts/indexes/) on a
+**However**, in Materialize, you can create an [index](/self-managed/v2025.01/concepts/indexes/) on a
 view to keep view results **incrementally updated** in memory within a cluster.
 That is, with **indexed views**, you do not recompute the view results each time
 you access the view in the cluster; queries can access the already up-to-date
@@ -48,15 +48,15 @@ See [Indexes and views](#indexes-on-views) for more information.
 
 See also:
 
-- [`CREATE VIEW`](/sql/create-view)  for complete syntax information
-- [`CREATE INDEX`](/sql/create-index/)  for complete syntax information
+- [`CREATE VIEW`](/self-managed/v2025.01/serve-results/s3)  for complete syntax information
+- [`CREATE INDEX`](/self-managed/v2025.01/sql/create-index/)  for complete syntax information
 
 ### Indexes on views
 
-In Materialize, views can be [indexed](/concepts/indexes/). Indexes represent
+In Materialize, views can be [indexed](/self-managed/v2025.01/concepts/indexes/). Indexes represent
 query results stored in memory. Creating an index on a view executes the
 underlying view query and stores the view results in memory within that
-[cluster](/concepts/clusters/).
+[cluster](/self-managed/v2025.01/concepts/clusters/).
 
 For example, to create an index in the current cluster:
 
@@ -71,15 +71,15 @@ CREATE INDEX idx_on_my_view IN CLUSTER active_cluster ON my_view (...);
 ```
 
 **As new data arrives**, the index **incrementally updates** view results in
-memory within that [cluster](/concepts/clusters/). Within the cluster, the
+memory within that [cluster](/self-managed/v2025.01/concepts/clusters/). Within the cluster, the
 **in-memory up-to-date** results are immediately available and computationally
 free to query.
 
 See also:
 
-- [Indexes](/concepts/indexes)
-- [Optimization](/transform-data/optimization)
-- [`CREATE INDEX`](/sql/create-index/)  for complete syntax information
+- [Indexes](/self-managed/v2025.01/concepts/indexes)
+- [Optimization](/self-managed/v2025.01/transform-data/optimization)
+- [`CREATE INDEX`](/self-managed/v2025.01/sql/create-index/)  for complete syntax information
 
 ## Materialized views
 
@@ -92,7 +92,7 @@ CREATE MATERIALIZED VIEW my_mat_view_name AS
   SELECT ... FROM ...  ;
 ```
 
-Materialized views can be referenced across [clusters](/concepts/clusters/).
+Materialized views can be referenced across [clusters](/self-managed/v2025.01/concepts/clusters/).
 
 You can also index a materialized view to maintain the results in memory within
 the cluster. This enables queries within the cluster to use the index to access
@@ -101,7 +101,7 @@ view results from memory.
 
 See also:
 
-- [`CREATE MATERIALIZED VIEW`](/sql/create-materialized-view) for complete
+- [`CREATE MATERIALIZED VIEW`](/self-managed/v2025.01/sql/create-materialized-view) for complete
   syntax information
 
 ### Indexes on materialized views
@@ -130,9 +130,9 @@ than from storage.
 
 See also:
 
-- [Indexes](/concepts/indexes)
-- [Optimization](/transform-data/optimization)
-- [`CREATE INDEX`](/sql/create-index/)  for complete syntax information
+- [Indexes](/self-managed/v2025.01/concepts/indexes)
+- [Optimization](/self-managed/v2025.01/transform-data/optimization)
+- [`CREATE INDEX`](/self-managed/v2025.01/sql/create-index/)  for complete syntax information
 
 ## Indexed views vs. materialized views
 
@@ -141,11 +141,11 @@ See also:
 
 ## General information
 
-- Views can be referenced across [clusters](/concepts/clusters/).
+- Views can be referenced across [clusters](/self-managed/v2025.01/concepts/clusters/).
 
-- Materialized views can be referenced across [clusters](/concepts/clusters/).
+- Materialized views can be referenced across [clusters](/self-managed/v2025.01/concepts/clusters/).
 
-- [Indexes](/concepts/indexes) are local to a cluster.
+- [Indexes](/self-managed/v2025.01/concepts/indexes) are local to a cluster.
 
 - Views can be monotonic; that is, views can be recognized as append-only.
 

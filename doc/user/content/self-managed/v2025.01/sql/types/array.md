@@ -11,11 +11,11 @@ Arrays are a multidimensional sequence of any non-array type.
 {{< warning >}}
 We do not recommend using arrays, which exist in Materialize primarily to
 facilitate compatibility with PostgreSQL. Specifically, many of the PostgreSQL
-compatibility views in the [system catalog](/sql/system-catalog/) must expose
+compatibility views in the [system catalog](/self-managed/v2025.01/sql/system-catalog/) must expose
 array types. Unfortunately, PostgreSQL arrays have odd semantics and do not
 interoperate well with modern data formats like JSON and Avro.
 
-Use the [`list` type](/sql/types/list) instead.
+Use the [`list` type](/self-managed/v2025.01/sql/types/list) instead.
 {{< /warning >}}
 
 ## Details
@@ -138,7 +138,7 @@ Array element | Catalog name | OID
 
 ### Valid casts
 
-You can [cast](/sql/functions/cast) all array types to:
+You can [cast](/self-managed/v2025.01/sql/functions/cast) all array types to:
 - [`text`](../text) (by assignment)
 - [`list`](../list) (explicit)
 

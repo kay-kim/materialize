@@ -6,12 +6,12 @@ menu:
     parent: "webhooks"
     name: "Segment"
 aliases:
-  - /sql/create-source/webhook/#connecting-with-segment
-  - /ingest-data/segment/
+  - /self-managed/v2025.01/sql/create-source/webhook/#connecting-with-segment
+  - /self-managed/v2025.01/ingest-data/segment/
 ---
 
 This guide walks through the steps to ingest data from [Segment](https://segment.com/)
-into Materialize using the [Webhook source](/sql/create-source/webhook/).
+into Materialize using the [Webhook source](/self-managed/v2025.01/sql/create-source/webhook/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}
@@ -32,7 +32,7 @@ scenarios, we recommend separating your workloads into multiple clusters for
 [resource isolation](https://materialize.com/docs/sql/create-cluster/#resource-isolation).
 {{< /note >}}
 
-To create a cluster in Materialize, use the [`CREATE CLUSTER` command](/sql/create-cluster):
+To create a cluster in Materialize, use the [`CREATE CLUSTER` command](/self-managed/v2025.01/sql/create-cluster):
 
 ```mzsql
 CREATE CLUSTER webhooks_cluster (SIZE = '25cc');
@@ -42,7 +42,7 @@ SET CLUSTER = webhooks_cluster;
 
 ## Step 2. Create a secret
 
-To validate requests between Segment and Materialize, you must create a [secret](/sql/create-secret/):
+To validate requests between Segment and Materialize, you must create a [secret](/self-managed/v2025.01/sql/create-secret/):
 
 ```mzsql
 CREATE SECRET segment_webhook_secret AS '<secret_value>';
@@ -52,7 +52,7 @@ Change the `<secret_value>` to a unique value that only you know and store it in
 
 ## Step 3. Set up a webhook source
 
-Using the secret from the previous step, create a [webhook source](/sql/create-source/webhook/)
+Using the secret from the previous step, create a [webhook source](/self-managed/v2025.01/sql/create-source/webhook/)
 in Materialize to ingest data from Segment. By default, the source will be
 created in the active cluster; to use a different cluster, use the `IN
 CLUSTER` clause.
@@ -98,8 +98,8 @@ The `CHECK` clause defines how to validate each request. At the time of writing,
 Segment validates requests by signing them with an HMAC in the `X-Signature`
 request header. The HMAC is a hex-encoded SHA1 hash using the secret
 from **Step 2.** and the request body. Materialize decodes the signature using
-the [`decode`](/sql/functions/#decode) function, getting the raw bytes, and
-generate our own HMAC using the [`hmac`](/sql/functions/#hmac) function. If the
+the [`decode`](/self-managed/v2025.01/sql/functions/#decode) function, getting the raw bytes, and
+generate our own HMAC using the [`hmac`](/self-managed/v2025.01/sql/functions/#hmac) function. If the
 two values are equal, then the request is legitimate!
 
 ## Step 4. Create a webhook destination in Segment
@@ -261,7 +261,7 @@ FROM segment_source;
 
 ### Timestamp handling
 
-We highly recommend using the [`try_parse_monotonic_iso8601_timestamp`](/transform-data/patterns/temporal-filters/#temporal-filter-pushdown)
+We highly recommend using the [`try_parse_monotonic_iso8601_timestamp`](/self-managed/v2025.01/transform-data/patterns/temporal-filters/#temporal-filter-pushdown)
 function when casting from `text` to `timestamp`, which enables [temporal filter
 pushdown](https://materialize.com/docs/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
 
@@ -270,7 +270,7 @@ pushdown](https://materialize.com/docs/transform-data/patterns/temporal-filters/
 With the vast amount of data processed and potential network issues, it's not
 uncommon to receive duplicate records. You can use the `DISTINCT ON` clause to
 efficiently remove duplicates. For more details, refer to the webhook source
-[reference documentation](/sql/create-source/webhook/#handling-duplicated-and-partial-events).
+[reference documentation](/self-managed/v2025.01/sql/create-source/webhook/#handling-duplicated-and-partial-events).
 
 ## Next steps
 
@@ -278,4 +278,4 @@ With Materialize ingesting your Segment data, you can start exploring it,
 computing real-time results that stay up-to-date as new data arrives, and
 serving results efficiently. For more details, check out the
 [Segment documentation](https://segment.com/docs/connections/destinations/catalog/actions-webhook/) and the
-[webhook source reference documentation](/sql/create-source/webhook/).
+[webhook source reference documentation](/self-managed/v2025.01/sql/create-source/webhook/).

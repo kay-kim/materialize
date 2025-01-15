@@ -7,7 +7,7 @@ menu:
 
 ---
 
-`SHOW CLUSTER REPLICAS` lists the [replicas](/sql/create-cluster#replication-factor) for each
+`SHOW CLUSTER REPLICAS` lists the [replicas](/self-managed/v2025.01/sql/create-cluster#replication-factor) for each
 cluster configured in Materialize.
 
 ## Syntax

@@ -11,7 +11,7 @@ menu:
     weight: 20
 ---
 
-A [source](/concepts/sources/) describes an external system you want Materialize to read data from, and provides details about how to decode and interpret that data. To create a source, you must specify a [connector](#connectors), a [format](#formats) and an [envelope](#envelopes).
+A [source](/self-managed/v2025.01/concepts/sources/) describes an external system you want Materialize to read data from, and provides details about how to decode and interpret that data. To create a source, you must specify a [connector](#connectors), a [format](#formats) and an [envelope](#envelopes).
 Like other relations, sources are [namespaced](../namespaces/) by a database and schema.
 
 [//]: # "TODO(morsapaes) Add short description about what the command gets going in the background."
@@ -22,19 +22,19 @@ Materialize bundles **native connectors** that allow ingesting data from the fol
 
 {{< multilinkbox >}}
 {{< linkbox title="Message Brokers" >}}
-- [Kafka](/sql/create-source/kafka)
-- [Redpanda](/sql/create-source/kafka)
-- [Other message brokers](/integrations/#message-brokers)
+- [Kafka](/self-managed/v2025.01/sql/create-source/kafka)
+- [Redpanda](/self-managed/v2025.01/sql/create-source/kafka)
+- [Other message brokers](/self-managed/v2025.01/integrations/#message-brokers)
 {{</ linkbox >}}
 {{< linkbox title="Databases (CDC)" >}}
-- [PostgreSQL](/sql/create-source/postgres)
-- [MySQL](/sql/create-source/mysql)
-- [Other databases](/integrations/#other-databases)
+- [PostgreSQL](/self-managed/v2025.01/sql/create-source/postgres)
+- [MySQL](/self-managed/v2025.01/sql/create-source/mysql)
+- [Other databases](/self-managed/v2025.01/integrations/#other-databases)
 {{</ linkbox >}}
 {{< linkbox title="Webhooks" >}}
-- [Amazon EventBridge](/ingest-data/webhooks/amazon-eventbridge/)
-- [Segment](/ingest-data/webhooks/segment/)
-- [Other webhooks](/sql/create-source/webhook)
+- [Amazon EventBridge](/self-managed/v2025.01/ingest-data/webhooks/amazon-eventbridge/)
+- [Segment](/self-managed/v2025.01/ingest-data/webhooks/segment/)
+- [Other webhooks](/self-managed/v2025.01/sql/create-source/webhook)
 {{</ linkbox >}}
 {{</ multilinkbox >}}
 
@@ -42,7 +42,7 @@ For details on the syntax, supported formats and features of each connector, che
 
 **Sample data**
 
-To get started with no external dependencies, you can use the [load generator source](/sql/create-source/load-generator/)
+To get started with no external dependencies, you can use the [load generator source](/self-managed/v2025.01/sql/create-source/load-generator/)
 to produce sample data that is suitable for demo and performance test
 scenarios.
 
@@ -66,7 +66,7 @@ As long as the writer schema changes in a [compatible way](https://avro.apache.o
 
 ##### Name collision
 
-To avoid [case-sensitivity](/sql/identifiers/#case-sensitivity) conflicts with Materialize identifiers, we recommend double-quoting all field names when working with Avro-formatted sources.
+To avoid [case-sensitivity](/self-managed/v2025.01/sql/identifiers/#case-sensitivity) conflicts with Materialize identifiers, we recommend double-quoting all field names when working with Avro-formatted sources.
 
 ##### Supported types
 
@@ -77,11 +77,11 @@ Materialize supports all [Avro types](https://avro.apache.org/docs/current/spec.
 <p style="font-size:14px"><b>Syntax:</b> <code>FORMAT JSON</code></p>
 
 Materialize can decode JSON messages into a single column named `data` with type
-`jsonb`. Refer to the [`jsonb` type](/sql/types/jsonb) documentation for the
+`jsonb`. Refer to the [`jsonb` type](/self-managed/v2025.01/sql/types/jsonb) documentation for the
 supported operations on this type.
 
 If your JSON messages have a consistent shape, we recommend creating a parsing
-[view](/concepts/views) that maps the individual fields to
+[view](/self-managed/v2025.01/concepts/views) that maps the individual fields to
 columns with the required data types:
 
 ```mzsql
@@ -94,7 +94,7 @@ CREATE VIEW my_typed_source AS
   FROM my_jsonb_source;
 ```
 
-To avoid doing this tedious task manually, you can use [this **JSON parsing widget**](/sql/types/jsonb/#parsing)!
+To avoid doing this tedious task manually, you can use [this **JSON parsing widget**](/self-managed/v2025.01/sql/types/jsonb/#parsing)!
 
 ##### Schema registry integration
 
@@ -146,7 +146,7 @@ When using a schema registry with Protobuf sources, the registered schemas must 
 
 Materialize can parse **new-line delimited** data as plain text. Data is assumed to be **valid unicode** (UTF-8), and discarded if it cannot be converted to UTF-8. Text-formatted sources have a single column, by default named `text`.
 
-For details on casting, check the [`text`](/sql/types/text/) documentation.
+For details on casting, check the [`text`](/self-managed/v2025.01/sql/types/text/) documentation.
 
 #### Bytes
 
@@ -154,7 +154,7 @@ For details on casting, check the [`text`](/sql/types/text/) documentation.
 
 Materialize can read raw bytes without applying any formatting or decoding. Raw byte-formatted sources have a single column, by default named `data`.
 
-For details on encodings and casting, check the [`bytea`](/sql/types/bytea/) documentation.
+For details on encodings and casting, check the [`bytea`](/self-managed/v2025.01/sql/types/bytea/) documentation.
 
 ### CSV
 
@@ -168,7 +168,7 @@ Method                 | Description
 **HEADER (** _name_list_ **)** | Same behavior as **HEADER**, with additional validation of the column names against the _name list_ specified. This allows decoding files that have headers but may not be populated yet, as well as overriding the source column names.
 _n_ **COLUMNS**        | Materialize treats the source data as if it has _n_ columns. By default, columns are named `column1`, `column2`...`columnN`.
 
-The data in CSV sources is read as [`text`](/sql/types/text). You can then handle the conversion to other types using explicit [casts](/sql/functions/cast/) when creating views.
+The data in CSV sources is read as [`text`](/self-managed/v2025.01/sql/types/text). You can then handle the conversion to other types using explicit [casts](/self-managed/v2025.01/sql/functions/cast/) when creating views.
 
 ##### Invalid rows
 
@@ -209,7 +209,7 @@ Materialize provides a dedicated envelope to decode messages produced by [Debezi
 
 - If the `after` field is _null_, the record represents an upstream [`delete` event](https://debezium.io/documentation/reference/stable/connectors/postgresql.html#postgresql-delete-events) and Materialize deletes the record.
 
-Materialize expects a specific message structure that includes the row data before and after the change event, which is **not guaranteed** for every Debezium connector. For more details, check the [Debezium integration guide](/integrations/debezium/).
+Materialize expects a specific message structure that includes the row data before and after the change event, which is **not guaranteed** for every Debezium connector. For more details, check the [Debezium integration guide](/self-managed/v2025.01/integrations/debezium/).
 
 [//]: # "TODO(morsapaes) Once DBZ transaction support is stable, add a dedicated sub-section here and adapt the respective snippet in both CDC guides."
 
@@ -260,7 +260,7 @@ The privileges required to execute this statement are:
 
 ## Related pages
 
-- [Sources](/concepts/sources/)
-- [`SHOW SOURCES`](/sql/show-sources/)
-- [`SHOW COLUMNS`](/sql/show-columns/)
-- [`SHOW CREATE SOURCE`](/sql/show-create-source/)
+- [Sources](/self-managed/v2025.01/concepts/sources/)
+- [`SHOW SOURCES`](/self-managed/v2025.01/sql/show-sources/)
+- [`SHOW COLUMNS`](/self-managed/v2025.01/sql/show-columns/)
+- [`SHOW CREATE SOURCE`](/self-managed/v2025.01/sql/show-create-source/)

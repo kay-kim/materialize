@@ -10,7 +10,7 @@ Materialize organization, you can create service accounts manually via the
 [Terraform](#terraform).
 
 More granular permissions for the service account can then be configured using
-[role-based access control (RBAC)](/manage/access-control/#role-based-access-control-rbac).
+[role-based access control (RBAC)](/self-managed/v2025.01/manage/access-control/#role-based-access-control-rbac).
 
 ## Materialize Console
 
@@ -28,12 +28,12 @@ create and associate with the new app password.
     - `Organization Admin`: has _superuser_ privileges in the database.
 
     - `Organization Member`: has restricted access to the database, depending on
-      the privileges defined via [role-based access control (RBAC)](/manage/access-control/#role-based-access-control-rbac).
+      the privileges defined via [role-based access control (RBAC)](/self-managed/v2025.01/manage/access-control/#role-based-access-control-rbac).
 
 1. Click **Create Password** to create the new service account.
 
 For general guidance on using the Materialize Console for admin tasks, see the
-[reference documentation](/console/admin/).
+[reference documentation](/self-managed/v2025.01/console/admin/).
 
 ## Terraform
 
@@ -86,4 +86,4 @@ For general guidance on using the Materialize Console for admin tasks, see the
     ```
 
 For general guidance on using the Materialize Terraform provider to manage
-resources in your region, see the [reference documentation](/manage/terraform/).
+resources in your region, see the [reference documentation](/self-managed/v2025.01/manage/terraform/).
