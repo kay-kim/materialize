@@ -16,6 +16,10 @@ transform, deliver, and act on fast-changing data.
 
 ## What's new!
 
+- [Self-managed Materialize](/self-managed/). With self-managed Materialize, you
+  can deploy and operate Materialize in your Kubernetes environment. For more
+  information, see the [Self-managed Materialize](/self-managed/) documentation.
+
 - [Materialize Emulator](/get-started/install-materialize-emulator/). The
 Materialize Emulator is an all-in-one Docker image available on Docker Hub,
 offering the fastest way to get hands-on experience with Materialize in a local

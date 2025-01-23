@@ -24,9 +24,10 @@ scratch.
 ## Try it out! 🚀
 
 1. Sign up for a [free trial
-   account](https://materialize.com/register/?utm_campaign=General&utm_source=documentation)
-   or [download the Materialize Emulator Docker
-   image](/get-started/install-materialize-emulator/).
+   account](https://materialize.com/register/?utm_campaign=General&utm_source=documentation).
+   Alternatively, both the [self-managed Materialize](/self-managed/) and the
+   [Materialize Emulator Docker image](/get-started/install-materialize-emulator/)
+   are also available.
 2. Follow the quickstart guide to learn the basics.
 3. Connect your own data sources and start building.
 
