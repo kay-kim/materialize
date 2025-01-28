@@ -47,11 +47,6 @@ If you do not have the gcloud CLI installed,
 - Initialize the gcloud CLI to specify the GCP project you want to use. For
   details, see the [Install the gcloud CLI documentation](https://cloud.google.com/sdk/docs/install).
 
-### Terraform
-
-If you don't have Terraform installed, [install
-Terraform](https://developer.hashicorp.com/terraform/install?product_intent=terraform).
-
 ### kubectl and plugins
 
 {{< tip >}}
@@ -71,6 +66,11 @@ Otherwise, you will need to manually install the `gke-gcloud-auth-plugin` for
 - If you do not have `gke-gcloud-auth-plugin` for `kubectl`, install the
   `gke-gcloud-auth-plugin`. For details, see [Install the
   gke-gcloud-auth-plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin).
+
+### Terraform
+
+If you don't have Terraform installed, [install
+Terraform](https://developer.hashicorp.com/terraform/install?product_intent=terraform).
 
 ### Helm 3.2.0+
 
