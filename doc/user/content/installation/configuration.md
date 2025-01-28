@@ -11,10 +11,6 @@ menu:
 
 You can configure the Materialize operator chart. For example:
 
-- **RBAC**
-
-  The chart creates a `ClusterRole` and `ClusterRoleBinding` by default.
-
 - **Network Policies**
 
   Network policies can be enabled by setting
@@ -26,7 +22,7 @@ You can configure the Materialize operator chart. For example:
   To enable observability features, set
   [`observability.enabled=true`](#observabilityenabled).
   This will create the necessary resources for monitoring the operator. For
-  additional observability configuraiton options, see [`observability`
+  additional observability configuration options, see [`observability`
   parameters](#observability-parameters).
 
 ## Configure the Materialize operator chart
@@ -38,16 +34,20 @@ To configure the Materialize operator chart, you can:
   chart with the `-f` flag:
 
   ```shell
-  helm install my-materialize-operator -f /path/to/values.yaml /path/to/materialize/helm-charts/operator
+  helm install my-materialize-operator materialize/materialize-operator \
+    --namespace=materialize --create-namespace \
+    --version v25.1.1 \
+    -f /path/to/values.yaml
   ```
 
 - Specify each parameter using the `--set key=value[,key=value]` argument to
   `helm install`. For example:
 
   ```shell
-  helm install my-materialize-operator \
-    --set operator.image.tag=v0.130.0 \
-    /path/to/materialize/helm-charts/operator
+  helm install my-materialize-operator materialize/materialize-operator \
+    --namespace=materialize --create-namespace \
+    --version v25.1.1 \
+    --set operator.image.tag=v0.130.1 \
   ```
 
 {{%  self-managed/materialize-operator-chart-parameters-table %}}

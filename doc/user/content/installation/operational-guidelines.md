@@ -134,9 +134,6 @@ For locally-attached NVMe storage,
    {{< /tab >}}
    {{< /tabs >}}
 
-## Network policies
-
-Enabling network policies ...
 
 ## See also
 
