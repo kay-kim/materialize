@@ -210,7 +210,6 @@ CREATE TABLE <table_name> FROM SOURCE <source_name> [(REFERENCE <ref_object>)]
    --       INLINE <schema> | ID <schema_registry_id> | LATEST ]
   -- | PROTOBUF USING CONFLUENT SCHEMA REGISTRY CONNECTION <conn_name>
   -- | PROTOBUF MESSAGE <msg_name> USING SCHEMA <encoded_schema>
-  -- | CSV WITH HEADER ( <col_name>[, ...]) [DELIMITED BY <char>]
   -- | CSV WITH <num> COLUMNS DELIMITED BY <char>
   -- | JSON | TEXT | BYTES
 ]
