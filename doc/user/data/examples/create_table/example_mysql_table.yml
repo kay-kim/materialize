@@ -12,7 +12,7 @@
     file="shared-content/create-table-from-source-snapshotting.md"
       >}}
 
-    {{</ note >}}
+    {{< /note >}}
 
   code: |
     CREATE TABLE [IF NOT EXISTS] <table_name> FROM SOURCE <source_name> (REFERENCE <upstream_table>)

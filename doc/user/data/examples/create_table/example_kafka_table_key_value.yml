@@ -120,7 +120,7 @@
     {{< tip >}}
     To help create the view definition, you can use the [JSON parsing
     widget](/sql/types/jsonb/#parsing). For typecasting timestamps, you can use the [`try_parse_monotonic_iso8601_timestamp`](/sql/functions/#try_parse_monotonic_iso8601_timestamp) function.
-    {{</ tip >}}
+    {{< /tip >}}
 
   code: |
     CREATE VIEW parsed_user_events_view AS SELECT

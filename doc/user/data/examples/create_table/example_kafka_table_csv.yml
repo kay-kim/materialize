@@ -8,7 +8,7 @@
       alternative column names by listing the new column names after the table
       name `(<col_name1>, <col_name2>, ...)`.
     - The data is decoded as [`text`](/sql/types/text).
-    {{</ note >}}
+    {{< /note >}}
 
   code: |
     CREATE TABLE [IF NOT EXISTS] <table_name> [(<col_name> [, ...])]
@@ -56,7 +56,7 @@
         Example setup in Materialize:
 
           CREATE SECRET IF NOT EXISTS kafka_secret AS '<password>';
-          CREATE CONNECTION IF NOT EXISTSkafka_connection TO KAFKA (
+          CREATE CONNECTION IF NOT EXISTS kafka_connection TO KAFKA (
             BROKER '<broker host>:9092',
             SECURITY PROTOCOL = 'SASL_PLAINTEXT',
             SASL MECHANISMS = 'SCRAM-SHA-256',
@@ -81,7 +81,7 @@
 
     - The data is decoded as [`text`](/sql/types/text).
 
-    {{</ note >}}
+    {{< /note >}}
 
 - name: "show-columns"
   description: |

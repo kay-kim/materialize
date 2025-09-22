@@ -5,9 +5,12 @@ pagerank: 40
 menu:
   main:
     parent: 'create-source'
+    identifier: cs_sql-server
     name: SQL Server
     weight: 20
 ---
+
+{{< private-preview />}}
 
 {{% create-source/intro %}}
 Materialize supports SQL Server (2016+) as a real-time data source. To connect to a

@@ -154,6 +154,7 @@ guidelines](/sql/identifiers/#naming-restrictions).
 {{< include-md file="shared-content/create-table-from-source-snapshotting.md"
 >}}
 
+
 ### Known limitations
 
 Tables do not currently support:

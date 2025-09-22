@@ -8,11 +8,11 @@
 
     {{< warning >}}
     This is a public URL that is open to the internet and has no security.
-    {{</ warning >}}
+    {{< /warning >}}
 
     {{< note >}}
     {{< include-md file="shared-content/create-table-from-webhook-readonly.md" >}}
-    {{</ note >}}
+    {{< /note >}}
   code: |
     CREATE TABLE [IF NOT EXISTS] <table_name>
     FROM WEBHOOK
@@ -42,7 +42,7 @@
 
     {{< warning >}}
     This is a public URL that is open to the internet and has no security.
-    {{</ warning >}}
+    {{< /warning >}}
 
   code: |
     -- Creates both the webhook and the table
@@ -91,7 +91,7 @@
     {{< tip >}}
     To help create the view definition, you can use the [JSON parsing
     widget](/sql/types/jsonb/#parsing).
-    {{</ tip >}}
+    {{< /tip >}}
 
   code: |
     CREATE VIEW product_view AS SELECT

@@ -11,7 +11,7 @@
     definition.
 
     See [Example: Create table from Kafka: Format JSON](#create-a-table-kafka-source-format-json).
-    {{</ note >}}
+    {{< /note >}}
 
   code: |
     CREATE TABLE [IF NOT EXISTS] <table_name> FROM SOURCE <source_name> [(REFERENCE <ref_object>)]
@@ -37,7 +37,7 @@
     definition.
 
     See [Example: Create table from Kafka: Format JSON](#create-a-table-kafka-source-format-json).
-    {{</ tip >}}
+    {{< /tip >}}
 
 - name: "create-table"
   description: |
@@ -118,7 +118,7 @@
     {{< tip >}}
     You can create a view on the table to parse the JSON data into a more structured
     format. See [Create a view from JSON data](#create-a-view-from-table).
-    {{</ tip >}}
+    {{< /tip >}}
 
 - name: "read-from-table"
   description: |
@@ -147,7 +147,7 @@
     {{< tip >}}
     To help create the view definition, you can use the [JSON parsing
     widget](/sql/types/jsonb/#parsing).
-    {{</ tip >}}
+    {{< /tip >}}
 
   code: |
     CREATE VIEW parsed_purchases_view AS SELECT

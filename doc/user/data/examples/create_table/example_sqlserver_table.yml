@@ -14,7 +14,7 @@
 
     - {{< include-md file="shared-content/sql-server-snapshot-latency.md" >}}
 
-    {{</ note >}}
+    {{< /note >}}
 
   code: |
     CREATE TABLE [IF NOT EXISTS] <table_name> FROM SOURCE <source_name> (REFERENCE <upstream_table>)
@@ -63,7 +63,7 @@
 
        For example (substitute with your configuration):
           CREATE SECRET sqlserverpass AS '<replication user password>'; -- substitute
-          CREATE CONNECTION sqlserver_conn TO SQL SERVER (
+          CREATE CONNECTION sqlserver_connection TO SQL SERVER (
             HOST '<hostname>',          -- substitute
             DATABASE <db>,              -- substitute
             USER <replication user>,    -- substitute
@@ -72,7 +72,7 @@
           );
 
           CREATE SOURCE sql_server_source
-          FROM SQL SERVER CONNECTION sqlserver_conn;
+          FROM SQL SERVER CONNECTION sqlserver_connection;
     */
 
     CREATE TABLE items

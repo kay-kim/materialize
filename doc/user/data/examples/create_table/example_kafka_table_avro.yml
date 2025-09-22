@@ -6,7 +6,7 @@
 
     {{< tip >}}
     By default, the table contains the columns specified in the value schema.
-    {{</ tip >}}
+    {{< /tip >}}
 
   code: |
     CREATE TABLE [IF NOT EXISTS] <table_name> FROM SOURCE <source_name> [(REFERENCE <ref_object>)]
