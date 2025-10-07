@@ -93,7 +93,27 @@ Apache License, Version 2.0. */}}
           }, 1000);
           e.preventDefault();
           const copyText = target.href;
-          window.location.assign(target.href);
+
+          // Extract the hash from the URL
+          const hash = target.hash;
+          const targetElement = hash ? document.querySelector(hash) : null;
+
+          if (targetElement) {
+            // Smooth scroll to the target
+            const scrollOffset = 60.833; // Match the nav height
+            const extraPadding = 60;
+            const targetTop = targetElement.getBoundingClientRect().top + window.scrollY - scrollOffset - extraPadding;
+            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+            // Update URL hash
+            if (history.pushState) {
+              history.pushState(null, null, hash);
+            } else {
+              window.location.hash = hash;
+            }
+          }
+
+          // Copy to clipboard
           navigator.clipboard
             .writeText(copyText)
             .then(() => {
@@ -122,18 +142,36 @@ Apache License, Version 2.0. */}}
         );
 
         $("pre.chroma button.copy_button").click(function (e) {
-          var _this = $(this),
-            copyHex = document.createElement("textarea");
-          copyHex.value = _this.parent().find("code").text().trim();
-          document.body.appendChild(copyHex);
-          copyHex.select();
-          document.execCommand("copy");
-          document.body.removeChild(copyHex);
-          _this.addClass("success").text("Copied");
-          setTimeout(function () {
-            _this.removeClass("success").text("Copy");
-          }, 1000);
-          window.analytics && window.analytics.track('Button Clicked');
+          var _this = $(this);
+          var codeText = _this.parent().find("code").text().trim();
+
+          navigator.clipboard.writeText(codeText)
+            .then(function() {
+              _this.addClass("success").text("Copied");
+              setTimeout(function () {
+                _this.removeClass("success").text("Copy");
+              }, 1000);
+              window.analytics && window.analytics.track('Button Clicked');
+            })
+            .catch(function(error) {
+              console.error("Failed to copy code: ", error);
+              // Fallback for older browsers
+              var copyHex = document.createElement("textarea");
+              copyHex.value = codeText;
+              document.body.appendChild(copyHex);
+              copyHex.select();
+              try {
+                document.execCommand("copy");
+                _this.addClass("success").text("Copied");
+                setTimeout(function () {
+                  _this.removeClass("success").text("Copy");
+                }, 1000);
+                window.analytics && window.analytics.track('Button Clicked');
+              } catch (err) {
+                console.error("Fallback copy failed: ", err);
+              }
+              document.body.removeChild(copyHex);
+            });
         });
       });
 
@@ -326,7 +364,6 @@ Apache License, Version 2.0. */}}
       });
 
       const allLinks = document.querySelectorAll("a");
-      console.log(allLinks.length);
 
       allLinks.forEach((link) => {
         const firstChild = link.children[0];

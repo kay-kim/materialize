@@ -42,69 +42,152 @@
 </aside>
 
 <script>
-  // A custom "scrollspy" plugin that highlights the TOC link for the
-  // currently-visible section.
+  $(function () {
+    const $toc = $('.toc');
+    const $content = $('.content');
+    const $headings = $content.find('h2, h3');
 
-  /// Computes the absolute offset of each heading from the top of the page.
-  /// Offsets are massaged so that headings beyond the maximum scroll offset
-  /// of the page are reassigned a reasonable and unique offset within the
-  /// page's scroll boundaries. This makes it possible to distinguish headings
-  /// that would otherwise all require scrolling to the very end of the
-  /// viewport.
+    if (!$headings.length || !$toc.length) return;
 
-  /// The header now has a fixed position. The _base.scss defines header height.
-
-  function headingOffsets() {
-    const SLOP = 100;
-    const headings = $(".content h2, .content h3");
-    let offsets = headings.toArray().map((h) => ({
-      id: h.id,
-      offset: h.offsetTop - 65,  // 75 if banner is displayed, 65 otherwise
-    }));
-    const cutoff = $(document).height() - $(window).height() - SLOP;
-    const firstBad = offsets.findIndex((o) => o.offset > cutoff);
-
-    if (firstBad === -1 || firstBad === offsets.length - 1) return offsets;
-    const allotment = SLOP / (offsets.length - firstBad);
-    for (var i = firstBad; i < offsets.length; i++)
-      offsets[i].offset = cutoff + (i - firstBad + 1) * allotment;
-    return offsets;
-  }
-
-  // Update the active TOC link on every scroll event.
-  $(window).scroll(() => {
-    const scroll = $(window).scrollTop();
-    const offsets = headingOffsets();
-    let activeId = null;
-    if (offsets.length > 0 ) {
-      activeId = scroll == 0 ? null : offsets[offsets.length - 1].id;
-    }
-
-    for (let i = 0; i < offsets.length && scroll > 0 ; i++) {
-      if (offsets[i].offset > scroll) {
-        activeId = offsets[i].id;
-        break;
+    // Get the actual scroll offset used by CSS scroll-margin-top
+    // This should match what the browser uses when scrolling to anchors
+    const getScrollOffset = () => {
+      // First, check the computed scroll-margin-top on a heading (most accurate)
+      // This will already be in pixels since getComputedStyle returns computed values
+      const firstHeading = $headings.first()[0];
+      if (firstHeading) {
+        const scrollMargin = getComputedStyle(firstHeading).scrollMarginTop;
+        if (scrollMargin && scrollMargin !== '0px') {
+          const value = parseFloat(scrollMargin);
+          if (!isNaN(value) && value > 0) {
+            return value;
+          }
+        }
       }
-    }
-    $(".toc .active").removeClass("active");
-    if (activeId) $(`.toc [href="#${activeId}"]`).addClass("active");
-  });
 
-  // Scroll to our massaged offsets on a hashchange event, to override the
-  // browser's automatic scroll to the unmassaged offset.
-  $(window).on("hashchange", function () {
-   $(window).trigger("scroll");
-  });
+      // Last resort: use the header/nav height
+      const nav = document.querySelector('nav');
+      if (nav) {
+        return nav.getBoundingClientRect().height;
+      }
 
-  // Trigger an initial hash change event to handle scrolling to the page's
-  // initial hash.
-  $(() => $(window).trigger("hashchange"));
+      return 100; // fallback
+    };
 
-  // Prevent double clicking on a TOC link from scrolling the page if we're
-  // already on that TOC link's section, as we won't get a hashchange event
-  // to fix up the scroll offset.
-  $(".toc a").click(function (e) {
-    console.log($(this).attr("href"), window.location.hash);
-    if ($(this).attr("href") == window.location.hash) e.preventDefault();
+    // Map each heading element to its TOC link for fast lookup
+    const linkForHeading = new Map();
+    $headings.each(function () {
+      if (!this.id) return; // skip if no id
+      const sel = `.toc a[href="#${CSS.escape(this.id)}"]`;
+      const $link = $(sel);
+      if ($link.length) linkForHeading.set(this, $link);
+    });
+
+    // Active state helper
+    let activeEl = null;
+    const setActive = (el) => {
+      if (activeEl === el) return;
+      $toc.find('.active').removeClass('active');
+      const link = linkForHeading.get(el);
+      if (link) link.addClass('active');
+      activeEl = el;
+    };
+
+    // Precompute top offsets for all headings
+    let offsets = [];
+    const computeOffsets = () => {
+      offsets = [];
+      $headings.each(function () {
+        offsets.push({ el: this, top: this.getBoundingClientRect().top + window.scrollY });
+      });
+      offsets.sort((a, b) => a.top - b.top);
+    };
+    computeOffsets();
+
+    // Update offsets on resize / content changes
+    let resizeTO;
+    $(window).on('resize', () => {
+      clearTimeout(resizeTO);
+      resizeTO = setTimeout(() => {
+        computeOffsets();
+        updateActive();
+      }, 150);
+    });
+
+    // Function to determine which heading should be active
+    // Standard behavior: highlight the section whose content you're currently viewing
+    const updateActive = () => {
+      const scrollOffset = getScrollOffset();
+      const scrollY = window.scrollY;
+
+      // The "reading position" - where we consider the user to be reading
+      // This should be well below the nav bar, not right at it
+      const readingPosition = scrollY + scrollOffset + 100;
+
+      let best = null;
+
+      // Find the last heading that's above the reading position
+      // This means: if you're reading section 2's content, section 2 heading is highlighted
+      for (let i = offsets.length - 1; i >= 0; i--) {
+        if (offsets[i].top <= readingPosition) {
+          best = offsets[i].el;
+          break;
+        }
+      }
+
+      // Edge case: if we're at the very top and no heading is above the reading position,
+      // highlight the first heading
+      if (!best && offsets.length > 0) {
+        best = offsets[0].el;
+      }
+
+      if (best) setActive(best);
+    };
+
+    // Add throttled scroll listener for continuous highlighting updates
+    let scrollTimeout;
+    let scrollLockTimeout;
+    let scrollLocked = false;
+
+    $(window).on('scroll', () => {
+      if (scrollLocked) return; // Skip updates during programmatic scroll
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(updateActive, 50);
+    });
+
+    // Initial highlight on page load
+    updateActive();
+
+    // Smooth scrolling & immediate feedback on click
+    $toc.on('click', 'a[href^="#"]', function (e) {
+      const id = this.getAttribute('href').slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return; // let the browser handle it if no target
+
+      e.preventDefault();
+      setActive(target);
+
+      // Lock scroll updates during smooth scroll
+      scrollLocked = true;
+      clearTimeout(scrollLockTimeout);
+      scrollLockTimeout = setTimeout(() => {
+        scrollLocked = false;
+        updateActive(); // Update once scroll is complete
+      }, 1000); // Wait for smooth scroll to finish
+
+      // Scroll with extra padding above the heading
+      const scrollOffset = getScrollOffset();
+      const extraPadding = 60; // Additional space above the heading (roughly 3-4 lines)
+      const targetTop = target.getBoundingClientRect().top + window.scrollY - scrollOffset - extraPadding;
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+      // Update URL hash
+      if (history.pushState) {
+        history.pushState(null, null, '#' + id);
+      } else {
+        window.location.hash = '#' + id;
+      }
+    });
   });
 </script>

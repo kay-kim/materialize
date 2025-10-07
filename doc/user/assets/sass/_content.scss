@@ -1234,3 +1234,5 @@ sup {
 table table tr:last-child {
     border-bottom: none;
 }
+
+.content h2, .content h3 { scroll-margin-top: var(--nav-height); }
