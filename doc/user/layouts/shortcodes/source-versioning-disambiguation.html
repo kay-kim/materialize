@@ -1,0 +1,33 @@
+{{- $is_new := .Get "is_new" -}}
+{{- $include_blurb := .Get "include_blurb" -}}
+{{- $other_ref := .Get "other_ref" | markdownify -}}
+<div class="annotation">
+  <div class="annotation-title">
+    Disambiguation
+  </div>
+  <div>
+    {{ if $include_blurb }}
+      {{ if $is_new }}
+      This page reflects the new syntax which introduces the ability to
+      re-ingest the same upstream table under a new schema and switch over
+      without downtime. This allows Materialize to better handle ddl changes to
+      upstream tables.
+
+      For the deprecated syntax, see the {{ $other_ref }}.
+      {{ else }}
+      This page reflects the deprecated syntax, which requires downtime to
+      handle upstream ddl changes.
+
+      For the new syntax which handles the ddl changes to the upstream tables
+      without downtime, see the {{ $other_ref }}.
+      {{ end }}
+    {{ else }}
+      {{ if $is_new }}
+      This page reflects the new syntax. For the deprecated syntax, see the {{ $other_ref }}.
+      {{ else }}
+      This page reflects the deprecated syntax. For the new syntax, see
+      {{ $other_ref }}.
+      {{ end }}
+    {{ end }}
+  </div>
+</div>

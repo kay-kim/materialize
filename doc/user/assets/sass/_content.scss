@@ -748,7 +748,7 @@ p+p {
     .nav-tabs {
         list-style: none;
         padding: 0;
-        border-bottom: 1px solid #9c86e0;
+        border-bottom: 1px solid var(--highlight);
         display: flex;
         overflow-x: auto;
         // white-space: nowrap;
@@ -759,7 +759,12 @@ p+p {
             padding: 0;
             position: relative;
             bottom: -1px;
-            background: var(--gray-lightest);
+            background-color: var(--gray-lightest);
+            border-radius: rem(1) rem(1) 0 0;
+
+            border-top: 1px solid var(--body);
+            border-left: 1px solid var(--body);
+            border-right: 1px solid var(--body);
 
             a {
                 color: var(--body);
@@ -784,14 +789,14 @@ p+p {
             }
 
             &.active {
-                background: var(--bg);
-                border-radius: 2px 2px 0 0;
-                border: 1px solid #9c86e0;
-                border-bottom-color: var(--bg);
-
+                background-color : var(--bg);
+                border-top: 1px solid var(--highlight);
+                border-left: 1px solid var(--highlight);
+                border-right: 1px solid var(--highlight);
                 a {
                     color: var(--highlight);
                 }
+                text-shadow: 0 0 0px yellow, 0 0 12px orange;
             }
         }
 
@@ -803,6 +808,12 @@ p+p {
 
         &.active {
             display: block;
+            border-radius: 0 0 rem(1) rem(1);
+            border-top: 2px solid var(--bg);
+            border-bottom: 1px solid var(--highlight);
+            border-left: 1px solid var(--highlight);
+            border-right: 1px solid var(--highlight);
+            padding: rem(0.8) rem(0.5) rem(0.6) rem(0.6);
         }
     }
 
