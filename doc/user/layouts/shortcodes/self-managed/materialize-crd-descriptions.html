@@ -4,8 +4,6 @@
 <thead>
 <tr>
 <th>Field Name</th>
-<th>Type</th>
-<th>Default Value</th>
 <th>Required</th>
 <th>Description</th>
 </tr>
@@ -14,10 +12,9 @@
 {{ range (index . 1) }}
 <tr>
 <td><code>{{ .name }}</code></td>
-<td><code>{{ .type }}</code></td>
-<td><code>{{ .default }}</code></td>
-<td><code>{{ .required }}</code></td>
-<td>{{ .description }}</td>
+<td>{{ if .required }}✅{{ end }}</td>
+<td><em>{{ .type }}</em>. {{ .description | markdownify }} {{ if .default
+}}<br><br><strong>Default:</strong><code> {{ .default }}</code>{{ end }}</td>
 </tr>
 {{ end }}
 </tbody>
