@@ -157,8 +157,8 @@ Descriptions](/self-managed-deployments/appendix/materialize-crd-field-descripti
 apiVersion: materialize.cloud/v1alpha1
 kind: Materialize
 metadata:
-  name: my-environment
-  namespace: my-mz-namespace
+  name: 12345678-1234-1234-1234-123456789012
+  namespace: materialize-environment
 spec:
   environmentdImageRef: materialize/environmentd:{{< self-managed/versions/get-latest-version >}}
 # ... additional fields omitted for brevity
@@ -174,7 +174,7 @@ To modify a custom resource, update the CRD with your changes, including the
 operator will roll out the changes.
 
 {{< note >}} If you do not specify  a new `requestRollout` UUID, the operator
-watches for updates but does ot roll out the changes.
+watches for updates but does not roll out the changes.
 {{< /note >}}
 
 For a full list of fields available for the Materialize CR, see [Materialize CRD

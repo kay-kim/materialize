@@ -28,11 +28,11 @@ name="upgrade-landing-guides-legacy" %}}
 
 {{< important >}}
 
-When upgrading Materialize, always upgrade the operator first.
+When upgrading Materialize, always upgrade the Operator first.
 
 {{</ important >}}
 
-The Materialize Kubernetes operator is deployed via Helm and can be updated through standard Helm upgrade commands.
+The Materialize Kubernetes Operator is deployed via Helm and can be updated through standard Helm upgrade commands.
 
 ```shell
 helm upgrade my-materialize-operator materialize/misc/helm-charts/operator
@@ -44,26 +44,30 @@ If you have custom values, make sure to include your values file:
 helm upgrade my-materialize-operator materialize/misc/helm-charts/operator -f my-values.yaml
 ```
 
-### Upgrading Materialize Instances
+## Upgrading Materialize Instances
 
-In order to minimize unexpected downtime and avoid connection drops at critical
-periods for your application, changes are not immediately and automatically
-rolled out by the Operator. Instead, the upgrade process involves two steps:
-- First, staging spec changes to the Materialize custom resource.
-- Second, applying the changes via a `requestRollout`.
+To minimize unexpected downtime and avoid connection drops at critical
+periods for your application, the upgrade process involves two steps:
 
-When upgrading your Materialize instances, you'll first want to update the `environmentdImageRef` field in the Materialize custom resource spec.
+- First, stage the changes (`environmentdImageRef` with the new version) to the
+  Materialize custom resource. The Operator watches for changes but does not
+  automatically roll out the changes.
 
-#### Updating the `environmentdImageRef`
-To find a compatible version with your currently deployed Materialize operator, check the `appVersion` in the Helm repository.
+- Second, roll out the changes by specifying a new UUID for `requestRollout`.
+
+
+### Updating the `environmentdImageRef`
+
+When upgrading your Materialize instances, you'll first want to update the
+`environmentdImageRef` field in the Materialize custom resource spec.
+
+To find a compatible version with your currently deployed Materialize Operator, check the `appVersion` in the Helm repository.
 
 ```shell
 helm list -n materialize
 ```
 
 Using the returned version, we can construct an image ref.
-We always recommend using the official Materialize image repository
-`docker.io/materialize/environmentd`.
 
 ```
 environmentdImageRef: docker.io/materialize/environmentd:{{< self-managed/versions/get-latest-version >}}
@@ -78,7 +82,13 @@ kubectl patch materialize <instance-name> \
   -p "{\"spec\": {\"environmentdImageRef\": \"materialize/environmentd:{{< self-managed/versions/get-latest-version >}}\"}}"
 ```
 
-#### Applying the changes via `requestRollout`
+{{< note >}}
+Until you specify a new `requestRollout`, the Operator
+watches for updates but does not roll out the changes.
+{{< /note >}}
+
+
+### Applying the changes via `requestRollout`
 
 To apply changes and kick off the Materialize instance upgrade, you must update the `requestRollout` field in the Materialize custom resource spec to a new UUID.
 Be sure to consult the [Rollout Configurations](#rollout-configuration) to ensure you've selected the correct rollout behavior.
@@ -100,7 +110,7 @@ kubectl patch materialize <instance-name> \
   -p "{\"spec\": {\"environmentdImageRef\": \"materialize/environmentd:{{< self-managed/versions/get-latest-version >}}\", \"requestRollout\": \"$(uuidgen)\"}}"
 ```
 
-#### Using YAML Definition
+### Using YAML Definition
 
 Alternatively, you can update your Materialize custom resource definition directly:
 
@@ -112,7 +122,7 @@ metadata:
   namespace: materialize-environment
 spec:
   environmentdImageRef: materialize/environmentd:{{< self-managed/versions/get-latest-version >}} # Update version as needed
-  requestRollout: 22222222-2222-2222-2222-222222222222    # Generate new UUID
+  requestRollout: 22222222-2222-2222-2222-222222222222    # Use a new UUID
   forceRollout: 33333333-3333-3333-3333-333333333333      # Optional: for forced rollouts
   inPlaceRollout: false                                   # In Place rollout is deprecated and ignored. Please use rolloutStrategy
   rolloutStrategy: WaitUntilReady                         # The mechanism to use when rolling out the new version. Can be WaitUntilReady or ImmediatelyPromoteCausingDowntime

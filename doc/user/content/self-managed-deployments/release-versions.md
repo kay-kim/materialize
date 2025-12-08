@@ -3,7 +3,7 @@ title: "Self-managed release versions"
 description: ""
 menu:
   main:
-    parent: "sm-deployments-appendix"
+    parent: "sm-deployments"
     weight: 85
 aliases:
   - /installation/release-versions/
