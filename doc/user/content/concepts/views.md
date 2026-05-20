@@ -130,10 +130,11 @@ storage, indexes on materialized views can serve up-to-date results without
 having to perform additional computation.
 
 {{< note >}}
-Querying a materialized view, whether indexed or not, from any cluster is
-computationally free. However, querying an indexed materialized view within the
-cluster associated with the index is faster since the results are served from
-memory rather than from storage.
+Querying a materialized view, whether indexed or not, from any cluster is fast
+because the results are already computed and up-to-date. However, querying an
+indexed materialized view within the cluster associated with the index is faster
+since the already computed results are served from memory rather than from
+storage.
 {{</ note >}}
 
 

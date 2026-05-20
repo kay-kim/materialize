@@ -19,8 +19,7 @@ consistency guarantees](/get-started/isolation-level/). In Materialize, both
 [indexes](/concepts/indexes/ "Indexes represents query results stored in memory
 within a cluster") and [materialized views](/concepts/views/#materialized-views)
 **incrementally update** results when Materialize ingests new data; i.e., work
-is performed on writes. Because work is performed on writes, reads from these
-objects return up-to-date results while being computationally **free**.
+is performed on writes.
 
 In this quickstart, you will continuously ingest a sample auction data set to
 build an operational use case around finding auction winners and auction
@@ -275,8 +274,7 @@ get up-to-date results.
    Indexes provide always fresh view results in memory within a cluster by
    performing incremental updates as new data arrives. Queries can then read
    from the in-memory, already up-to-date results instead of re-running the
-   underlying statement, making queries **computationally free and more
-   performant**.
+   underlying statement.
 
    In the next step, you will create an index on `winning_bids`.
 
@@ -284,7 +282,7 @@ get up-to-date results.
 
 Indexes in Materialize represents query results stored in memory within a
 cluster. In Materialize, you can create [indexes](/concepts/indexes/) on views
-to provide always fresh, up-to-date view results in memory within a cluster.
+to provide up-to-date view results in memory within a cluster.
 Queries can then read from the in-memory, already up-to-date results instead of
 re-running the underlying statement.
 
@@ -304,7 +302,7 @@ point lookups and joins.
    and the view results are stored in memory within the cluster. As new data
    arrives, the index **incrementally updates** the view results in memory.
    Because incremental work is performed on writes, reads from indexes return
-   up-to-date results and are computationally **free**.
+   up-to-date results.
 
    This index can **also** help [optimize
    operations](/transform-data/optimization/) like point lookups and [delta
@@ -549,7 +547,7 @@ In Materialize, [indexes](/concepts/indexes/) represent query results stored in
 memory within a cluster. When you create an index on a view, the index
 incrementally updates the view results (instead of recalculating the results
 from scratch) as Materialize ingests new data. These up-to-date results are then
-immediately available and computationally free for reads within the cluster.
+immediately available for reads within the cluster.
 
 ### General guidelines
 

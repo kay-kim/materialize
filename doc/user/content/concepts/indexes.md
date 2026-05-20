@@ -52,11 +52,8 @@ a name"), the view is executed and the view results are stored in memory within
 the cluster. **As new data arrives**, the index **incrementally updates** the
 view results in memory.
 
-Within the cluster, querying an indexed view is:
-
-- **fast** because the results are served from memory, and
-
-- **computationally free** because no computation is performed on read.
+Within the cluster, querying an indexed view is **fast** because the results are
+already computed and served from memory.
 
 For best practices on using indexes, and understanding when to use indexed views
 vs. materialized views, see [Usage patterns](#usage-patterns).
