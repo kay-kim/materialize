@@ -125,7 +125,7 @@ For details, see [CREATE TABLE: Kafka source table](/sql/create-table/kafka/).
 
 {{% include-example file="examples/create_table_webhook" example="syntax" %}}
 
-For details, see [CREATE TABLE: Read-write table](/sql/create-table/webhook/).
+For details, see [CREATE TABLE: Webhook table](/sql/create-table/webhook/).
 {{< /tab >}}
 
 {{< /tabs >}}
