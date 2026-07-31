@@ -1,11 +1,11 @@
 ---
-title: "CREATE SOURCE: Webhook"
+title: "CREATE SOURCE: Webhook (Legacy)"
 description: "Ingesting data into Materialize with HTTP requests"
 pagerank: 50
 menu:
   main:
-    parent: 'create-source'
-    identifier: webhook
+    parent: 'create-source-legacy'
+    identifier: webhook-legacy
     name: Webhook
     weight: 40
 ---

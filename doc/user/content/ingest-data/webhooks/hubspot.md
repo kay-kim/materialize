@@ -5,12 +5,13 @@ menu:
   main:
     parent: "webhooks"
     name: "HubSpot"
+    weight: 15
 aliases:
   - /ingest-data/hubspot/
 ---
 
 This guide walks through the steps to ingest data from [HubSpot](https://www.hubspot.com/)
-into Materialize using the [Webhook source](/sql/create-source/webhook/).
+into Materialize using a [webhook-populated table](/sql/create-table/webhook/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}
@@ -26,7 +27,7 @@ Ensure that you have:
 
 {{< note >}}
 If you are prototyping and already have a cluster to host your webhook
-source (e.g. `quickstart`), **you can skip this step**. For production
+table (e.g. `quickstart`), **you can skip this step**. For production
 scenarios, we recommend separating your workloads into multiple clusters for
 [resource isolation](/sql/create-cluster/#resource-isolation).
 {{< /note >}}
@@ -50,12 +51,35 @@ CREATE SECRET hubspot_webhook_secret AS '<secret_value>';
 Change the `<secret_value>` to a unique value that only you know and store it in
 a secure location.
 
-## Step 3. Set up a webhook source
+## Step 3. Set up a webhook table
 
-Using the secret the previous step, create a [webhook source](/sql/create-source/webhook/)
-in Materialize to ingest data from HubSpot. By default, the source will be
-created in the active cluster; to use a different cluster, use the `IN
-CLUSTER` clause.
+Using the secret the previous step, create a [webhook table](/sql/create-table/webhook/)
+in Materialize to ingest data from HubSpot. By default, the table will be created in the active cluster; to use a
+different cluster, run [`SET CLUSTER`](/sql/set/) first. (The legacy
+`CREATE SOURCE` syntax also accepts an `IN CLUSTER` clause.)
+
+{{< tabs >}}
+{{< tab "New Syntax" >}}
+
+```mzsql
+CREATE TABLE hubspot_source
+  FROM WEBHOOK
+    BODY FORMAT JSON
+    CHECK (
+      WITH (
+        HEADERS,
+        BODY AS body,
+        SECRET hubspot_webhook_secret AS validation_secret
+      )
+      -- The constant_time_eq validation function **does not support** fully
+      -- qualified secret names. We recommend always aliasing the secret name
+      -- for ease of use.
+      constant_time_eq(headers->'authorization', validation_secret)
+);
+```
+
+{{< /tab >}}
+{{< tab "Legacy Syntax" >}}
 
 ```mzsql
 CREATE SOURCE hubspot_source
@@ -74,18 +98,21 @@ CREATE SOURCE hubspot_source
 );
 ```
 
+{{< /tab >}}
+{{< /tabs >}}
+
 After a successful run, the command returns a `NOTICE` message containing the
-unique [webhook URL](/sql/create-source/webhook/#webhook-url)
-that allows you to `POST` events to the source. Copy and store it. You will need
+unique [webhook URL](/sql/create-table/webhook/#webhook-url)
+that allows you to `POST` events to the table. Copy and store it. You will need
 it for the next step.
 
 The URL will have the following format:
 
 ```
-https://<HOST>/api/webhook/<database>/<schema>/<src_name>
+https://<HOST>/api/webhook/<database>/<schema>/<table_name>
 ```
 
-If you missed the notice, you can find the URLs for all webhook sources in the
+If you missed the notice, you can find the URLs for all webhooks in the
 [`mz_internal.mz_webhook_sources`](/reference/system-catalog/mz_internal/#mz_webhook_sources)
 system table.
 
@@ -93,23 +120,23 @@ system table.
 
 {{< warning >}}
 Without a `CHECK` statement, **all requests will be accepted**. To prevent bad
-actors from injecting data into your source, it is **strongly encouraged** that
-you define a `CHECK` statement with your webhook sources.
+actors from injecting data into your table, it is **strongly encouraged** that
+you define a `CHECK` statement with your webhook tables.
 {{< /warning >}}
 
 The `CHECK` clause defines how to validate each request. At the time of writing,
 HubSpot supports API key authentication, which you can use to validate
 requests.
 
-The above webhook source uses [basic authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme).
+The above webhook table uses [basic authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme).
 This enables a simple and rudimentary way to grant authorization to your webhook
-source.
+table.
 
 ## Step 4. Create a webhook workflow in HubSpot
 
 A [webhook in HubSpot](https://knowledge.hubspot.com/workflows/how-do-i-use-webhooks-with-hubspot-workflows)
 is a workflow action that sends data to a webhook URL. You can create a webhook
-workflow in HubSpot to send data to the webhook source you created in the
+workflow in HubSpot to send data to the webhook table you created in the
 previous step.
 
 1. In HubSpot, go to **Automation > Workflows**.
@@ -126,7 +153,7 @@ previous step.
 
 1. Authenticate the request using the **API key** option. Use the secret created in **Step 2.**.
 
-1. For the **API Key Name**, enter `authorization`. This is the key used in the `CHECK` clause of the webhook source.
+1. For the **API Key Name**, enter `authorization`. This is the key used in the `CHECK` clause of the webhook table.
 
 1. Click **Save**.
 
@@ -157,7 +184,7 @@ Materialize.
 
 ## Step 6. Validate incoming data
 
-With the source set up in Materialize and the webhook workflow configured in
+With the table set up in Materialize and the webhook workflow configured in
 HubSpot, you can now query the incoming data:
 
 1. [In the Materialize console](/console/), navigate to
@@ -174,7 +201,7 @@ HubSpot, you can now query the incoming data:
 ### JSON parsing
 
 Webhook data is ingested as a JSON blob. We recommend creating a parsing view on
-top of your webhook source that uses [`jsonb` operators](/sql/types/jsonb/#operators)
+top of your webhook table that uses [`jsonb` operators](/sql/types/jsonb/#operators)
 to map the individual fields to columns with the required data types.
 
 ```mzsql
@@ -198,8 +225,8 @@ pushdown](/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
 
 With the vast amount of data processed and potential network issues, it's not
 uncommon to receive duplicate records. You can use the `DISTINCT ON` clause to
-efficiently remove duplicates. For more details, refer to the webhook source
-[reference documentation](/sql/create-source/webhook/#handling-duplicated-and-partial-events).
+efficiently remove duplicates. For more details, refer to the webhook table
+[reference documentation](/sql/create-table/webhook/#handling-duplicated-and-partial-events).
 
 ## Next steps
 
@@ -207,4 +234,4 @@ With Materialize ingesting your HubSpot data, you can start exploring it,
 computing real-time results that stay up-to-date as new data arrives, and
 serving results efficiently. For more details, check out the
 [HubSpot documentation](https://knowledge.hubspot.com/workflows/how-do-i-use-webhooks-with-hubspot-workflows) and the
-[webhook source reference documentation](/sql/create-source/webhook/).
+[webhook table reference documentation](/sql/create-table/webhook/).

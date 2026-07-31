@@ -1,0 +1,474 @@
+- name: "syntax"
+  description: |
+    To create a table (and the associated **public** webhook URL) that is
+    populated with data **POST**ed to the associated webhook URL:
+
+    {{< note >}}
+    The table is created in the active cluster. To create it in a different
+    cluster, run [`SET CLUSTER`](/sql/set/) first.
+    {{< /note >}}
+
+    {{< warning >}}
+    The webhook URL is returned in a `NOTICE` message with the
+    form: `NOTICE:  URL to POST data is
+    'https://<host>/api/webhook/<database>/<schema>/<table_name>'`. This is a
+    public URL that is open to the internet and has no security.
+    {{< /warning >}}
+
+  code: |
+    CREATE TABLE [IF NOT EXISTS] <table_name>
+    FROM WEBHOOK
+      BODY FORMAT <TEXT | JSON [ARRAY] | BYTES>
+      [INCLUDE HEADER <header_name> AS <column_alias> [BYTES] |
+       INCLUDE HEADERS [ ( [NOT] <header_name> [, [NOT] <header_name> ... ] ) ]
+      ][...]
+      [CHECK (
+          [WITH ( <BODY|HEADERS|SECRET <secret_name>> [AS <alias>] [BYTES] [, ...])]
+          <check_expression>
+        )
+      ]
+  syntax_elements:
+    - name: "`<table_name>`"
+      description: |
+        The name for the table.
+    - name: "**IF NOT EXISTS**"
+      description: |
+        Optional. If specified, do not throw an error if a table with the same name already exists. Instead, issue a notice and skip the table creation.
+    - name: "`BODY FORMAT <TEXT | JSON [ARRAY] | BYTES>`"
+      description: |
+        **Required.** Specifies the format of the request body, which determines the type of the table's `body` column. Valid formats:
+
+        | Body format  | `body` column type | Description |
+        |--------------|--------------------|-------------|
+        | `TEXT`       | `text`             | Parses the body as UTF-8 text. If the body is not valid UTF-8, a response of `400` Bad Request will be returned. |
+        | `JSON`       | `jsonb`            | Parses the body as JSON. Also accepts events batched as newline-delimited JSON (`NDJSON`). If the body is not valid JSON, a response of `400` Bad Request will be returned. |
+        | `JSON ARRAY` | `jsonb`            | Parses the body as a list of JSON objects, automatically expanding the list to individual rows. Also accepts a single JSON object. If the body is not valid JSON, a response of `400` Bad Request will be returned. |
+        | `BYTES`      | `bytea`            | Does no parsing of the request, and stores the body as it was received. |
+    - name: "**INCLUDE** `<header_option>`"
+      description: |
+        Optional. If specified, include header data as column(s) in the table. The following `<header_option>`s are supported:
+
+        | Header option | Description |
+        |---------------|-------------|
+        | `HEADER <header_name> AS <column_alias> [BYTES]` | Map a header value from a request into a column. The `bytea` value is automatically parsed into a UTF-8 string unless `BYTES` is specified. Header columns are nullable. If the header of a request does not contain the specified field, the `NULL` value will be used as a default. |
+        | `HEADERS [ ( [NOT] <header_name> [, [NOT] <header_name> ... ] ) ]` | Include a column named `headers` of type `map[text => text]` containing the headers of the request. To exclude specific header fields from the mapping, use the `NOT` option. This can be useful if you need to accept a dynamic list of fields but want to exclude sensitive information like authorization. |
+    - name: "**CHECK** `( [WITH ( <input_option> [, ...] )] <check_expression> )`"
+      description: |
+        Optional. Specify a boolean `<check_expression>` that is used to validate each request received by the table. Without a `CHECK` statement, **all requests will be accepted**. To prevent bad actors from injecting data into your table, it is **strongly encouraged** that you define a `CHECK` statement with your webhook tables.
+
+        The optional `WITH` clause provides columns to the check expression. The headers and body of the request are only subject to validation if `WITH ( BODY, HEADERS, ... )` is specified as part of the `CHECK` statement. By default, the type of `body` used for validation is `text`, regardless of the `BODY FORMAT` you specified for the table. The following `<input_option>`s are supported:
+
+        | Input option | Description |
+        |--------------|-------------|
+        | `BODY [AS <alias>] [BYTES]` | Provide a `body` column to the check expression. The column can be renamed with the optional `AS <alias>` statement, and the data type can be changed to `bytea` with the optional `BYTES` keyword. |
+        | `HEADERS [AS <alias>] [BYTES]` | Provide a column `headers` to the check expression. The column can be renamed with the optional `AS <alias>` statement, and the data type can be changed to `map[text => bytea]` with the optional `BYTES` keyword. |
+        | `SECRET <secret_name> [AS <alias>] [BYTES]` | Securely provide a [`SECRET`](/sql/create-secret) to the check expression. The `constant_time_eq` validation function **does not support** fully qualified secret names: if the secret is in a different namespace to the table, the column can be renamed with the optional `AS <alias>` statement. The data type can also be changed to `bytea` using the optional `BYTES` keyword. |
+
+- name: "create-table"
+  description: |
+
+    The following example creates a table (and the associated **public** webhook
+    URL) that is populated with data **POST**ed to the associated webhook URL of
+    the form `https://<host>/api/webhook/<database>/<schema>/<table_name>`.
+
+    {{< warning >}}
+    This is a public URL that is open to the internet and has no security. To
+    validate that requests are legitimate, use a `CHECK` statement, as in the
+    example below.
+    {{< /warning >}}
+
+    The example uses [basic authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme):
+    the credentials are stored in a [secret](/sql/create-secret/), and the
+    `CHECK` statement rejects requests whose `authorization` header does not
+    match the secret.
+
+  code: |
+    -- Store the basic authentication credentials as a secret.
+    CREATE SECRET basic_hook_auth AS 'Basic <base64_auth>';
+
+    -- Creates both the webhook and the table. Requests are only accepted
+    -- if they pass the basic authentication check.
+    CREATE TABLE product_msgs FROM WEBHOOK BODY FORMAT JSON ARRAY
+    CHECK (
+        WITH (
+          HEADERS,
+          SECRET basic_hook_auth AS validation_secret
+        )
+        constant_time_eq(headers->'authorization', validation_secret)
+    );
+
+  results: |
+    Upon success, the command returns a `NOTICE` message containing the
+    <red>**public**</red> Webhook URL:
+
+    ```
+    NOTICE:  URL to POST data is 'https://<host>/api/webhook/master/public/product_msgs'
+    ```
+  testable_results: false
+
+- name: "post-to-webhook"
+  description: |
+    To post to the webhook, you can use the `curl` command. The request must
+    include the `Authorization` header that matches the stored secret:
+
+    ```bash
+    curl -H 'Content-type:application/json' \
+         -H 'Authorization: Basic <base64_auth>' \
+         -d '{"item": "mat", "qty": 50, "tags": ["blue"], "size": {"h": 27.9, "w": 35.5, "uom": "cm"}}' \
+         -X POST http://<host>/api/webhook/<database>/<schema>/product_msgs
+    ```
+
+- name: "read-from-table"
+  description: |
+    You can query the table:
+  test_setup: |
+    $ webhook-append name=product_msgs content-type=application/json authorization="Basic <base64_auth>"
+    {"item": "mat", "qty": 50, "tags": ["blue"], "size": {"h": 27.9, "w": 35.5, "uom": "cm"}}
+
+  code: |
+    SELECT * FROM product_msgs;
+  results: |
+    The query from the table returns with 1 column named `body` of type `jsonb`:
+
+    ```
+                                              body
+    -----------------------------------------------------------------------------------------
+    {"item":"mat","qty":50,"size":{"h":27.9,"uom":"cm","w":35.5},"tags":["blue"]}
+    ```
+  test_results: |
+    ```
+    "{\"item\":\"mat\",\"qty\":50,\"size\":{\"h\":27.9,\"uom\":\"cm\",\"w\":35.5},\"tags\":[\"blue\"]}"
+    ```
+
+- name: "create-a-view-from-table"
+  description: |
+    You can create a view on the table to parse the `body` column into a more
+    structured format. For example, the following creates a view that parses
+    each field in JSON into a separate column:
+
+    {{< tip >}}
+    To help create the view definition, you can use the [JSON parsing
+    widget](/sql/types/jsonb/#parsing).
+    {{< /tip >}}
+
+  code: |
+    CREATE VIEW product_view AS SELECT
+        body->>'item' AS item,
+        (body->>'qty')::numeric AS qty,
+        body->'tags'->0 AS tags_0,
+        body->'tags'->1 AS tags_1,
+        (body->'size'->>'h')::numeric AS size_h,
+        (body->'size'->>'w')::numeric AS size_w,
+        body->'size'->>'uom' AS size_uom
+    FROM product_msgs;
+
+  results: |
+    After creating the view, you can read from the view to get the parsed data:
+
+    ```mzsql
+    SELECT * FROM product_view;
+    ```
+
+    The view returns the following:
+    ```
+      item   | qty | tags_0  | tags_1 | size_h | size_w | size_uom
+    ---------+-----+---------+--------+--------+--------+----------
+    mat      |  50 | "blue"  |        |   27.9 |   35.5 | cm
+    ```
+  testable_results: false
+
+- name: "exposing-headers"
+  description: |
+    In addition to the request body, Materialize can expose headers to SQL. If a
+    request header exists, you can map its fields to columns using the `INCLUDE
+    HEADER` syntax.
+  code: |
+    CREATE TABLE my_webhook_table FROM WEBHOOK
+      BODY FORMAT JSON
+      INCLUDE HEADER 'timestamp' as ts
+      INCLUDE HEADER 'x-event-type' as event_type
+      CHECK (
+        WITH (
+          HEADERS,
+          SECRET basic_hook_auth AS validation_secret
+        )
+        constant_time_eq(headers->'authorization', validation_secret)
+      );
+  results: |
+    This example would have the following columns:
+
+    Column      | Type    | Nullable? |
+    ------------|---------|-----------|
+     body       | `jsonb` | No        |
+     ts         | `text`  | Yes       |
+     event_type | `text`  | Yes       |
+
+    All of the header columns are nullable. If the header of a request does not
+    contain a specified field, the `NULL` value will be used as a default.
+  testable_results: false
+
+- name: "excluding-header-fields"
+  description: |
+    To exclude specific header fields from the mapping, use the `INCLUDE HEADERS`
+    syntax in combination with the `NOT` option. This can be useful if, for
+    example, you need to accept a dynamic list of fields but want to exclude
+    sensitive information like authorization.
+  test_setup: |
+    > DROP TABLE my_webhook_table;
+  code: |
+    CREATE TABLE my_webhook_table FROM WEBHOOK
+      BODY FORMAT JSON
+      INCLUDE HEADERS ( NOT 'authorization', NOT 'x-api-key' )
+      CHECK (
+        WITH (
+          HEADERS,
+          SECRET basic_hook_auth AS validation_secret
+        )
+        constant_time_eq(headers->'authorization', validation_secret)
+      );
+  results: |
+    This example would have the following columns:
+
+    Column      | Type                | Nullable?  |
+    ------------|---------------------|------------|
+     body       | `jsonb`             | No         |
+     headers    | `map[text => text]` | No         |
+
+    All header fields but `'authorization'` and `'x-api-key'` will get included in
+    the `headers` map column. Note that the `authorization` header is still
+    provided to the `CHECK` expression for validation: `WITH ( HEADERS, ... )`
+    sees the full request headers, independently of which headers are persisted.
+  testable_results: false
+
+- name: "validating-requests"
+  description: |
+    It's common for applications using webhooks to provide a method for validating a
+    request is legitimate. You can specify an expression to do this validation for
+    your webhook table using the `CHECK` clause.
+
+    For example, the following table HMACs the request body using the `sha256`
+    hashing algorithm, and asserts the result is equal to the value provided in the
+    `x-signature` header, decoded with `base64`.
+  test_setup: |
+    > DROP TABLE my_webhook_table;
+
+    > CREATE SECRET my_webhook_shared_secret AS 'test_key';
+  code: |
+    CREATE TABLE my_webhook_table FROM WEBHOOK
+      BODY FORMAT JSON
+      CHECK (
+        WITH (
+          HEADERS, BODY AS request_body,
+          SECRET my_webhook_shared_secret AS validation_secret
+        )
+        -- The constant_time_eq validation function **does not support** fully
+        -- qualified secret names. We recommend always aliasing the secret name
+        -- for ease of use.
+        constant_time_eq(
+            decode(headers->'x-signature', 'base64'),
+            hmac(request_body, validation_secret, 'sha256')
+        )
+      );
+  results: |
+    The headers and body of the request are only subject to validation if `WITH
+    ( BODY, HEADERS, ... )` is specified as part of the `CHECK` statement. By
+    default, the type of `body` used for validation is `text`, regardless of the
+    `BODY FORMAT` you specified for the table. In the example above, the `body`
+    column for `my_webhook_table` has a type of `jsonb`, but `request_body` as
+    used in the validation expression has type `text`. Further, the request headers
+    are not persisted as part of `my_webhook_table`, since `INCLUDE HEADERS` was
+    not specified — but they are provided to the validation expression.
+  testable_results: false
+
+- name: "debugging-validation"
+  description: |
+    It can be difficult to get your `CHECK` statement correct, especially if your
+    application does not have a way to send test events. If you're having trouble
+    with your `CHECK` statement, we recommend creating a temporary table without
+    `CHECK` and using that to iterate more quickly.
+  code: |
+    CREATE TABLE my_webhook_temporary_debug FROM WEBHOOK
+      -- Specify the BODY FORMAT as TEXT or BYTES,
+      -- which is how it's provided to CHECK.
+      BODY FORMAT TEXT
+      INCLUDE HEADERS;
+
+- name: "debugging-validation-query"
+  description: |
+    Once you have a few events in _my_webhook_temporary_debug_, you can query it
+    with your would-be `CHECK` statement.
+  code: |
+    SELECT
+      -- Your would-be CHECK statement.
+      constant_time_eq(
+        decode(headers->'signature', 'base64'),
+        hmac(headers->'timestamp' || body, 'my key', 'sha512')
+      )
+    FROM my_webhook_temporary_debug
+    LIMIT 10;
+  results: |
+    {{< note >}}
+    It's not possible to use secrets in a `SELECT` statement, so you'll need to
+    provide these values as raw text for debugging.
+    {{< /note >}}
+  testable_results: false
+
+- name: "handling-duplicated-events"
+  description: |
+    Given any number of conditions, e.g. a network hiccup, it's possible for your application to send
+    an event more than once. If your event contains a unique identifier, you can de-duplicate these events
+    using a [`MATERIALIZED VIEW`](/sql/create-materialized-view/) and the `DISTINCT ON` clause.
+  code: |
+    CREATE MATERIALIZED VIEW my_webhook_idempotent AS (
+      SELECT DISTINCT ON (body->>'unique_id') *
+      FROM my_webhook_table
+      ORDER BY body->>'unique_id'
+    );
+
+- name: "handling-partial-events"
+  description: |
+    We can take this technique a bit further to handle partial events. Let's pretend our application
+    tracks the completion of build jobs, and it sends us JSON objects with following structure.
+
+    Key           | Value   | Optional? |
+    --------------|---------|-----------|
+    _id_          | `text`  | No
+    _started_at_  | `text`  | Yes
+    _finished_at_ | `text`  | Yes
+
+    When a build job starts we receive an event containing _id_ and the _started_at_ timestamp. When a
+    build finished, we'll receive a second event with the same _id_ but now a _finished_at_ timestamp.
+    To merge these events into a single row, we can again use the `DISTINCT ON` clause.
+  test_setup: |
+    > CREATE TABLE my_build_jobs FROM WEBHOOK BODY FORMAT JSON;
+  code: |
+    CREATE MATERIALIZED VIEW my_build_jobs_merged AS (
+      SELECT DISTINCT ON (id) *
+      FROM (
+        SELECT
+          body->>'id' as id,
+          try_parse_monotonic_iso8601_timestamp(body->>'started_at') as started_at,
+          try_parse_monotonic_iso8601_timestamp(body->>'finished_at') as finished_at
+        FROM my_build_jobs
+      )
+      ORDER BY id, finished_at NULLS LAST, started_at NULLS LAST
+    );
+  results: |
+    {{< note >}}
+    When casting from `text` to `timestamp` you should prefer to use the [`try_parse_monotonic_iso8601_timestamp`](/sql/functions/pushdown/)
+    function, which enables [temporal filter pushdown](/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
+    {{< /note >}}
+  testable_results: false
+
+- name: "batch-json-array"
+  description: |
+    You can automatically expand a batch of requests formatted as a JSON array into
+    separate rows using `BODY FORMAT JSON ARRAY`.
+  code: |
+    -- Webhook table that parses request bodies as a JSON array.
+    CREATE TABLE webhook_json_array FROM WEBHOOK
+      BODY FORMAT JSON ARRAY
+      INCLUDE HEADERS
+      CHECK (
+        WITH (
+          HEADERS,
+          SECRET basic_hook_auth AS validation_secret
+        )
+        constant_time_eq(headers->'authorization', validation_secret)
+      );
+
+- name: "batch-json-array-count"
+  description: |
+    If you `POST` a JSON array of three elements to `webhook_json_array`,
+    three rows will get appended to the table.
+
+    ```bash
+    POST webhook_json_array
+    [
+      { "event_type": "a" },
+      { "event_type": "b" },
+      { "event_type": "c" }
+    ]
+    ```
+  test_setup: |
+    $ webhook-append name=webhook_json_array content-type=application/json authorization="Basic <base64_auth>"
+    [
+      { "event_type": "a" },
+      { "event_type": "b" },
+      { "event_type": "c" }
+    ]
+
+  code: |
+    SELECT COUNT(body) FROM webhook_json_array;
+  results: |
+    ```
+    3
+    ```
+
+- name: "batch-json-array-single"
+  description: |
+    You can also post a single object to the table, which will get appended as one
+    row.
+
+    ```bash
+    POST webhook_json_array
+    { "event_type": "d" }
+    ```
+  test_setup: |
+    $ webhook-append name=webhook_json_array content-type=application/json authorization="Basic <base64_auth>"
+    { "event_type": "d" }
+
+  code: |
+    SELECT body FROM webhook_json_array;
+  results: |
+    ```
+    {"event_type":"a"}
+    {"event_type":"b"}
+    {"event_type":"c"}
+    {"event_type":"d"}
+    ```
+  test_results: |
+    ```
+    "{\"event_type\":\"a\"}"
+    "{\"event_type\":\"b\"}"
+    "{\"event_type\":\"c\"}"
+    "{\"event_type\":\"d\"}"
+    ```
+
+- name: "batch-ndjson"
+  description: |
+    You can automatically expand a batch of requests formatted as NDJSON into
+    separate rows using `BODY FORMAT JSON`.
+  code: |
+    -- Webhook table that parses request bodies as NDJSON.
+    CREATE TABLE webhook_ndjson FROM WEBHOOK
+      BODY FORMAT JSON
+      CHECK (
+        WITH (
+          HEADERS,
+          SECRET basic_hook_auth AS validation_secret
+        )
+        constant_time_eq(headers->'authorization', validation_secret)
+      );
+
+- name: "batch-ndjson-count"
+  description: |
+    If you `POST` two elements delimited by newlines to `webhook_ndjson`, two
+    rows will get appended to the table.
+
+    ```bash
+    POST 'webhook_ndjson'
+      { "event_type": "foo" }
+      { "event_type": "bar" }
+    ```
+  test_setup: |
+    $ webhook-append name=webhook_ndjson content-type=application/json authorization="Basic <base64_auth>"
+    { "event_type": "foo" }
+    { "event_type": "bar" }
+
+  code: |
+    SELECT COUNT(body) FROM webhook_ndjson;
+  results: |
+    ```
+    2
+    ```

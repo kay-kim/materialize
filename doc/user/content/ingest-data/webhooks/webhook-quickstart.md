@@ -1,6 +1,6 @@
 ---
 title: "Webhooks quickstart"
-description: "Learn and prototype with the webhook source without external deoendencies"
+description: "Learn and prototype with webhooks without external dependencies"
 menu:
   main:
     parent: "webhooks"
@@ -11,7 +11,7 @@ aliases:
   - /ingest-data/webhook-quickstart/
 ---
 
-Webhook sources let your applications push webhook events into Materialize. This
+Webhook-populated tables let your applications push webhook events into Materialize. This
 quickstart uses an embedded **webhook event generator** that makes it easier for
 you to learn and prototype with no external dependencies.
 
@@ -39,11 +39,33 @@ CREATE SECRET demo_webhook AS '<secret_value>';
 Change the `<secret_value>` to a unique value that only you know and store it in
 a secure location.
 
-## Step 2. Set up a webhook source
+## Step 2. Set up a webhook table
 
-Using the secret from the previous step, create a webhook source to ingest data
-from the webhook event generator. By default, the source will be created in the
-current cluster.
+Using the secret from the previous step, create a [webhook
+table](/sql/create-table/webhook/) to ingest data from the webhook event
+generator. By default, the table will be created in the current cluster.
+
+{{< tabs >}}
+{{< tab "New Syntax" >}}
+
+```mzsql
+CREATE TABLE webhook_demo FROM WEBHOOK
+  BODY FORMAT JSON
+  CHECK (
+    WITH (
+      HEADERS,
+      BODY AS request_body,
+      SECRET demo_webhook AS validation_secret
+    )
+    -- The constant_time_eq validation function **does not support** fully
+    -- qualified secret names. We recommend always aliasing the secret name
+    -- for ease of use.
+    constant_time_eq(headers->'x-api-key', validation_secret)
+  );
+```
+
+{{< /tab >}}
+{{< tab "Legacy Syntax" >}}
 
 ```mzsql
 CREATE SOURCE webhook_demo FROM WEBHOOK
@@ -61,9 +83,12 @@ CREATE SOURCE webhook_demo FROM WEBHOOK
   );
 ```
 
+{{< /tab >}}
+{{< /tabs >}}
+
 After a successful run, the command returns a `NOTICE` message containing the
-unique [webhook URL](/sql/create-source/webhook/#webhook-url)
-that allows you to `POST` events to the source. Copy and store it. You will need
+unique [webhook URL](/sql/create-table/webhook/#webhook-url)
+that allows you to `POST` events to the table. Copy and store it. You will need
 it for the next step.
 
 ## Step 3. Generate webhook events
@@ -74,7 +99,7 @@ to shape the events.
 
 {{% plugins/webhooks-datagen %}}
 
-In the SQL Shell, validate that the source is ingesting data:
+In the SQL Shell, validate that the table is ingesting data:
 
 ```mzsql
 SELECT jsonb_pretty(body) AS body FROM webhook_demo LIMIT 1;
@@ -99,7 +124,7 @@ generator, the data will look like:
 {{< json-parser >}}
 
 Webhook data is ingested as a JSON blob. We recommend creating a parsing view on
-top of your webhook source that uses [jsonb operators](/sql/types/jsonb/#operators)
+top of your webhook table that uses [jsonb operators](/sql/types/jsonb/#operators)
 to map the individual fields to columns with the required data types. Using the
 previous example:
 
@@ -130,13 +155,28 @@ cancel out of the `SUBSCRIBE` using **Stop streaming**.
 Once you’re done exploring the generated webhook data, remember to clean up your
 environment:
 
+{{< tabs >}}
+{{< tab "New Syntax" >}}
+
+```mzsql
+DROP TABLE webhook_demo CASCADE;
+
+DROP SECRET demo_webhook;
+```
+
+{{< /tab >}}
+{{< tab "Legacy Syntax" >}}
+
 ```mzsql
 DROP SOURCE webhook_demo CASCADE;
 
 DROP SECRET demo_webhook;
 ```
 
+{{< /tab >}}
+{{< /tabs >}}
+
 ## Next steps
 
-To get started with your own data, check out the [reference documentation](/sql/create-source/webhook/)
-for the webhook source.
+To get started with your own data, check out the [reference documentation](/sql/create-table/webhook/)
+for webhook tables.

@@ -121,6 +121,13 @@ example="syntax-key-value-format" %}}
 For details, see [CREATE TABLE: Kafka source table](/sql/create-table/kafka/).
 {{< /tab >}}
 
+{{< tab "Webhook table" >}}
+
+{{% include-example file="examples/create_table_webhook" example="syntax" %}}
+
+For details, see [CREATE TABLE: Read-write table](/sql/create-table/webhook/).
+{{< /tab >}}
+
 {{< /tabs >}}
 
 ## Related pages

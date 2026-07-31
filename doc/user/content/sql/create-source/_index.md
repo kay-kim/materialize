@@ -28,7 +28,9 @@ aliases:
 The new `CREATE SOURCE` syntax allows Materialize to handle certain upstream
 schema changes, specifically adding or dropping columns, without downtime. It is
 used in conjunction with the new [`CREATE TABLE ... FROM
-SOURCE`](/sql/create-table/) syntax.
+SOURCE`](/sql/create-table/) syntax. For Webhook populated tables, you do not
+create a source but can directly [create the table for the
+webhook](/sql/create-table/webhook/).
 
 {{< tabs >}}
 
@@ -63,10 +65,7 @@ For details, see [CREATE SOURCE: Kafka/Redpanda (New Syntax)](/sql/create-source
 
 
 {{< tab "Webhook" >}}
-
-{{% include-example file="examples/create_source_webhook" example="syntax" %}}
-
-For details, see [CREATE SOURCE: Webhook](/sql/create-source/webhook/).
+For Webhook populated tables, see [CREATE TABLE: Webhook](/sql/create-table/webhook/).
 {{< /tab >}}
 
 {{< /tabs >}}

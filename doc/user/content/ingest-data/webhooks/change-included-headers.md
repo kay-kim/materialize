@@ -4,8 +4,8 @@ description: "Use ALTER SCHEMA ... SWAP WITH to change which headers a webhook s
 menu:
   main:
     parent: "webhooks"
-    name: "Changing included headers"
-    weight: 2
+    name: "Guide: Changing included headers"
+    weight: 90
 ---
 
 A webhook source fixes its column shape when you create it, including which
@@ -17,6 +17,11 @@ then swap it into place with [`ALTER SCHEMA ...
 SWAP WITH`](/sql/alter-schema/#swap-with). Because the swap only renames schemas,
 the [webhook endpoint URL](/sql/create-source/webhook/#webhook-url) that your
 senders post to stays the same.
+
+{{< note >}}
+This technique applies only to webhook sources created with the
+legacy [`CREATE SOURCE ... FROM WEBHOOK`](/sql/create-source/webhook/) syntax.
+{{< /note >}}
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}

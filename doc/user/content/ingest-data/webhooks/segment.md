@@ -5,13 +5,14 @@ menu:
   main:
     parent: "webhooks"
     name: "Segment"
+    weight: 25
 aliases:
   - /sql/create-source/webhook/#connecting-with-segment
   - /ingest-data/segment/
 ---
 
 This guide walks through the steps to ingest data from [Segment](https://segment.com/)
-into Materialize using the [Webhook source](/sql/create-source/webhook/).
+into Materialize using a [webhook-populated table](/sql/create-table/webhook/).
 
 {{< tip >}}
 {{< guided-tour-blurb-for-ingest-data >}}
@@ -27,7 +28,7 @@ Ensure that you have:
 
 {{< note >}}
 If you are prototyping and already have a cluster to host your webhook
-source (e.g. `quickstart`), **you can skip this step**. For production
+table (e.g. `quickstart`), **you can skip this step**. For production
 scenarios, we recommend separating your workloads into multiple clusters for
 [resource isolation](/sql/create-cluster/#resource-isolation).
 {{< /note >}}
@@ -50,12 +51,34 @@ CREATE SECRET segment_webhook_secret AS '<secret_value>';
 
 Change the `<secret_value>` to a unique value that only you know and store it in a secure location.
 
-## Step 3. Set up a webhook source
+## Step 3. Set up a webhook table
 
-Using the secret from the previous step, create a [webhook source](/sql/create-source/webhook/)
-in Materialize to ingest data from Segment. By default, the source will be
-created in the active cluster; to use a different cluster, use the `IN
-CLUSTER` clause.
+Using the secret from the previous step, create a [webhook table](/sql/create-table/webhook/)
+in Materialize to ingest data from Segment. By default, the table will be created in the active cluster; to use a
+different cluster, run [`SET CLUSTER`](/sql/set/) first. (The legacy
+`CREATE SOURCE` syntax also accepts an `IN CLUSTER` clause.)
+
+{{< tabs >}}
+{{< tab "New Syntax" >}}
+
+```mzsql
+SET CLUSTER = webhooks_cluster;
+
+CREATE TABLE segment_source FROM WEBHOOK
+  BODY FORMAT JSON
+  INCLUDE HEADER 'event-type' AS event_type
+  INCLUDE HEADERS
+  CHECK (
+    WITH ( BODY BYTES, HEADERS, SECRET segment_webhook_secret BYTES AS validation_secret)
+    -- The constant_time_eq validation function **does not support** fully
+    -- qualified secret names. We recommend always aliasing the secret name
+    -- for ease of use.
+    constant_time_eq(decode(headers->'x-signature', 'hex'), hmac(body, validation_secret, 'sha1'))
+  );
+```
+
+{{< /tab >}}
+{{< tab "Legacy Syntax" >}}
 
 ```mzsql
 CREATE SOURCE segment_source IN CLUSTER webhooks_cluster FROM WEBHOOK
@@ -71,18 +94,21 @@ CREATE SOURCE segment_source IN CLUSTER webhooks_cluster FROM WEBHOOK
   );
 ```
 
+{{< /tab >}}
+{{< /tabs >}}
+
 After a successful run, the command returns a `NOTICE` message containing the
-unique [webhook URL](/sql/create-source/webhook/#webhook-url)
-that allows you to `POST` events to the source. Copy and store it. You will need
+unique [webhook URL](/sql/create-table/webhook/#webhook-url)
+that allows you to `POST` events to the table. Copy and store it. You will need
 it for the next step.
 
 The URL will have the following format:
 
 ```
-https://<HOST>/api/webhook/<database>/<schema>/<src_name>
+https://<HOST>/api/webhook/<database>/<schema>/<table_name>
 ```
 
-If you missed the notice, you can find the URLs for all webhook sources in the
+If you missed the notice, you can find the URLs for all webhooks in the
 [`mz_internal.mz_webhook_sources`](/reference/system-catalog/mz_internal/#mz_webhook_sources)
 system table.
 
@@ -90,8 +116,8 @@ system table.
 
 {{< warning >}}
 Without a `CHECK` statement, **all requests will be accepted**. To prevent bad
-actors from injecting data into your source, it is **strongly encouraged** that
-you define a `CHECK` statement with your webhook sources.
+actors from injecting data into your table, it is **strongly encouraged** that
+you define a `CHECK` statement with your webhook tables.
 {{< /warning >}}
 
 The `CHECK` clause defines how to validate each request. At the time of writing,
@@ -152,7 +178,7 @@ mapping:
 
 ## Step 6. Validate incoming data
 
-With the source set up in Materialize and the webhook destination configured in
+With the table set up in Materialize and the webhook destination configured in
 Segment, you can now query the incoming data:
 
 1. [In the Materialize console](/console/), navigate to
@@ -169,7 +195,7 @@ Segment, you can now query the incoming data:
 ### JSON parsing
 
 Webhook data is ingested as a JSON blob. We recommend creating a parsing view on
-top of your webhook source that uses [`jsonb` operators](/sql/types/jsonb/#operators)
+top of your webhook table that uses [`jsonb` operators](/sql/types/jsonb/#operators)
 to map the individual fields to columns with the required data types.
 
 {{< tabs >}}
@@ -269,8 +295,8 @@ pushdown](/transform-data/patterns/temporal-filters/#temporal-filter-pushdown).
 
 With the vast amount of data processed and potential network issues, it's not
 uncommon to receive duplicate records. You can use the `DISTINCT ON` clause to
-efficiently remove duplicates. For more details, refer to the webhook source
-[reference documentation](/sql/create-source/webhook/#handling-duplicated-and-partial-events).
+efficiently remove duplicates. For more details, refer to the webhook table
+[reference documentation](/sql/create-table/webhook/#handling-duplicated-and-partial-events).
 
 ## Next steps
 
@@ -278,4 +304,4 @@ With Materialize ingesting your Segment data, you can start exploring it,
 computing real-time results that stay up-to-date as new data arrives, and
 serving results efficiently. For more details, check out the
 [Segment documentation](https://segment.com/docs/connections/destinations/catalog/actions-webhook/) and the
-[webhook source reference documentation](/sql/create-source/webhook/).
+[webhook table reference documentation](/sql/create-table/webhook/).
