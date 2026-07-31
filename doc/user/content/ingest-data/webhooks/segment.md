@@ -157,7 +157,7 @@ mapping:
    3. In **Select mappings**, fill the fields as follows:
     Field               | Value
     ------------------- | ----------------------
-    Url                 | Use the URL from the [Step 3](#step-3-set-up-a-webhook-source).
+    Url                 | Use the URL from the [Step 3](#step-3-set-up-a-webhook-table).
     Method              | `POST`
     Batch Size          | `0`
     Headers             | -
