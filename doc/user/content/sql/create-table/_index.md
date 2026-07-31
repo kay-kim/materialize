@@ -26,8 +26,14 @@ In Materialize, you can create:
   [Kafka/Redpanda](/sql/create-table/kafka/). Users cannot write ([`INSERT`],
   [`UPDATE`], [`DELETE`]) to these tables. These tables are populated by [data
   ingestion from a source](/ingest-data/).
-  {{% include-example file="examples/create_table_postgres"
-  example="syntax-version-requirement" %}}
+
+- Read-only [webhook-populated tables](/sql/create-table/webhook/) (new
+  syntax). Users cannot write ([`INSERT`], [`UPDATE`], [`DELETE`]) to these
+  tables. These tables are populated by data **POST**ed to the **public**
+  webhook URL that is created with the table.
+
+{{% include-example file="examples/create_table_postgres"
+example="syntax-version-requirement" %}}
 
 [//]: # "TODO(morsapaes) Bring back When to use a table? once there's more
 clarity around best practices."
