@@ -28,7 +28,22 @@ Scope rules:
 5) Focus primarily on changed sections, but read surrounding content if needed for context.
 
 Review focus:
-- Accuracy & precision of technical claims.
+- Accuracy & precision of technical claims. Verify claims against the source
+  code, not just the diff text:
+  - Feature gating: check whether the documented behavior is behind a feature
+    flag and what the flag defaults to (dyncfgs live per crate in
+    `src/*/src/dyncfgs.rs`, e.g. `src/storage-types/src/dyncfgs.rs`; system
+    vars in `src/sql/src/session/vars.rs`). Documented behavior gated off by
+    default
+    is a blocking finding unless the page carries a preview shortcode.
+  - Behavior claims: locate the implementing module and confirm specifics
+    (eligibility rules, limits, counts, fallback behavior). Use
+    `doc/developer/generated/flows.md` to map an operation to its modules.
+  - Syntax and capability claims: confirm against the parser AST and planner
+    (`src/sql-parser/`, `src/sql/src/plan/`), e.g., which object types accept
+    a clause.
+  - If a claim cannot be located in code within reasonable effort, emit a
+    `Verify:` item rather than assuming the docs are right.
 - Missing prerequisites or steps.
 - Missing expected outputs or verification guidance.
 - Safety risks (data loss, security exposure, destructive commands).
